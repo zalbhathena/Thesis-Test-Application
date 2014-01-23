@@ -1,8 +1,15 @@
 import java.util.ArrayList;
+import javax.swing.*;
+import java.awt.event.*;
+
 import java.util.PriorityQueue;
 import java.awt.Point;
 import java.util.HashMap;
-public class MapModel {
+public class MapModel implements ActionListener{
+	boolean running = false;
+	int milliseconds_per_frame = 20;
+	Timer timer = new Timer(milliseconds_per_frame, this);
+	
 	int width, height, start_diameter, speed;
 	ArrayList<Obstacle> obstacle_list = new ArrayList<Obstacle>();
 	Agent agent;
@@ -11,7 +18,6 @@ public class MapModel {
 	ArrayList<Point> subgoal_list;
 	MapView map_view;
 	boolean animate = false;
-	AnimationManager animation_manager = new AnimationManager();
 	
 	public MapModel(int size, MapView map_view)
 	{
@@ -91,8 +97,8 @@ public class MapModel {
 	}
 	
 	public void moveAgent() {
-		if(animation_manager.running) {
-			animation_manager.act();
+		if(animate) {
+
 			
 			double speed = Math.sqrt(width*height/10);
 			Point p = subgoal_list.get(0);
@@ -117,16 +123,7 @@ public class MapModel {
 				agent.x += delta_x;
 				agent.y += delta_y;
 			}
-			long sleep_time = animation_manager.timeTillNextFrame();
-			if(sleep_time > 0)
-				try {
-					Thread.sleep(sleep_time);
-				}
-				catch(InterruptedException e) {
-					
-				}
 			updateMapModel();
-			moveAgent();
 		}
 		else {
 			endPathfinding();
@@ -136,8 +133,7 @@ public class MapModel {
 	public void startAnimation(int agent_diameter, boolean animate) {
 		agent = new Agent(0,0,agent_diameter);
 		this.animate = animate;
-		
-		animation_manager.start();
+		timer.start();
 		moveAgent();
 	}
 	
@@ -156,7 +152,7 @@ public class MapModel {
 	public void endPathfinding() {
 		agent = null;
 		subgoal_list = null;
-		animation_manager.end();
+		timer.stop();
 		this.current_algorithm = "NONE";
 	}
 	
@@ -246,30 +242,10 @@ public class MapModel {
 	}
 	
 	public String algorithmRunning(){return current_algorithm;}
-}
-
-class AnimationManager {
-	boolean running = false;
-	int frame_number = -1;
-	int milliseconds_per_frame = 500;
-	long start_time = -1;
 	
-	
-	public void start() {
-		running  = true;
-		start_time = System.currentTimeMillis();
-		frame_number = 0;
-	}
-	
-	public void end() {
-		running = false;
-		start_time = frame_number = -1;
-	}
-	
-	public void act() {
-		frame_number++;
-	}
-	public long timeTillNextFrame() {
-		return  (frame_number + 1)*milliseconds_per_frame - (System.currentTimeMillis() - start_time);
+	public void actionPerformed(ActionEvent e) {
+		if(animate) {
+			moveAgent();
+		}
 	}
 }
