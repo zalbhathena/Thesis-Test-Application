@@ -27,13 +27,17 @@ public class MapView extends JPanel{
         g.setColor(Color.WHITE);
         g.fillRect((600-size)/2 + x_offset - 1, y_offset - 1,size+3,size+3);
         
-        g.setColor(Color.GREEN);
+        
         
         if(this.map_model != null) {
         	ArrayList<Obstacle> obstacle_list = map_model.obstacle_list;
 		    for(int i = 0; i < obstacle_list.size(); i++) {
 		    	Obstacle o = obstacle_list.get(i);
+		    	g.setColor(Color.GREEN);
 		    	g.fillRect(scaleX(o.x) + x_offset,scale(o.y) + y_offset,
+		    			scale(o.width),scale(o.height));
+		    	g.setColor(Color.BLACK);
+		    	g.drawRect(scaleX(o.x) + x_offset,scale(o.y) + y_offset,
 		    			scale(o.width),scale(o.height));
 		    }
 		    

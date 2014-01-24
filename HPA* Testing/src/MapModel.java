@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 import java.util.PriorityQueue;
@@ -34,63 +36,70 @@ public class MapModel implements ActionListener{
 	{
 		this.start_diameter = start_diameter;
 		obstacle_list.clear();
-		ArrayList<Point> point_list = new ArrayList<Point>();
-		for(int i = 0; i < num_obstacles; i++) {
-			int rand_x = (int)(Math.random()*(width-start_diameter))+start_diameter;
-			int rand_y = (int)(Math.random()*(height-start_diameter))+start_diameter;
-			point_list.add(new Point(rand_x, rand_y));
-			/*
-			double min_distance = Double.MAX_VALUE;
-			Point p1 = point_list.get(i);
-			for(int j = 0; j < point_list.size(); j++) {
-				Point p2 = point_list.get(j);
-				if(j != i && p1.distance(p2) < min_distance)
-					min_distance = p1.distance(p2);
-			}
-			min_distance = Math.sqrt(min_distance*min_distance/2);
-			int min_int = (int)(min_distance/2);
-			if(min_int > 1) {
-				int width = (int)(Math.random()*(min_int)); 
-				width = Math.min(width, Math.max(p1.x, this.width - p1.x));
-				int height = (int)(Math.random()*(min_int));
-				height = Math.min(height, Math.max(p1.y, this.height - p1.y));
-				if(p1.x + width > this.width - start_diameter && p1.y + height > this.height - start_diameter) {
-					width = this.width - start_diameter - p1.x; 
-					height = this.height - start_diameter - p1.y;
-				}
-				
-				if(!(width < 0 && height < 0))
-					obstacle_list.add(new Obstacle(p1.x, p1.y, width, height));
-			}
-			*/
-		}
 		
-		
+		ArrayList<Rectangle> open_list = new ArrayList<Rectangle>();
+		open_list.add(new Rectangle(0,0,width,height));
+		int area = width * height;
 		for(int i = 0; i < num_obstacles; i++) {
-			
-			
-			double min_distance = Double.MAX_VALUE;
-			Point p1 = point_list.get(i);
-			for(int j = 0; j < num_obstacles; j++) {
-				Point p2 = point_list.get(j);
-				if(j != i && p1.distance(p2) < min_distance)
-					min_distance = p1.distance(p2);
+			int rand_rect = (int)(Math.random()*area);
+			Rectangle rect = null;
+			int count = 0;
+			if(rand_rect <= 0) {
+				int x = 0;
+				x++;
 			}
-			min_distance = Math.sqrt(min_distance*min_distance/2);
-			int min_int = (int)(min_distance/2);
-			if(min_int > 1) {
-				int width = (int)(Math.random()*(min_int)); 
-				width = Math.min(width, Math.max(p1.x, this.width - p1.x));
-				int height = (int)(Math.random()*(min_int));
-				height = Math.min(height, Math.max(p1.y, this.height - p1.y));
-				if(p1.x + width > this.width - start_diameter && p1.y + height > this.height - start_diameter) {
-					width = this.width - start_diameter - p1.x; 
-					height = this.height - start_diameter - p1.y;
-				}
-				
-				if(!(width < 0 && height < 0))
-					obstacle_list.add(new Obstacle(p1.x, p1.y, width, height));
+			
+			while(rand_rect >= 0) {
+				rect = open_list.get(count++);
+				rand_rect-= rect.width*rect.height;
 			}
+			
+			int x_buffer  = (int)(rect.width / 4);
+			int y_buffer  = (int)(rect.height / 4);
+			int obstacle_width = (int)(Math.random()*(rect.width/2) + 1);
+			int obstacle_height = (int)(Math.random()*(rect.height/2) + 1);
+			
+			int x_range = (int)(rect.width  * .5) - obstacle_width;
+			int y_range = (int)(rect.height  * .5) - obstacle_height;
+			
+			int obstacle_x = (int)(Math.random()*x_range) + rect.x + x_buffer;
+			int obstacle_y = (int)(Math.random()*y_range) + rect.y + y_buffer;
+			Obstacle new_obstacle = new Obstacle(obstacle_x,obstacle_y,obstacle_width,obstacle_height);
+			obstacle_list.add(new_obstacle);
+			
+			open_list.remove(rect);
+			area -= rect.width*rect.height;
+			
+			Rectangle left;
+			Rectangle right;
+			Rectangle up;
+			Rectangle down;
+			if((int)(Math.random()*2) == 0) {
+				left = new Rectangle(rect.x,rect.y,obstacle_x - rect.x,rect.height);
+				right = new Rectangle(
+						obstacle_x+obstacle_width, rect.y,rect.width-obstacle_width-(obstacle_x - rect.x),rect.height);
+				up = new Rectangle(obstacle_x,rect.y,obstacle_width,obstacle_y-rect.y);
+				down = new Rectangle(
+						obstacle_x,obstacle_y+obstacle_height,obstacle_width,rect.height-obstacle_height-(obstacle_y-rect.y));
+			}
+			else {
+				left = new Rectangle(rect.x,obstacle_y,obstacle_x - rect.x,obstacle_height);
+				right = new Rectangle(
+						obstacle_x+obstacle_width, obstacle_y,rect.width-obstacle_width-(obstacle_x - rect.x),obstacle_height);
+				up = new Rectangle(rect.x,rect.y,rect.width,obstacle_y-rect.y);
+				down = new Rectangle(
+						rect.x,obstacle_y+obstacle_height,rect.width,rect.height-obstacle_height-(obstacle_y-rect.y));
+			}
+			open_list.add(left);
+			open_list.add(right);
+			open_list.add(up);
+			open_list.add(down);
+			
+			area += left.width * left.height;
+			area += right.width * right.height;
+			area += up.width * up.height;
+			area += down.width * down.height;
+			
 		}
 		
 		updateMapModel();
