@@ -21,11 +21,14 @@ public class MapModel implements ActionListener{
 	MapView map_view;
 	boolean animate = false;
 	
+	Point start_point,goal_point;
 	public MapModel(int size, MapView map_view)
 	{
 		this.width = size;
 		this.height = size;
 		this.map_view = map_view;
+		start_point = new Point(0,0);
+		goal_point = new Point (size - 1, size - 1);
 	}
 	
 	public void updateMapModel (){
@@ -44,10 +47,6 @@ public class MapModel implements ActionListener{
 			int rand_rect = (int)(Math.random()*area);
 			Rectangle rect = null;
 			int count = 0;
-			if(rand_rect <= 0) {
-				int x = 0;
-				x++;
-			}
 			
 			while(rand_rect >= 0) {
 				rect = open_list.get(count++);
@@ -109,7 +108,7 @@ public class MapModel implements ActionListener{
 		if(animate) {
 
 			
-			double speed = Math.sqrt(width*height/10);
+			//double speed = Math.sqrt(width*height/10);
 			Point p = subgoal_list.get(0);
 			if(p.x == agent.x && p.y == agent.y) {
 				if(subgoal_list.size() == 1) {
@@ -165,16 +164,19 @@ public class MapModel implements ActionListener{
 		this.current_algorithm = "NONE";
 	}
 	
+	
+	
 	public void startAStar(int agent_diameter) {
 		grid_manager = new GridSpaceManager(obstacle_list, width, height);
 		if(agent_diameter > start_diameter) return;
 		agent = new Agent(agent_diameter/2, agent_diameter/2, agent_diameter);
-		subgoal_list = AStar(grid_manager.getNode(0, 0), grid_manager.getNode(width - 1, height - 1));
+		SearchSpaceNode start = grid_manager.getNode(0, 0);
+		SearchSpaceNode goal = grid_manager.getNode(width - 1, height - 1);
+		subgoal_list = AStar(start_point, goal_point, start, goal, false);
 	}
 	
-	public ArrayList<Point> AStar(SearchSpaceNode start, SearchSpaceNode goal) {
-		Point start_point = start.point_list[0];
-		Point goal_point = goal.point_list[0];
+	public ArrayList<Point> AStar(Point start_point,Point goal_point, SearchSpaceNode start, SearchSpaceNode goal, boolean cluster) {
+		//Point start_point = start.point_list[0];
 		PriorityQueue<SearchSpaceNode> open_set = new PriorityQueue<SearchSpaceNode>();
 		ArrayList<SearchSpaceNode> closed_set = new ArrayList<SearchSpaceNode>();
 		
@@ -201,7 +203,7 @@ public class MapModel implements ActionListener{
 			}
 			
 			closed_set.add(current);
-			ArrayList<SearchSpaceNode> neighbors = current.getNeighbors();
+			ArrayList<SearchSpaceNode> neighbors = grid_manager.getNeighborsForNode(current, cluster);
 			for(int i = 0; i < neighbors.size(); i++) {
 				SearchSpaceNode neighbor = neighbors.get(i);
 				if(closed_set.contains(neighbor))

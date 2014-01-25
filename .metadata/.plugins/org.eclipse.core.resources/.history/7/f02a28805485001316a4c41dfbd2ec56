@@ -1,0 +1,32 @@
+import java.awt.Point;
+import java.util.ArrayList;
+public class SearchSpaceNode implements Comparable<SearchSpaceNode> {
+	int[] x_list;
+	int[] y_list;
+	int f_value = 0;
+	private ArrayList<SearchSpaceNode> neighbors;
+	public SearchSpaceNode(Point... p) {
+		x_list = new int[p.length];
+		y_list = new int[p.length];
+		for(int x = 0; x < p.length; x++) {
+			x_list[x] = p[x].x;
+			y_list[x] = p[x].y;
+		}
+		
+	}
+	
+	public ArrayList<SearchSpaceNode> getNeighbors() {
+		return neighbors;
+	}
+	
+	public void setNeighbors(ArrayList<SearchSpaceNode> neighbors) {
+		this.neighbors = new ArrayList<SearchSpaceNode>();
+		for(int x = 0; x < neighbors.size(); x++) {
+			this.neighbors.add(neighbors.get(x));
+		}
+	}
+	
+	public int compareTo(SearchSpaceNode o) {
+		return Double.compare(f_value, o.f_value);
+	}
+}
