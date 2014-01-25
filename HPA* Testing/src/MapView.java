@@ -11,6 +11,10 @@ public class MapView extends JPanel{
 	
 	int frame_number = 0;
 	long start_time;
+	Color[] color_wheel = {new Color(0,255,255), new Color(255,0,0), new Color(0,127,255),
+			new Color(255,127,0), new Color(0,0,255), new Color(255,255,0),
+			new Color(127,0,255), new Color(127,255,0), new Color(255,0,255),
+			new Color(0,255,0), new Color(255,0,127), new Color(0,255,127)};
 	public MapView(int size)
 	{
 		this.setBounds(0,200,600,600);
@@ -30,7 +34,50 @@ public class MapView extends JPanel{
         
         
         if(this.map_model != null) {
-        	ArrayList<Obstacle> obstacle_list = map_model.obstacle_list;
+        	SearchSpaceManager grid = map_model.grid_manager;
+        	
+        	g.setColor(Color.GRAY);
+		    for(SearchSpaceNode node:grid.getEntranceNodes()) {
+		    	Point[] point_list = node.point_list;
+				int[] x_list = new int[point_list.length];
+				int[] y_list = new int[point_list.length];
+				for(int k = 0; k < point_list.length; k++) {
+					x_list[k] = scaleX(point_list[k].x) + x_offset;
+					y_list[k] = scaleY(point_list[k].y) + y_offset;
+				}
+				g.fillPolygon(x_list,y_list,x_list.length);
+		    }
+		    
+	    	for(SearchSpaceNode node: grid.getSearchSpace()) {
+    			
+    			if(node != null) {
+    				Point[] point_list = node.point_list;
+    				int[] x_list = new int[point_list.length];
+    				int[] y_list = new int[point_list.length];
+    				for(int k = 0; k < point_list.length; k++) {
+    					x_list[k] = scaleX(point_list[k].x) + x_offset;
+    					y_list[k] = scaleY(point_list[k].y) + y_offset;
+    				}
+    				
+    				g.setColor(color_wheel[grid.getClusterID(node)%color_wheel.length]);
+    				
+    				g.drawPolygon(x_list,y_list,x_list.length);
+    			}
+	    	}
+	    	
+	    	g.setColor(Color.BLACK);
+	    	for(Polygon p: grid.getClusterBoundaries()) {
+	    		int[] x_list = p.xpoints;
+				int[] y_list = p.ypoints;
+				for(int k = 0; k < x_list.length; k++) {
+					x_list[k] = scaleX(x_list[k]) + x_offset;
+					y_list[k] = scaleY(y_list[k]) + y_offset;
+				}
+				g.drawPolygon(x_list,y_list,x_list.length);
+	    	}
+	    	
+	    
+	    	ArrayList<Obstacle> obstacle_list = map_model.obstacle_list;
 		    for(int i = 0; i < obstacle_list.size(); i++) {
 		    	Obstacle o = obstacle_list.get(i);
 		    	g.setColor(Color.GREEN);
@@ -39,27 +86,6 @@ public class MapView extends JPanel{
 		    	g.setColor(Color.BLACK);
 		    	g.drawRect(scaleX(o.x) + x_offset,scaleY(o.y) + y_offset,
 		    			scaleSize(o.width),scaleSize(o.height));
-		    }
-		    
-		    g.setColor(Color.RED);
-		    if(map_model.current_algorithm.equals("A*")) {
-		    	GridSpaceManager grid = map_model.grid_manager;
-		    	
-		    	for(int i = 0; i < map_model.width; i++) {
-		    		for(int j = 0; j< map_model.height; j++) {
-		    			SearchSpaceNode node = grid.getNode(i, j);
-		    			if(node != null) {
-		    				Point[] point_list = node.point_list;
-		    				int[] x_list = new int[point_list.length];
-		    				int[] y_list = new int[point_list.length];
-		    				for(int k = 0; k < point_list.length; k++) {
-		    					x_list[k] = scaleX(point_list[k].x) + x_offset;
-		    					y_list[k] = scaleY(point_list[k].y) + y_offset;
-		    				}
-		    				g.drawPolygon(x_list,y_list,x_list.length);
-		    			}
-		    		}
-		    	}
 		    }
 		    
 		    g.setColor(Color.BLUE);

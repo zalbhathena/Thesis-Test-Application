@@ -1,0 +1,8 @@
+import java.util.ArrayList;
+import java.util.Set;
+
+
+public interface SearchSpaceManager {
+	public ArrayList<SearchSpaceNode> getNeighborsForNode(SearchSpaceNode node, boolean cluster);
+	public Set<SearchSpaceNode> getEntranceNodes();
+}

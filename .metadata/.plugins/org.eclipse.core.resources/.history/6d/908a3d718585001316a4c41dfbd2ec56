@@ -1,0 +1,39 @@
+import java.awt.Polygon;
+import java.util.ArrayList;
+import java.util.Set;
+
+
+public class GraphSpaceManager implements SearchSpaceManager {
+
+	@Override
+	public ArrayList<SearchSpaceNode> getNeighborsForNode(SearchSpaceNode node,
+			boolean cluster) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<SearchSpaceNode> getEntranceNodes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<SearchSpaceNode> getSearchSpace() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<Polygon> getClusterBoundaries() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getClusterID(SearchSpaceNode node) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

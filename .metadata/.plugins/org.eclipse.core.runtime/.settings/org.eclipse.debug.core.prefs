@@ -1,0 +1,2 @@
+eclipse.preferences.version=1
+prefWatchExpressions=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\n<watchExpressions>\n<expression enabled\="true" text\="x/cluster_width"/>\n<expression enabled\="true" text\="(clustersPerRow())*(y/cluster_height)"/>\n<expression enabled\="true" text\="clustersPerRow()"/>\n<expression enabled\="true" text\="width"/>\n</watchExpressions>\n
