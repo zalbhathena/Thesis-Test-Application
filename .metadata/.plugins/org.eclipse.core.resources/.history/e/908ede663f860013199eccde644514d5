@@ -1,0 +1,28 @@
+import java.util.ArrayList;
+import java.awt.Point;
+public class PathUpdater {
+	GridSpaceManager grid;
+	ArrayList<Point> hierarchical_path;
+	ArrayList<Point> full_path = new ArrayList<Point>();
+	int path_index;
+	public PathUpdater(GridSpaceManager grid, ArrayList<Point>path) {
+		this.grid = grid;
+		this.hierarchical_path = path;
+	}
+	
+	public void startFindingPath() {
+		new Thread(new Runnable() {
+	        public void run(){
+	            updatePath();
+	        }
+	    }).start();
+	}
+	
+	private void updatePath() {
+		
+	}
+	
+	public ArrayList<Point>getPathUpdate(){
+		return null
+	}
+}

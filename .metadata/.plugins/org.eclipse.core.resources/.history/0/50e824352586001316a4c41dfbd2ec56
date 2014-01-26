@@ -1,0 +1,112 @@
+import java.awt.Polygon;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Arrays;
+import java.util.Map;
+import java.awt.Point;
+
+public class GraphSpaceManager implements SearchSpaceManager {
+	
+	Set<SearchSpaceNode> search_space = new HashSet<SearchSpaceNode>();
+	ArrayList<SearchSpaceNode> search_space_list = new ArrayList<SearchSpaceNode>();
+	Map<SearchSpaceNode, Map<SearchSpaceNode, Double>> cost_function;
+	Map<SearchSpaceNode, Integer> node_to_cluster;
+	Map<Integer, Set<SearchSpaceNode>> cluster_to_node;
+	
+	public GraphSpaceManager(Set<SearchSpaceNode> search_space, 
+			Map<SearchSpaceNode, Map<SearchSpaceNode, Double>> cost_function,
+			Map<SearchSpaceNode, Integer> node_to_cluster,
+			Map<Integer, Set<SearchSpaceNode>> cluster_to_node){
+		this.search_space_list = new ArrayList<SearchSpaceNode>(search_space);
+		this.search_space = search_space;
+		this.cost_function = cost_function;
+		this.node_to_cluster = node_to_cluster;
+		this.cluster_to_node = cluster_to_node;
+	}
+	
+	public Set<SearchSpaceNode> getNeighborsForNode(SearchSpaceNode node,
+			boolean cluster) {
+		return search_space_list.get(search_space_list.indexOf(node)).getNeighbors();
+	}
+
+	public Set<SearchSpaceNode> getEntranceNodes() {
+		return null;
+	}
+
+	public Set<SearchSpaceNode> getSearchSpace() {
+		return search_space;
+	}
+
+	
+	public Set<Polygon> getClusterBoundaries() {
+		return null;
+	}
+
+	
+	public int getClusterID(SearchSpaceNode node) {
+		return node_to_cluster.get(node);
+	}
+	
+	public double getCost(SearchSpaceNode from, SearchSpaceNode to) {
+		if(!from.getNeighbors().contains(to))
+			throw new IllegalArgumentException("Not neighboring states.");
+		return cost_function.get(from).get(to);
+	}
+	
+	public ArrayList<Point>getPath(Point start_point, Point goal_point, SearchSpaceNode start, SearchSpaceNode goal) {
+		for(SearchSpaceNode node: start.getNeighbors()) {
+			ArrayList<Point> point_list = 
+					SearchAlgorithms.AStar(this,null, start.point_list[0], node.point_list[0],start,node,false);
+			if(point_list.size() == 0)
+				continue;
+			double distance = 0;
+			Point prev_point = point_list.remove(0);
+			for(Point p:point_list) {
+				distance+= prev_point.distance(p);
+				prev_point = p;
+			}
+			if(cost_function.get(start) == null)
+				cost_function.put(start, new HashMap<SearchSpaceNode, Double>());
+			cost_function.get(start).put(node, distance);
+		}
+		for(SearchSpaceNode node: goal.getNeighbors()) {
+			ArrayList<Point> point_list = 
+					SearchAlgorithms.AStar(this,null, goal.point_list[0], node.point_list[0],goal,node,false);
+			if(point_list.size() == 0)
+				continue;
+			double distance = 0;
+			Point prev_point = point_list.remove(0);
+			for(Point p:point_list) {
+				distance+= prev_point.distance(p);
+				prev_point = p;
+			}
+			if(cost_function.get(node) == null)
+				cost_function.put(node, new HashMap<SearchSpaceNode, Double>());
+			cost_function.get(node).put(goal, distance);
+			node.getNeighbors().add(goal);
+		}
+		search_space_list.add(start);
+		search_space_list.add(goal);
+		
+		ArrayList<Point> path = 
+				SearchAlgorithms.AStar(this, cost_function, start_point, goal_point, start, goal, false);
+		
+		for(SearchSpaceNode node: start.getNeighbors()) {
+			cost_function.get(start).remove(node);
+		}
+		for(SearchSpaceNode node: goal.getNeighbors()) {
+			node.getNeighbors().remove(goal);
+			cost_function.get(node).remove(goal);
+		}
+		search_space_list.remove(start);
+		search_space_list.remove(goal);
+		
+		return path;
+	}
+	
+	public ArrayList<Point>getPath(Point start_point, Point goal_point) {
+		return null;
+	}
+}

@@ -20,6 +20,7 @@ public class MapModel implements ActionListener{
 	ArrayList<Point> subgoal_list;
 	MapView map_view;
 	boolean animate = false;
+	PathUpdater path_updater;
 	
 	Point start_point,goal_point;
 	public MapModel(int size, MapView map_view)
@@ -108,12 +109,28 @@ public class MapModel implements ActionListener{
 		if(animate) {
 
 			
-			//double speed = Math.sqrt(width*height/10);
+			double speed = 1;
+			if(subgoal_list.size() == 0) {
+				if(path_updater != null && !path_updater.done) {
+					return;
+				}
+				else {
+					animate = false;
+					return;
+				}
+			}
 			Point p = subgoal_list.get(0);
 			if(p.x == agent.x && p.y == agent.y) {
 				if(subgoal_list.size() == 1) {
-					animate = false;
-					return;
+					if(path_updater != null && !path_updater.done) {
+						ArrayList<Point>next_path = path_updater.getLatestPath();
+						for(int i =0; i < next_path.size(); i++)
+							subgoal_list.add(next_path.get(i));
+					}
+					else {
+						animate = false;
+						return;
+					}
 				}
 				subgoal_list.remove(0);
 				p = subgoal_list.get(0);
@@ -128,8 +145,8 @@ public class MapModel implements ActionListener{
 				agent.y = p.y;
 			}
 			else {
-				agent.x += delta_x;
-				agent.y += delta_y;
+				agent.x += Math.ceil(delta_x*speed);
+				agent.y += Math.ceil(delta_y*speed);
 			}
 			updateMapModel();
 		}
@@ -157,6 +174,7 @@ public class MapModel implements ActionListener{
 			startHPAStar(agent_diameter, 20,20);
 			this.current_algorithm = "HPA*";
 			updateMapModel();
+			startAnimation(agent_diameter, animate);
 		}
 		if(subgoal_list == null) {
 			this.current_algorithm = "NONE";
@@ -169,16 +187,17 @@ public class MapModel implements ActionListener{
 		subgoal_list = null;
 		timer.stop();
 		this.current_algorithm = "NONE";
+		path_updater = null;
 	}
 	
 	private void startHPAStar(int agent_diameter, int cluster_width, int cluster_height) {
 		grid_manager = new GridSpaceManager(obstacle_list, width, height, cluster_width, cluster_height);
 		if(agent_diameter > start_diameter) return;
 		agent = new Agent(agent_diameter/2, agent_diameter/2, agent_diameter);
-		/*SearchSpaceNode start = grid_manager.getNode(0, 0);
-		SearchSpaceNode goal = grid_manager.getNode(width - 1, height - 1);
-		subgoal_list = AStar(start_point, goal_point, start, goal, true);
-		*/
+		//path_updater = grid_manager.getPath(start_point, goal_point);
+		//path_updater.startPathFinding();
+		subgoal_list = grid_manager.getPath(start_point, goal_point);
+		//subgoal_list.clear();
 	}
 	
 	
@@ -189,7 +208,7 @@ public class MapModel implements ActionListener{
 		agent = new Agent(agent_diameter/2, agent_diameter/2, agent_diameter);
 		SearchSpaceNode start = grid_manager.getNode(0, 0);
 		SearchSpaceNode goal = grid_manager.getNode(width - 1, height - 1);
-		subgoal_list = SearchAlgorithms.AStar(grid_manager,start_point, goal_point, start, goal, false);
+		subgoal_list = SearchAlgorithms.AStar(grid_manager,null,start_point, goal_point, start, goal, false);
 	}
 	
 	

@@ -67,11 +67,14 @@ public class MapView extends JPanel{
 	    	
 	    	g.setColor(Color.BLACK);
 	    	for(Polygon p: grid.getClusterBoundaries()) {
-	    		int[] x_list = p.xpoints;
-				int[] y_list = p.ypoints;
-				for(int k = 0; k < x_list.length; k++) {
-					x_list[k] = scaleX(x_list[k]) + x_offset;
-					y_list[k] = scaleY(y_list[k]) + y_offset;
+	    		int length = p.xpoints.length;
+	    		int[] px_list = p.xpoints;
+	    		int[] py_list = p.ypoints;
+	    		int[] x_list = new int[length];
+				int[] y_list = new int[length];
+				for(int k = 0; k < length; k++) {
+					x_list[k] = scaleX(px_list[k]) + x_offset;
+					y_list[k] = scaleY(py_list[k]) + y_offset;
 				}
 				g.drawPolygon(x_list,y_list,x_list.length);
 	    	}
