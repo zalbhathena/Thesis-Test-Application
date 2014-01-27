@@ -54,13 +54,13 @@ public class GridSpaceManager implements SearchSpaceManager{
 	public Set<SearchSpaceNode> getNeighborsForNode(SearchSpaceNode node,
 			boolean cluster) {
 		// TODO Auto-generated method stub
-		return node.getNeighbors();
+		return null;
 	}
 
 
 	public Set<SearchSpaceNode> getEntranceNodes() {
 		// TODO Auto-generated method stub
-		return new HashSet<SearchSpaceNode>();
+		return null;
 	}
 
 
@@ -88,11 +88,7 @@ public class GridSpaceManager implements SearchSpaceManager{
 
 	public ArrayList<Point> getPath(Point start, Point goal) {
 		// TODO Auto-generated method stub
-		ArrayList<Point> point_list;
-		SearchSpaceNode start_node = grid[start.x][start.y];
-		SearchSpaceNode goal_node = grid[goal.x][goal.y];
-		point_list = SearchAlgorithms.AStar(this, null, start, goal, start_node, goal_node, false);
-		return point_list;
+		return null;
 	}
 
 }

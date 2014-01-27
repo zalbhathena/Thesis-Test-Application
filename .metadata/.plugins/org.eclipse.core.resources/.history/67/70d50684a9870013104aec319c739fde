@@ -6,15 +6,13 @@ import java.util.Set;
 
 
 public class GridSpaceManager implements SearchSpaceManager{
-	int width, height;
-	SearchSpaceNode[][] grid;
-	Set<SearchSpaceNode> search_space = new HashSet<SearchSpaceNode>();
-	Set<Polygon> boundary_set;
 
 	public GridSpaceManager(ArrayList<Obstacle> obstacle_list, int width, int height) {
 		grid = new GridSpaceNode[width][height];
 		this.width = width;
 		this.height = height;
+		this.cluster_height = height;
+		this.cluster_width =  width;
 		
 		
 		for(int i = 0; i < width; i++) {
@@ -43,56 +41,49 @@ public class GridSpaceManager implements SearchSpaceManager{
 				search_space.add(grid[i][j]);
 			}
 		}
-		int[]x_list = {0,width,width,0};
-		int[]y_list = {0,0,height,height,0};
-		Polygon p = new Polygon(x_list,y_list,4);
-		boundary_set = new HashSet<Polygon>();
-		boundary_set.add(p);
 	}
 	
-
+	@Override
 	public Set<SearchSpaceNode> getNeighborsForNode(SearchSpaceNode node,
 			boolean cluster) {
 		// TODO Auto-generated method stub
-		return node.getNeighbors();
+		return null;
 	}
 
-
+	@Override
 	public Set<SearchSpaceNode> getEntranceNodes() {
 		// TODO Auto-generated method stub
-		return new HashSet<SearchSpaceNode>();
+		return null;
 	}
 
-
+	@Override
 	public Set<SearchSpaceNode> getSearchSpace() {
 		// TODO Auto-generated method stub
-		return search_space;
+		return null;
 	}
 
-
+	@Override
 	public Set<Polygon> getClusterBoundaries() {
-		return boundary_set;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
+	@Override
 	public int getClusterID(SearchSpaceNode node) {
+		// TODO Auto-generated method stub
 		return 0;
 	}
 
-
+	@Override
 	public double getCost(SearchSpaceNode from, SearchSpaceNode to) {
-		if(from.getNeighbors().contains(to))
-			return 1;
-		return Integer.MAX_VALUE;
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
-
+	@Override
 	public ArrayList<Point> getPath(Point start, Point goal) {
 		// TODO Auto-generated method stub
-		ArrayList<Point> point_list;
-		SearchSpaceNode start_node = grid[start.x][start.y];
-		SearchSpaceNode goal_node = grid[goal.x][goal.y];
-		point_list = SearchAlgorithms.AStar(this, null, start, goal, start_node, goal_node, false);
-		return point_list;
+		return null;
 	}
 
 }

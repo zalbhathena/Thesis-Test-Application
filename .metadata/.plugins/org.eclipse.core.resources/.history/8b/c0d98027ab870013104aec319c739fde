@@ -60,7 +60,7 @@ public class GridSpaceManager implements SearchSpaceManager{
 
 	public Set<SearchSpaceNode> getEntranceNodes() {
 		// TODO Auto-generated method stub
-		return new HashSet<SearchSpaceNode>();
+		return null;
 	}
 
 

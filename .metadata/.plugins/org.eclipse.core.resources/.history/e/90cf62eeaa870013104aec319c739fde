@@ -112,7 +112,7 @@ public class MapWindowController extends JFrame implements ActionListener, ItemL
 		Object source = e.getSource();
 		if(source == run) {
 			map_model.createRandomObstacles(100, 1);
-			map_model.startPathfinding("A*", 1, true);
+			map_model.startPathfinding("HPA*", 1, true);
 			map_view.setMapScale(ACTUAL_MAP_SIZE);
 			map_view.setMapModel(map_model);
 		}

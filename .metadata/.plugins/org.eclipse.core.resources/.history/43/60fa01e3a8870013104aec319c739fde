@@ -1,14 +1,14 @@
 import java.util.ArrayList;
 import java.awt.Point;
 public class PathUpdater {
-	HPAStarSpaceManager grid;
+	GridSpaceManager grid;
 	ArrayList<Point> hierarchical_path;
 	ArrayList<Point> full_path;
 	int index = -1;
 	Thread thread;
 	int safe_size = index;
 	boolean done = true;
-	public PathUpdater(HPAStarSpaceManager grid, ArrayList<Point>path) {
+	public PathUpdater(GridSpaceManager grid, ArrayList<Point>path) {
 		this.grid = grid;
 		hierarchical_path = path;
 	}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;GridSpaceManager&apos; to &apos;HPAStarSpaceManager&apos;&#x0A;- Original project: &apos;HPA* Testing&apos;&#x0A;- Original element: &apos;GridSpaceManager&apos;&#x0A;- Renamed element: &apos;HPAStarSpaceManager&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;GridSpaceManager&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;{GridSpaceManager.java[GridSpaceManager" matchStrategy="1" name="HPAStarSpaceManager" qualified="false" references="true" similarDeclarations="false" stamp="1390864518593" textual="false" version="1.0"/>
+</session>

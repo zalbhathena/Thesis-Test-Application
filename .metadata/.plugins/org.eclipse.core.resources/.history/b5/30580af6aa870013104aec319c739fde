@@ -34,7 +34,7 @@ public class MapView extends JPanel{
         
         
         if(this.map_model != null) {
-        	SearchSpaceManager grid = map_model.search_space_manager;
+        	SearchSpaceManager grid = map_model.grid_manager;
         	
         	g.setColor(Color.GRAY);
 		    for(SearchSpaceNode node:grid.getEntranceNodes()) {
