@@ -96,7 +96,11 @@ public class GraphSpaceManager implements SearchSpaceManager {
 		return path;
 	}
 	
-	public ArrayList<Point> getPath(Point start_point, Point goal_point) {
+	public PathUpdater getPath(Point start_point, Point goal_point) {
+		return null;
+	}
+	
+	public ArrayList<Point> getSubpath(Point start_point, Point goal_point) {
 		return null;
 	}
 }

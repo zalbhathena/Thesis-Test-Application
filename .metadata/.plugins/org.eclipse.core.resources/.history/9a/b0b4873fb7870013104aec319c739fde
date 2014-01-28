@@ -1,0 +1,37 @@
+import java.util.ArrayList;
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
+import java.awt.Point;
+public class PathUpdater{
+	SearchSpaceManager search_space_manager;
+	ArrayList<Point> hierarchical_path;
+	ArrayList<ArrayList<Point>> path_updates = new ArrayList<ArrayList<Point>>();
+	PathCalculator path_calculator = new PathCalculator();
+	FutureTask<ArrayList<Point>> future_task = new FutureTask<ArrayList<Point>>(path_calculator);
+	boolean done = true;
+	
+	public PathUpdater(HPAStarSpaceManager grid, ArrayList<Point>path) {
+		this.search_space_manager = grid;
+		hierarchical_path = path;
+	}
+	
+	public void startPathfinding() {
+		done = false;
+		Point start = hierarchical_path.remove(0);
+		while()
+	}
+	
+	public ArrayList<Point> getNextPath() {
+		if()
+		return null;
+	}
+	
+	class PathCalculator implements Callable<ArrayList<Point>>{
+		Point start;
+		Point goal;
+		
+		public ArrayList<Point> call() throws Exception {
+			return search_space_manager.getSubpath(start, goal);
+		}
+	}
+}

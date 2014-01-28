@@ -11,7 +11,7 @@ public class HPAStarSpaceManager implements SearchSpaceManager{
 	
 	public final int MINIMUM_ENTRACE_WIDTH = 6;
 	
-	GridSpaceNode[][] entrance_nodes_list;
+	SearchSpaceNode[][] entrance_nodes_list;
 	Set<SearchSpaceNode> entrance_nodes = new HashSet<SearchSpaceNode>();
 	
 	public HPAStarSpaceManager(ArrayList<Obstacle> obstacle_list, 
@@ -25,7 +25,7 @@ public class HPAStarSpaceManager implements SearchSpaceManager{
 		
 		for(int i = 0; i < width; i++) {
 			for(int j = 0; j < height; j++) {
-				grid[i][j] = new GridSpaceNode(i,j);
+				grid[i][j] = new SearchSpaceNode(i,j);
 			}
 		}
 		for(int i = 0; i < obstacle_list.size(); i++) {
@@ -102,7 +102,7 @@ public class HPAStarSpaceManager implements SearchSpaceManager{
 		
 		int clusters_per_row = clustersPerRow();
 		int clusters_per_column = clustersPerColumn();
-		entrance_nodes_list = new GridSpaceNode[clusters_per_row][clusters_per_column];
+		entrance_nodes_list = new SearchSpaceNode[clusters_per_row][clusters_per_column];
 		for(int i = 0; i<clusters_per_row; i++) {
 			for(int j = 0; j < clusters_per_column; j++) {
 				if(i != 0) {
@@ -278,7 +278,7 @@ public class HPAStarSpaceManager implements SearchSpaceManager{
 		}
 		for(SearchSpaceNode node:entrance_nodes) {
 			int cluster_id = getClusterID(node);
-			entrance_nodes_list[cluster_id/clusters_per_column][cluster_id/clusters_per_row] = (GridSpaceNode)node;
+			entrance_nodes_list[cluster_id/clusters_per_column][cluster_id/clusters_per_row] = node;
 		}
 	}
 	
@@ -389,7 +389,7 @@ public class HPAStarSpaceManager implements SearchSpaceManager{
 		entrance_graph = new GraphSpaceManager(entrance_nodes, cost_function, cluster_function, nodes_in_cluster);
  	}
 	
-	public ArrayList<Point> getPath(Point start_point, Point goal_point) {
+	public PathUpdater getPath(Point start_point, Point goal_point) {
 		SearchSpaceNode start = new SearchSpaceNode(start_point);
 		SearchSpaceNode goal = new SearchSpaceNode(goal_point);
 		
@@ -443,22 +443,22 @@ public class HPAStarSpaceManager implements SearchSpaceManager{
 			
 		}
 		ArrayList<Point> path = entrance_graph.getPath(start_point, goal_point, start, goal,extra_cost_function);
-		//path.add(0, start_point);
-		//PathUpdater path_updater = new PathUpdater(this,path);
-		ArrayList<Point> new_path = new ArrayList<Point>();
+		path.add(0, start_point);
+		PathUpdater path_updater = new PathUpdater(this,path);
+		/*ArrayList<Point> new_path = new ArrayList<Point>();
 		Point _start = start_point;
 		Point _goal;
 		while(path.size() > 0) {
 			_goal = path.remove(0);
-			ArrayList<Point>temp_path = getThePath(_start,_goal);
+			ArrayList<Point>temp_path = getSubpath(_start,_goal);
 			for(int i =0; i < temp_path.size(); i++)
 				new_path.add(temp_path.get(i));
 			_start = _goal;
-		}
-		return new_path;
+		}*/
+		return path_updater;
 	}
 	
-	public ArrayList<Point> getThePath(Point start_point, Point goal_point) {
+	public ArrayList<Point> getSubpath(Point start_point, Point goal_point) {
 		SearchSpaceNode start = grid[start_point.x][start_point.y];
 		SearchSpaceNode goal = grid[goal_point.x][goal_point.y];
 		ArrayList<Point> point_list = 

@@ -12,14 +12,14 @@ public class GridSpaceManager implements SearchSpaceManager{
 	Set<Polygon> boundary_set;
 
 	public GridSpaceManager(ArrayList<Obstacle> obstacle_list, int width, int height) {
-		grid = new GridSpaceNode[width][height];
+		grid = new SearchSpaceNode[width][height];
 		this.width = width;
 		this.height = height;
 		
 		
 		for(int i = 0; i < width; i++) {
 			for(int j = 0; j < height; j++) {
-				grid[i][j] = new GridSpaceNode(i,j);
+				grid[i][j] = new SearchSpaceNode(i,j);
 			}
 		}
 		for(int i = 0; i < obstacle_list.size(); i++) {
@@ -85,9 +85,18 @@ public class GridSpaceManager implements SearchSpaceManager{
 		return Integer.MAX_VALUE;
 	}
 
-
-	public ArrayList<Point> getPath(Point start, Point goal) {
+	public PathUpdater getPath(Point start, Point goal) {
 		// TODO Auto-generated method stub
+		ArrayList<Point> point_list;
+		SearchSpaceNode start_node = grid[start.x][start.y];
+		SearchSpaceNode goal_node = grid[goal.x][goal.y];
+		point_list = SearchAlgorithms.AStar(this, null, start, goal, start_node, goal_node, false);
+		point_list.add(0, start);
+		PathUpdater path_updater = new PathUpdater(this,point_list);
+		return path_updater;
+	}
+	
+	public ArrayList<Point> getSubpath(Point start, Point goal) {
 		ArrayList<Point> point_list;
 		SearchSpaceNode start_node = grid[start.x][start.y];
 		SearchSpaceNode goal_node = grid[goal.x][goal.y];

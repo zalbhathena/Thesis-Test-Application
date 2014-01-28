@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.awt.Point;
 
 public class Agent {
-	int diameter, x, y;
+	double diameter, x, y;
 	private ArrayList<Point> subgoal_list = new ArrayList<Point>();
 	public Agent(int x, int y, int diameter) {
 		this.x = x;

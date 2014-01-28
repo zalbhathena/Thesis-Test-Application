@@ -103,15 +103,15 @@ public class MapView extends JPanel{
         }
 
     }
-	private int scaleX(int x) {
+	private int scaleX(double x) {
 		double scale = ((double)size) / ((double)actual_map_size);
 		return (int)(((double)x)*scale)+(600-size)/2;
 	}
-	private int scaleY(int val) {
+	private int scaleY(double val) {
 		double scale = ((double)size) / ((double)actual_map_size);
 		return (int)(((double)val)*scale);
 	}
-	private int scaleSize(int val) {
+	private int scaleSize(double val) {
 		double scale = ((double)size) / ((double)actual_map_size);
 		return (int)(((double)val)*scale);
 	}

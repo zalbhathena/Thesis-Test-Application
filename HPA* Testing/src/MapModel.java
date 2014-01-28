@@ -7,7 +7,7 @@ import java.awt.Point;
 
 public class MapModel implements ActionListener{
 	boolean running = false;
-	int milliseconds_per_frame = 20;
+	int milliseconds_per_frame = 1;
 	Timer timer = new Timer(milliseconds_per_frame, this);
 	
 	int width, height, start_diameter, speed;
@@ -111,42 +111,36 @@ public class MapModel implements ActionListener{
 			
 			double speed = 1;
 			if(subgoal_list.size() == 0) {
-				if(path_updater != null && !path_updater.done) {
+				if(path_updater.remainingUpdates() > 0) {
+					ArrayList<Point> path_update = path_updater.getNextPath();
+					for(int i = 0; i < path_update.size(); i++)
+						subgoal_list.add(path_update.get(i));
 					return;
 				}
-				else {
+				else if(path_updater.isDone() && path_updater.remainingUpdates() == 0){
 					animate = false;
 					return;
 				}
 			}
 			Point p = subgoal_list.get(0);
 			if(p.x == agent.x && p.y == agent.y) {
-				if(subgoal_list.size() == 1) {
-					if(path_updater != null && !path_updater.done) {
-						ArrayList<Point>next_path = path_updater.getLatestPath();
-						for(int i =0; i < next_path.size(); i++)
-							subgoal_list.add(next_path.get(i));
-					}
-					else {
-						animate = false;
-						return;
-					}
-				}
 				subgoal_list.remove(0);
+				if(subgoal_list.size() == 0)
+					return;
 				p = subgoal_list.get(0);
 			}
 			
 			double distance = Point.distance(agent.x, agent.y, p.x, p.y);
-			double delta_x = (p.x - agent.x)/distance;
-			double delta_y = (p.y - agent.y)/distance;
-			double distance2 = Math.sqrt(delta_x*delta_x + delta_y+delta_y);
-			if(distance2 > distance) {
+			double delta_x = ((double)p.x - agent.x)/distance;delta_x*=speed;
+			double delta_y = ((double)p.y - agent.y)/distance;delta_y*=speed;
+			double distance2 = Math.sqrt(delta_x*delta_x + delta_y*delta_y);
+			if(distance2 >= distance) {
 				agent.x = p.x;
 				agent.y = p.y;
 			}
 			else {
-				agent.x += Math.ceil(delta_x*speed);
-				agent.y += Math.ceil(delta_y*speed);
+				agent.x += delta_x;
+				agent.y += delta_y;
 			}
 			updateMapModel();
 		}
@@ -163,23 +157,28 @@ public class MapModel implements ActionListener{
 	}
 	
 	public void startPathfinding(String algorithm, int agent_diameter, boolean animate) {
+		if(agent_diameter > start_diameter)
+			return;
 		
 		if(algorithm.equals("A*")) {
-			startAStar(agent_diameter);
+			search_space_manager = new GridSpaceManager(obstacle_list, width, height);
 			this.current_algorithm = "A*";
-			startAnimation(agent_diameter, animate); //comment this out later
 			
 		}
 		if(algorithm.equals("HPA*")) {
-			startHPAStar(agent_diameter, 20,20);
+			int cluster_width = 20,cluster_height = 20;
+			search_space_manager = new HPAStarSpaceManager(obstacle_list, width, height, cluster_width, cluster_height);
 			this.current_algorithm = "HPA*";
-			updateMapModel();
-			startAnimation(agent_diameter, animate);
 		}
 		if(subgoal_list == null) {
 			this.current_algorithm = "NONE";
 		}
-		//startAnimation(agent_diameter, animate);
+		
+		agent = new Agent(agent_diameter/2, agent_diameter/2, agent_diameter);
+		path_updater = search_space_manager.getPath(start_point, goal_point);
+		path_updater.startPathfinding();
+		subgoal_list = new ArrayList<Point>();
+		startAnimation(agent_diameter, animate);
 	}
 	
 	public void endPathfinding() {
@@ -189,25 +188,7 @@ public class MapModel implements ActionListener{
 		this.current_algorithm = "NONE";
 		path_updater = null;
 	}
-	
-	private void startHPAStar(int agent_diameter, int cluster_width, int cluster_height) {
-		search_space_manager = new HPAStarSpaceManager(obstacle_list, width, height, cluster_width, cluster_height);
-		if(agent_diameter > start_diameter) return;
-		agent = new Agent(agent_diameter/2, agent_diameter/2, agent_diameter);
-		//path_updater = grid_manager.getPath(start_point, goal_point);
-		//path_updater.startPathFinding();
-		subgoal_list = search_space_manager.getPath(start_point, goal_point);
-		//subgoal_list.clear();
-	}
-	
-	
-	
-	private void startAStar(int agent_diameter) {
-		search_space_manager = new GridSpaceManager(obstacle_list, width, height);
-		if(agent_diameter > start_diameter) return;
-		agent = new Agent(agent_diameter/2, agent_diameter/2, agent_diameter);
-		subgoal_list = search_space_manager.getPath(start_point, goal_point);
-	}
+
 	
 	
 	
