@@ -152,6 +152,7 @@ public class MapModel implements ActionListener{
 	public void startAnimation(int agent_diameter, boolean animate) {
 		agent = new Agent(0,0,agent_diameter);
 		this.animate = animate;
+		map_view.clearAgentPathList();
 		timer.start();
 		moveAgent();
 	}

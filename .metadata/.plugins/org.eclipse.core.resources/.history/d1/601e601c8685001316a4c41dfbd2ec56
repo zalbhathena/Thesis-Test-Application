@@ -1,6 +1,0 @@
-import java.util.Map;
-import java.awt.Point;
-public class GraphSpaceNode extends SearchSpaceNode {
-	Map<SearchSpaceNode, Double>cost_map;
-	
-}

@@ -1,0 +1,22 @@
+# Define a variable for classpath
+CLASS_PATH = ../bin
+
+# Define a virtual path for .class in the bin directory
+vpath %.class $(CLASS_PATH)
+
+all : hpaprogram.dll
+
+# $@ matches the target, $< matches the first dependancy
+hpaprogram.dll : HPAProgram.o
+	gcc -Wl -shared -o $@ $<
+	
+# $@ matches the target, $< matches the first dependancy
+HPAProgram.o : HPAProgram.c++ HPAProgram.h
+	gcc -I /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -c $< -o $@
+
+# $* matches the target filename without the extension
+HPAProgram.h : HPAProgram.class
+	javah -classpath $(CLASS_PATH) $*
+	
+clean :
+	rm HPAProgram.h HPAProgram.o hpaprogram.dll

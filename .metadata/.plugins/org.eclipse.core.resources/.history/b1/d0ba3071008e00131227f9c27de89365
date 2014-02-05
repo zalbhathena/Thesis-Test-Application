@@ -1,0 +1,15 @@
+import java.io.File;
+import java.security.CodeSource;
+
+
+
+public class HPAProgram {
+	static {
+		System.loadLibrary("jni\hpaprogram.ddl"); // hello.dll (Windows) or libhello.so (Unixes)
+	}
+	private native void sayHello();
+	  
+	public static void main(String[] args) {
+		MapWindowController map = new MapWindowController();		
+	}
+}
