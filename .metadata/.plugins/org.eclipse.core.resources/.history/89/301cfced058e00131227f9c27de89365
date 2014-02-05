@@ -1,7 +1,7 @@
 public class HPAProgram {
 	static {
 		//System.out.println(new File(".").getAbsolutePath());
-		System.loadLibrary("libhpaprogram"); // hello.dll (Windows) or libhello.so (Unixes)
+		System.loadLibrary("hpaprogram"); // hello.dll (Windows) or libhello.so (Unixes)
 	}
 	//private native void sayHello();
 	  

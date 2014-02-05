@@ -1,94 +1,10 @@
-18:47:38 **** Build of configuration Default for project HPA* Testing ****
+19:37:06 **** Build of configuration Default for project HPA* Testing ****
 make all 
 javah -classpath ../bin HPAProgram
-gcc -Wl -shared -o hpaprogram.dll HPAProgram.o
-18:50:49 **** Incremental Build of configuration Default for project HPA* Testing ****
+gcc -shared -Wl,-install_name,libhpaprogram.jnilib -o libhpaprogram.jnilib HPAProgram.o
+19:37:21 **** Incremental Build of configuration Default for project HPA* Testing ****
 make all 
 make: *** No rule to make target `all'.  Stop.
-18:50:57 **** Incremental Build of configuration Default for project HPA* Testing ****
-make all 
-make: *** No rule to make target `all'.  Stop.
-18:53:15 **** Incremental Build of configuration Default for project HPA* Testing ****
-make all 
-make: *** No rule to make target `all'.  Stop.
-18:53:28 **** Incremental Build of configuration Default for project HPA* Testing ****
-make all 
-make: *** No rule to make target `all'.  Stop.
-18:53:46 **** Incremental Build of configuration Default for project HPA* Testing ****
-make all 
-make: *** No rule to make target `all'.  Stop.
-18:54:00 **** Incremental Build of configuration Default for project HPA* Testing ****
-make all 
-make: *** No rule to make target `all'.  Stop.
-18:56:56 **** Incremental Build of configuration Default for project HPA* Testing ****
-make all 
-make: *** No rule to make target `all'.  Stop.
-18:57:10 **** Incremental Build of configuration Default for project HPA* Testing ****
-make all 
-make: *** No rule to make target `all'.  Stop.
-18:57:34 **** Incremental Build of configuration Default for project HPA* Testing ****
-make all 
-make: *** No rule to make target `all'.  Stop.
-18:59:56 **** Incremental Build of configuration Default for project HPA* Testing ****
-make all 
-make: *** No rule to make target `all'.  Stop.
-19:00:22 **** Incremental Build of configuration Default for project HPA* Testing ****
-make all 
-make: *** No rule to make target `all'.  Stop.
-19:00:30 **** Incremental Build of configuration Default for project HPA* Testing ****
-make all 
-make: *** No rule to make target `all'.  Stop.
-19:03:37 **** Incremental Build of configuration Default for project HPA* Testing ****
-make all 
-make: *** No rule to make target `all'.  Stop.
-19:03:49 **** Incremental Build of configuration Default for project HPA* Testing ****
-make all 
-make: *** No rule to make target `all'.  Stop.
-19:04:01 **** Incremental Build of configuration Default for project HPA* Testing ****
-make all 
-make: *** No rule to make target `all'.  Stop.
-19:09:22 **** Incremental Build of configuration Default for project HPA* Testing ****
-make all 
-make: *** No rule to make target `all'.  Stop.
-19:09:41 **** Incremental Build of configuration Default for project HPA* Testing ****
-make all 
-make: *** No rule to make target `all'.  Stop.
-19:09:49 **** Incremental Build of configuration Default for project HPA* Testing ****
-make all 
-make: *** No rule to make target `all'.  Stop.
-19:09:59 **** Incremental Build of configuration Default for project HPA* Testing ****
-make all 
-make: *** No rule to make target `all'.  Stop.
-19:10:03 **** Incremental Build of configuration Default for project HPA* Testing ****
-make all 
-make: *** No rule to make target `all'.  Stop.
-19:10:44 **** Incremental Build of configuration Default for project HPA* Testing ****
-make all 
-make: *** No rule to make target `all'.  Stop.
-19:10:52 **** Incremental Build of configuration Default for project HPA* Testing ****
-make all 
-make: *** No rule to make target `all'.  Stop.
-19:11:06 **** Incremental Build of configuration Default for project HPA* Testing ****
-make all 
-make: *** No rule to make target `all'.  Stop.
-19:11:16 **** Incremental Build of configuration Default for project HPA* Testing ****
-make all 
-make: *** No rule to make target `all'.  Stop.
-19:13:17 **** Incremental Build of configuration Default for project HPA* Testing ****
-make all 
-make: *** No rule to make target `all'.  Stop.
-19:14:23 **** Incremental Build of configuration Default for project HPA* Testing ****
-make all 
-make: *** No rule to make target `all'.  Stop.
-19:17:07 **** Incremental Build of configuration Default for project HPA* Testing ****
-make all 
-make: *** No rule to make target `all'.  Stop.
-19:17:38 **** Incremental Build of configuration Default for project HPA* Testing ****
-make all 
-make: *** No rule to make target `all'.  Stop.
-19:17:59 **** Incremental Build of configuration Default for project HPA* Testing ****
-make all 
-make: *** No rule to make target `all'.  Stop.
-19:18:38 **** Incremental Build of configuration Default for project HPA* Testing ****
+19:43:38 **** Incremental Build of configuration Default for project HPA* Testing ****
 make all 
 make: *** No rule to make target `all'.  Stop.
