@@ -1,6 +1,0 @@
-19:43:38 **** Incremental Build of configuration Default for project HPA* Testing ****
-make all 
-make: *** No rule to make target `all'.  Stop.
-
-19:43:38 Build Finished (took 77ms)
-
