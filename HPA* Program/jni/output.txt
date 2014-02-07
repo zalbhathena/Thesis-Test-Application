@@ -1,0 +1,726 @@
+g++ -stdlib=libstdc++ -fPIC -I/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -v -arch x86_64 -c DCDTsrc/gs.cpp -o obj/gs.o
+Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
+Target: x86_64-apple-darwin13.0.0
+Thread model: posix
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.9.0 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name gs.cpp -mrelocation-model pic -pic-level 2 -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 224.1 -v -coverage-file "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni/obj/gs.o" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0 -I /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -stdlib=libstdc++ -fdeprecated-macro -fdebug-compilation-dir "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni" -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -mstackrealign -fblocks -fobjc-runtime=macosx-10.9.0 -fobjc-dispatch-method=mixed -fobjc-default-synthesize-properties -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fdiagnostics-show-option -o obj/gs.o -x c++ DCDTsrc/gs.cpp
+clang -cc1 version 5.0 based upon LLVM 3.3svn default target x86_64-apple-darwin13.0.0
+ignoring nonexistent directory "/usr/include/c++/4.2.1/i686-apple-darwin10/x86_64"
+ignoring nonexistent directory "/usr/include/c++/4.0.0"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/i686-apple-darwin8/"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/backward"
+ignoring nonexistent directory "/usr/local/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+ /usr/include/c++/4.2.1
+ /usr/include/c++/4.2.1/backward
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+ /usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
+End of search list.
+g++ -stdlib=libstdc++ -fPIC -I/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -v -arch x86_64 -c DCDTsrc/gs_array.cpp -o obj/gs_array.o
+Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
+Target: x86_64-apple-darwin13.0.0
+Thread model: posix
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.9.0 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name gs_array.cpp -mrelocation-model pic -pic-level 2 -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 224.1 -v -coverage-file "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni/obj/gs_array.o" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0 -I /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -stdlib=libstdc++ -fdeprecated-macro -fdebug-compilation-dir "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni" -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -mstackrealign -fblocks -fobjc-runtime=macosx-10.9.0 -fobjc-dispatch-method=mixed -fobjc-default-synthesize-properties -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fdiagnostics-show-option -o obj/gs_array.o -x c++ DCDTsrc/gs_array.cpp
+clang -cc1 version 5.0 based upon LLVM 3.3svn default target x86_64-apple-darwin13.0.0
+ignoring nonexistent directory "/usr/include/c++/4.2.1/i686-apple-darwin10/x86_64"
+ignoring nonexistent directory "/usr/include/c++/4.0.0"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/i686-apple-darwin8/"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/backward"
+ignoring nonexistent directory "/usr/local/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+ /usr/include/c++/4.2.1
+ /usr/include/c++/4.2.1/backward
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+ /usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
+End of search list.
+g++ -stdlib=libstdc++ -fPIC -I/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -v -arch x86_64 -c DCDTsrc/gs_geo2.cpp -o obj/gs_geo2.o
+Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
+Target: x86_64-apple-darwin13.0.0
+Thread model: posix
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.9.0 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name gs_geo2.cpp -mrelocation-model pic -pic-level 2 -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 224.1 -v -coverage-file "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni/obj/gs_geo2.o" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0 -I /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -stdlib=libstdc++ -fdeprecated-macro -fdebug-compilation-dir "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni" -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -mstackrealign -fblocks -fobjc-runtime=macosx-10.9.0 -fobjc-dispatch-method=mixed -fobjc-default-synthesize-properties -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fdiagnostics-show-option -o obj/gs_geo2.o -x c++ DCDTsrc/gs_geo2.cpp
+clang -cc1 version 5.0 based upon LLVM 3.3svn default target x86_64-apple-darwin13.0.0
+ignoring nonexistent directory "/usr/include/c++/4.2.1/i686-apple-darwin10/x86_64"
+ignoring nonexistent directory "/usr/include/c++/4.0.0"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/i686-apple-darwin8/"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/backward"
+ignoring nonexistent directory "/usr/local/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+ /usr/include/c++/4.2.1
+ /usr/include/c++/4.2.1/backward
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+ /usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
+End of search list.
+g++ -stdlib=libstdc++ -fPIC -I/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -v -arch x86_64 -c DCDTsrc/gs_input.cpp -o obj/gs_input.o
+Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
+Target: x86_64-apple-darwin13.0.0
+Thread model: posix
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.9.0 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name gs_input.cpp -mrelocation-model pic -pic-level 2 -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 224.1 -v -coverage-file "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni/obj/gs_input.o" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0 -I /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -stdlib=libstdc++ -fdeprecated-macro -fdebug-compilation-dir "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni" -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -mstackrealign -fblocks -fobjc-runtime=macosx-10.9.0 -fobjc-dispatch-method=mixed -fobjc-default-synthesize-properties -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fdiagnostics-show-option -o obj/gs_input.o -x c++ DCDTsrc/gs_input.cpp
+clang -cc1 version 5.0 based upon LLVM 3.3svn default target x86_64-apple-darwin13.0.0
+ignoring nonexistent directory "/usr/include/c++/4.2.1/i686-apple-darwin10/x86_64"
+ignoring nonexistent directory "/usr/include/c++/4.0.0"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/i686-apple-darwin8/"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/backward"
+ignoring nonexistent directory "/usr/local/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+ /usr/include/c++/4.2.1
+ /usr/include/c++/4.2.1/backward
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+ /usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
+End of search list.
+g++ -stdlib=libstdc++ -fPIC -I/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -v -arch x86_64 -c DCDTsrc/gs_output.cpp -o obj/gs_output.o
+Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
+Target: x86_64-apple-darwin13.0.0
+Thread model: posix
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.9.0 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name gs_output.cpp -mrelocation-model pic -pic-level 2 -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 224.1 -v -coverage-file "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni/obj/gs_output.o" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0 -I /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -stdlib=libstdc++ -fdeprecated-macro -fdebug-compilation-dir "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni" -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -mstackrealign -fblocks -fobjc-runtime=macosx-10.9.0 -fobjc-dispatch-method=mixed -fobjc-default-synthesize-properties -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fdiagnostics-show-option -o obj/gs_output.o -x c++ DCDTsrc/gs_output.cpp
+clang -cc1 version 5.0 based upon LLVM 3.3svn default target x86_64-apple-darwin13.0.0
+ignoring nonexistent directory "/usr/include/c++/4.2.1/i686-apple-darwin10/x86_64"
+ignoring nonexistent directory "/usr/include/c++/4.0.0"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/i686-apple-darwin8/"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/backward"
+ignoring nonexistent directory "/usr/local/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+ /usr/include/c++/4.2.1
+ /usr/include/c++/4.2.1/backward
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+ /usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
+End of search list.
+g++ -stdlib=libstdc++ -fPIC -I/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -v -arch x86_64 -c DCDTsrc/gs_polygon.cpp -o obj/gs_polygon.o
+Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
+Target: x86_64-apple-darwin13.0.0
+Thread model: posix
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.9.0 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name gs_polygon.cpp -mrelocation-model pic -pic-level 2 -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 224.1 -v -coverage-file "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni/obj/gs_polygon.o" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0 -I /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -stdlib=libstdc++ -fdeprecated-macro -fdebug-compilation-dir "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni" -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -mstackrealign -fblocks -fobjc-runtime=macosx-10.9.0 -fobjc-dispatch-method=mixed -fobjc-default-synthesize-properties -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fdiagnostics-show-option -o obj/gs_polygon.o -x c++ DCDTsrc/gs_polygon.cpp
+clang -cc1 version 5.0 based upon LLVM 3.3svn default target x86_64-apple-darwin13.0.0
+ignoring nonexistent directory "/usr/include/c++/4.2.1/i686-apple-darwin10/x86_64"
+ignoring nonexistent directory "/usr/include/c++/4.0.0"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/i686-apple-darwin8/"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/backward"
+ignoring nonexistent directory "/usr/local/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+ /usr/include/c++/4.2.1
+ /usr/include/c++/4.2.1/backward
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+ /usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
+End of search list.
+g++ -stdlib=libstdc++ -fPIC -I/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -v -arch x86_64 -c DCDTsrc/gs_set.cpp -o obj/gs_set.o
+Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
+Target: x86_64-apple-darwin13.0.0
+Thread model: posix
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.9.0 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name gs_set.cpp -mrelocation-model pic -pic-level 2 -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 224.1 -v -coverage-file "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni/obj/gs_set.o" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0 -I /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -stdlib=libstdc++ -fdeprecated-macro -fdebug-compilation-dir "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni" -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -mstackrealign -fblocks -fobjc-runtime=macosx-10.9.0 -fobjc-dispatch-method=mixed -fobjc-default-synthesize-properties -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fdiagnostics-show-option -o obj/gs_set.o -x c++ DCDTsrc/gs_set.cpp
+clang -cc1 version 5.0 based upon LLVM 3.3svn default target x86_64-apple-darwin13.0.0
+ignoring nonexistent directory "/usr/include/c++/4.2.1/i686-apple-darwin10/x86_64"
+ignoring nonexistent directory "/usr/include/c++/4.0.0"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/i686-apple-darwin8/"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/backward"
+ignoring nonexistent directory "/usr/local/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+ /usr/include/c++/4.2.1
+ /usr/include/c++/4.2.1/backward
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+ /usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
+End of search list.
+g++ -stdlib=libstdc++ -fPIC -I/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -v -arch x86_64 -c DCDTsrc/gs_string.cpp -o obj/gs_string.o
+Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
+Target: x86_64-apple-darwin13.0.0
+Thread model: posix
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.9.0 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name gs_string.cpp -mrelocation-model pic -pic-level 2 -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 224.1 -v -coverage-file "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni/obj/gs_string.o" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0 -I /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -stdlib=libstdc++ -fdeprecated-macro -fdebug-compilation-dir "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni" -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -mstackrealign -fblocks -fobjc-runtime=macosx-10.9.0 -fobjc-dispatch-method=mixed -fobjc-default-synthesize-properties -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fdiagnostics-show-option -o obj/gs_string.o -x c++ DCDTsrc/gs_string.cpp
+clang -cc1 version 5.0 based upon LLVM 3.3svn default target x86_64-apple-darwin13.0.0
+ignoring nonexistent directory "/usr/include/c++/4.2.1/i686-apple-darwin10/x86_64"
+ignoring nonexistent directory "/usr/include/c++/4.0.0"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/i686-apple-darwin8/"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/backward"
+ignoring nonexistent directory "/usr/local/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+ /usr/include/c++/4.2.1
+ /usr/include/c++/4.2.1/backward
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+ /usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
+End of search list.
+g++ -stdlib=libstdc++ -fPIC -I/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -v -arch x86_64 -c DCDTsrc/gs_tree.cpp -o obj/gs_tree.o
+Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
+Target: x86_64-apple-darwin13.0.0
+Thread model: posix
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.9.0 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name gs_tree.cpp -mrelocation-model pic -pic-level 2 -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 224.1 -v -coverage-file "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni/obj/gs_tree.o" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0 -I /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -stdlib=libstdc++ -fdeprecated-macro -fdebug-compilation-dir "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni" -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -mstackrealign -fblocks -fobjc-runtime=macosx-10.9.0 -fobjc-dispatch-method=mixed -fobjc-default-synthesize-properties -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fdiagnostics-show-option -o obj/gs_tree.o -x c++ DCDTsrc/gs_tree.cpp
+clang -cc1 version 5.0 based upon LLVM 3.3svn default target x86_64-apple-darwin13.0.0
+ignoring nonexistent directory "/usr/include/c++/4.2.1/i686-apple-darwin10/x86_64"
+ignoring nonexistent directory "/usr/include/c++/4.0.0"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/i686-apple-darwin8/"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/backward"
+ignoring nonexistent directory "/usr/local/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+ /usr/include/c++/4.2.1
+ /usr/include/c++/4.2.1/backward
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+ /usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
+End of search list.
+g++ -stdlib=libstdc++ -fPIC -I/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -v -arch x86_64 -c DCDTsrc/gs_vec2.cpp -o obj/gs_vec2.o
+Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
+Target: x86_64-apple-darwin13.0.0
+Thread model: posix
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.9.0 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name gs_vec2.cpp -mrelocation-model pic -pic-level 2 -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 224.1 -v -coverage-file "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni/obj/gs_vec2.o" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0 -I /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -stdlib=libstdc++ -fdeprecated-macro -fdebug-compilation-dir "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni" -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -mstackrealign -fblocks -fobjc-runtime=macosx-10.9.0 -fobjc-dispatch-method=mixed -fobjc-default-synthesize-properties -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fdiagnostics-show-option -o obj/gs_vec2.o -x c++ DCDTsrc/gs_vec2.cpp
+clang -cc1 version 5.0 based upon LLVM 3.3svn default target x86_64-apple-darwin13.0.0
+ignoring nonexistent directory "/usr/include/c++/4.2.1/i686-apple-darwin10/x86_64"
+ignoring nonexistent directory "/usr/include/c++/4.0.0"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/i686-apple-darwin8/"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/backward"
+ignoring nonexistent directory "/usr/local/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+ /usr/include/c++/4.2.1
+ /usr/include/c++/4.2.1/backward
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+ /usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
+End of search list.
+g++ -stdlib=libstdc++ -fPIC -I/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -v -arch x86_64 -c DCDTsrc/se_dcdt.cpp -o obj/se_dcdt.o
+Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
+Target: x86_64-apple-darwin13.0.0
+Thread model: posix
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.9.0 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name se_dcdt.cpp -mrelocation-model pic -pic-level 2 -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 224.1 -v -coverage-file "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni/obj/se_dcdt.o" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0 -I /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -stdlib=libstdc++ -fdeprecated-macro -fdebug-compilation-dir "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni" -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -mstackrealign -fblocks -fobjc-runtime=macosx-10.9.0 -fobjc-dispatch-method=mixed -fobjc-default-synthesize-properties -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fdiagnostics-show-option -o obj/se_dcdt.o -x c++ DCDTsrc/se_dcdt.cpp
+clang -cc1 version 5.0 based upon LLVM 3.3svn default target x86_64-apple-darwin13.0.0
+ignoring nonexistent directory "/usr/include/c++/4.2.1/i686-apple-darwin10/x86_64"
+ignoring nonexistent directory "/usr/include/c++/4.0.0"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/i686-apple-darwin8/"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/backward"
+ignoring nonexistent directory "/usr/local/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+ /usr/include/c++/4.2.1
+ /usr/include/c++/4.2.1/backward
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+ /usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
+End of search list.
+g++ -stdlib=libstdc++ -fPIC -I/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -v -arch x86_64 -c DCDTsrc/se_dcdt_elements.cpp -o obj/se_dcdt_elements.o
+Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
+Target: x86_64-apple-darwin13.0.0
+Thread model: posix
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.9.0 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name se_dcdt_elements.cpp -mrelocation-model pic -pic-level 2 -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 224.1 -v -coverage-file "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni/obj/se_dcdt_elements.o" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0 -I /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -stdlib=libstdc++ -fdeprecated-macro -fdebug-compilation-dir "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni" -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -mstackrealign -fblocks -fobjc-runtime=macosx-10.9.0 -fobjc-dispatch-method=mixed -fobjc-default-synthesize-properties -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fdiagnostics-show-option -o obj/se_dcdt_elements.o -x c++ DCDTsrc/se_dcdt_elements.cpp
+clang -cc1 version 5.0 based upon LLVM 3.3svn default target x86_64-apple-darwin13.0.0
+ignoring nonexistent directory "/usr/include/c++/4.2.1/i686-apple-darwin10/x86_64"
+ignoring nonexistent directory "/usr/include/c++/4.0.0"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/i686-apple-darwin8/"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/backward"
+ignoring nonexistent directory "/usr/local/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+ /usr/include/c++/4.2.1
+ /usr/include/c++/4.2.1/backward
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+ /usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
+End of search list.
+g++ -stdlib=libstdc++ -fPIC -I/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -v -arch x86_64 -c DCDTsrc/se_dcdt_manager.cpp -o obj/se_dcdt_manager.o
+Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
+Target: x86_64-apple-darwin13.0.0
+Thread model: posix
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.9.0 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name se_dcdt_manager.cpp -mrelocation-model pic -pic-level 2 -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 224.1 -v -coverage-file "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni/obj/se_dcdt_manager.o" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0 -I /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -stdlib=libstdc++ -fdeprecated-macro -fdebug-compilation-dir "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni" -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -mstackrealign -fblocks -fobjc-runtime=macosx-10.9.0 -fobjc-dispatch-method=mixed -fobjc-default-synthesize-properties -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fdiagnostics-show-option -o obj/se_dcdt_manager.o -x c++ DCDTsrc/se_dcdt_manager.cpp
+clang -cc1 version 5.0 based upon LLVM 3.3svn default target x86_64-apple-darwin13.0.0
+ignoring nonexistent directory "/usr/include/c++/4.2.1/i686-apple-darwin10/x86_64"
+ignoring nonexistent directory "/usr/include/c++/4.0.0"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/i686-apple-darwin8/"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/backward"
+ignoring nonexistent directory "/usr/local/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+ /usr/include/c++/4.2.1
+ /usr/include/c++/4.2.1/backward
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+ /usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
+End of search list.
+g++ -stdlib=libstdc++ -fPIC -I/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -v -arch x86_64 -c DCDTsrc/se_elements.cpp -o obj/se_elements.o
+Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
+Target: x86_64-apple-darwin13.0.0
+Thread model: posix
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.9.0 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name se_elements.cpp -mrelocation-model pic -pic-level 2 -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 224.1 -v -coverage-file "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni/obj/se_elements.o" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0 -I /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -stdlib=libstdc++ -fdeprecated-macro -fdebug-compilation-dir "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni" -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -mstackrealign -fblocks -fobjc-runtime=macosx-10.9.0 -fobjc-dispatch-method=mixed -fobjc-default-synthesize-properties -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fdiagnostics-show-option -o obj/se_elements.o -x c++ DCDTsrc/se_elements.cpp
+clang -cc1 version 5.0 based upon LLVM 3.3svn default target x86_64-apple-darwin13.0.0
+ignoring nonexistent directory "/usr/include/c++/4.2.1/i686-apple-darwin10/x86_64"
+ignoring nonexistent directory "/usr/include/c++/4.0.0"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/i686-apple-darwin8/"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/backward"
+ignoring nonexistent directory "/usr/local/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+ /usr/include/c++/4.2.1
+ /usr/include/c++/4.2.1/backward
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+ /usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
+End of search list.
+g++ -stdlib=libstdc++ -fPIC -I/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -v -arch x86_64 -c DCDTsrc/se_lct.cpp -o obj/se_lct.o
+Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
+Target: x86_64-apple-darwin13.0.0
+Thread model: posix
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.9.0 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name se_lct.cpp -mrelocation-model pic -pic-level 2 -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 224.1 -v -coverage-file "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni/obj/se_lct.o" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0 -I /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -stdlib=libstdc++ -fdeprecated-macro -fdebug-compilation-dir "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni" -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -mstackrealign -fblocks -fobjc-runtime=macosx-10.9.0 -fobjc-dispatch-method=mixed -fobjc-default-synthesize-properties -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fdiagnostics-show-option -o obj/se_lct.o -x c++ DCDTsrc/se_lct.cpp
+clang -cc1 version 5.0 based upon LLVM 3.3svn default target x86_64-apple-darwin13.0.0
+ignoring nonexistent directory "/usr/include/c++/4.2.1/i686-apple-darwin10/x86_64"
+ignoring nonexistent directory "/usr/include/c++/4.0.0"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/i686-apple-darwin8/"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/backward"
+ignoring nonexistent directory "/usr/local/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+ /usr/include/c++/4.2.1
+ /usr/include/c++/4.2.1/backward
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+ /usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
+End of search list.
+DCDTsrc/se_lct.cpp:463:11: warning: extra tokens at end of #endif directive [-Wextra-tokens]
+   #endif GS_USE_TRACE2
+          ^
+          //
+1 warning generated.
+g++ -stdlib=libstdc++ -fPIC -I/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -v -arch x86_64 -c DCDTsrc/se_lct_funnel.cpp -o obj/se_lct_funnel.o
+Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
+Target: x86_64-apple-darwin13.0.0
+Thread model: posix
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.9.0 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name se_lct_funnel.cpp -mrelocation-model pic -pic-level 2 -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 224.1 -v -coverage-file "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni/obj/se_lct_funnel.o" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0 -I /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -stdlib=libstdc++ -fdeprecated-macro -fdebug-compilation-dir "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni" -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -mstackrealign -fblocks -fobjc-runtime=macosx-10.9.0 -fobjc-dispatch-method=mixed -fobjc-default-synthesize-properties -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fdiagnostics-show-option -o obj/se_lct_funnel.o -x c++ DCDTsrc/se_lct_funnel.cpp
+clang -cc1 version 5.0 based upon LLVM 3.3svn default target x86_64-apple-darwin13.0.0
+ignoring nonexistent directory "/usr/include/c++/4.2.1/i686-apple-darwin10/x86_64"
+ignoring nonexistent directory "/usr/include/c++/4.0.0"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/i686-apple-darwin8/"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/backward"
+ignoring nonexistent directory "/usr/local/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+ /usr/include/c++/4.2.1
+ /usr/include/c++/4.2.1/backward
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+ /usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
+End of search list.
+g++ -stdlib=libstdc++ -fPIC -I/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -v -arch x86_64 -c DCDTsrc/se_lct_search.cpp -o obj/se_lct_search.o
+Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
+Target: x86_64-apple-darwin13.0.0
+Thread model: posix
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.9.0 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name se_lct_search.cpp -mrelocation-model pic -pic-level 2 -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 224.1 -v -coverage-file "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni/obj/se_lct_search.o" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0 -I /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -stdlib=libstdc++ -fdeprecated-macro -fdebug-compilation-dir "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni" -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -mstackrealign -fblocks -fobjc-runtime=macosx-10.9.0 -fobjc-dispatch-method=mixed -fobjc-default-synthesize-properties -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fdiagnostics-show-option -o obj/se_lct_search.o -x c++ DCDTsrc/se_lct_search.cpp
+clang -cc1 version 5.0 based upon LLVM 3.3svn default target x86_64-apple-darwin13.0.0
+ignoring nonexistent directory "/usr/include/c++/4.2.1/i686-apple-darwin10/x86_64"
+ignoring nonexistent directory "/usr/include/c++/4.0.0"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/i686-apple-darwin8/"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/backward"
+ignoring nonexistent directory "/usr/local/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+ /usr/include/c++/4.2.1
+ /usr/include/c++/4.2.1/backward
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+ /usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
+End of search list.
+g++ -stdlib=libstdc++ -fPIC -I/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -v -arch x86_64 -c DCDTsrc/se_lct_tests.cpp -o obj/se_lct_tests.o
+Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
+Target: x86_64-apple-darwin13.0.0
+Thread model: posix
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.9.0 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name se_lct_tests.cpp -mrelocation-model pic -pic-level 2 -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 224.1 -v -coverage-file "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni/obj/se_lct_tests.o" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0 -I /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -stdlib=libstdc++ -fdeprecated-macro -fdebug-compilation-dir "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni" -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -mstackrealign -fblocks -fobjc-runtime=macosx-10.9.0 -fobjc-dispatch-method=mixed -fobjc-default-synthesize-properties -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fdiagnostics-show-option -o obj/se_lct_tests.o -x c++ DCDTsrc/se_lct_tests.cpp
+clang -cc1 version 5.0 based upon LLVM 3.3svn default target x86_64-apple-darwin13.0.0
+ignoring nonexistent directory "/usr/include/c++/4.2.1/i686-apple-darwin10/x86_64"
+ignoring nonexistent directory "/usr/include/c++/4.0.0"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/i686-apple-darwin8/"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/backward"
+ignoring nonexistent directory "/usr/local/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+ /usr/include/c++/4.2.1
+ /usr/include/c++/4.2.1/backward
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+ /usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
+End of search list.
+g++ -stdlib=libstdc++ -fPIC -I/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -v -arch x86_64 -c DCDTsrc/se_mesh.cpp -o obj/se_mesh.o
+Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
+Target: x86_64-apple-darwin13.0.0
+Thread model: posix
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.9.0 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name se_mesh.cpp -mrelocation-model pic -pic-level 2 -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 224.1 -v -coverage-file "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni/obj/se_mesh.o" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0 -I /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -stdlib=libstdc++ -fdeprecated-macro -fdebug-compilation-dir "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni" -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -mstackrealign -fblocks -fobjc-runtime=macosx-10.9.0 -fobjc-dispatch-method=mixed -fobjc-default-synthesize-properties -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fdiagnostics-show-option -o obj/se_mesh.o -x c++ DCDTsrc/se_mesh.cpp
+clang -cc1 version 5.0 based upon LLVM 3.3svn default target x86_64-apple-darwin13.0.0
+ignoring nonexistent directory "/usr/include/c++/4.2.1/i686-apple-darwin10/x86_64"
+ignoring nonexistent directory "/usr/include/c++/4.0.0"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/i686-apple-darwin8/"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/backward"
+ignoring nonexistent directory "/usr/local/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+ /usr/include/c++/4.2.1
+ /usr/include/c++/4.2.1/backward
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+ /usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
+End of search list.
+g++ -stdlib=libstdc++ -fPIC -I/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -v -arch x86_64 -c DCDTsrc/se_mesh_import.cpp -o obj/se_mesh_import.o
+Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
+Target: x86_64-apple-darwin13.0.0
+Thread model: posix
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.9.0 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name se_mesh_import.cpp -mrelocation-model pic -pic-level 2 -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 224.1 -v -coverage-file "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni/obj/se_mesh_import.o" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0 -I /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -stdlib=libstdc++ -fdeprecated-macro -fdebug-compilation-dir "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni" -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -mstackrealign -fblocks -fobjc-runtime=macosx-10.9.0 -fobjc-dispatch-method=mixed -fobjc-default-synthesize-properties -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fdiagnostics-show-option -o obj/se_mesh_import.o -x c++ DCDTsrc/se_mesh_import.cpp
+clang -cc1 version 5.0 based upon LLVM 3.3svn default target x86_64-apple-darwin13.0.0
+ignoring nonexistent directory "/usr/include/c++/4.2.1/i686-apple-darwin10/x86_64"
+ignoring nonexistent directory "/usr/include/c++/4.0.0"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/i686-apple-darwin8/"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/backward"
+ignoring nonexistent directory "/usr/local/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+ /usr/include/c++/4.2.1
+ /usr/include/c++/4.2.1/backward
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+ /usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
+End of search list.
+g++ -stdlib=libstdc++ -fPIC -I/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -v -arch x86_64 -c DCDTsrc/se_mesh_io.cpp -o obj/se_mesh_io.o
+Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
+Target: x86_64-apple-darwin13.0.0
+Thread model: posix
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.9.0 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name se_mesh_io.cpp -mrelocation-model pic -pic-level 2 -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 224.1 -v -coverage-file "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni/obj/se_mesh_io.o" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0 -I /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -stdlib=libstdc++ -fdeprecated-macro -fdebug-compilation-dir "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni" -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -mstackrealign -fblocks -fobjc-runtime=macosx-10.9.0 -fobjc-dispatch-method=mixed -fobjc-default-synthesize-properties -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fdiagnostics-show-option -o obj/se_mesh_io.o -x c++ DCDTsrc/se_mesh_io.cpp
+clang -cc1 version 5.0 based upon LLVM 3.3svn default target x86_64-apple-darwin13.0.0
+ignoring nonexistent directory "/usr/include/c++/4.2.1/i686-apple-darwin10/x86_64"
+ignoring nonexistent directory "/usr/include/c++/4.0.0"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/i686-apple-darwin8/"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/backward"
+ignoring nonexistent directory "/usr/local/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+ /usr/include/c++/4.2.1
+ /usr/include/c++/4.2.1/backward
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+ /usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
+End of search list.
+DCDTsrc/se_mesh_io.cpp:72:24: warning: cast to 'SeElement *' from smaller integer type 'int' [-Wint-to-pointer-cast]
+           se->_edge = (SeEdge*)i; // and use it to keep indices
+                       ^
+DCDTsrc/se_mesh_io.cpp:155:23: warning: cast to 'SeBase *' from smaller integer type 'int' [-Wint-to-pointer-cast]
+      S[i]->_next   = (SeBase*)inp.getl();
+                      ^
+DCDTsrc/se_mesh_io.cpp:156:23: warning: cast to 'SeBase *' from smaller integer type 'int' [-Wint-to-pointer-cast]
+      S[i]->_rotate = (SeBase*)inp.getl();
+                      ^
+DCDTsrc/se_mesh_io.cpp:157:23: warning: cast to 'SeElement *' from smaller integer type 'int' [-Wint-to-pointer-cast]
+      S[i]->_vertex = (SeVertex*)inp.getl();
+                      ^
+DCDTsrc/se_mesh_io.cpp:158:23: warning: cast to 'SeElement *' from smaller integer type 'int' [-Wint-to-pointer-cast]
+      S[i]->_edge   = (SeEdge*)inp.getl();
+                      ^
+DCDTsrc/se_mesh_io.cpp:159:23: warning: cast to 'SeElement *' from smaller integer type 'int' [-Wint-to-pointer-cast]
+      S[i]->_face   = (SeFace*)inp.getl();
+                      ^
+6 warnings generated.
+g++ -stdlib=libstdc++ -fPIC -I/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -v -arch x86_64 -c DCDTsrc/se_mesh_operators.cpp -o obj/se_mesh_operators.o
+Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
+Target: x86_64-apple-darwin13.0.0
+Thread model: posix
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.9.0 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name se_mesh_operators.cpp -mrelocation-model pic -pic-level 2 -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 224.1 -v -coverage-file "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni/obj/se_mesh_operators.o" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0 -I /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -stdlib=libstdc++ -fdeprecated-macro -fdebug-compilation-dir "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni" -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -mstackrealign -fblocks -fobjc-runtime=macosx-10.9.0 -fobjc-dispatch-method=mixed -fobjc-default-synthesize-properties -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fdiagnostics-show-option -o obj/se_mesh_operators.o -x c++ DCDTsrc/se_mesh_operators.cpp
+clang -cc1 version 5.0 based upon LLVM 3.3svn default target x86_64-apple-darwin13.0.0
+ignoring nonexistent directory "/usr/include/c++/4.2.1/i686-apple-darwin10/x86_64"
+ignoring nonexistent directory "/usr/include/c++/4.0.0"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/i686-apple-darwin8/"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/backward"
+ignoring nonexistent directory "/usr/local/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+ /usr/include/c++/4.2.1
+ /usr/include/c++/4.2.1/backward
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+ /usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
+End of search list.
+g++ -stdlib=libstdc++ -fPIC -I/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -v -arch x86_64 -c DCDTsrc/se_triangulator.cpp -o obj/se_triangulator.o
+Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
+Target: x86_64-apple-darwin13.0.0
+Thread model: posix
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.9.0 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name se_triangulator.cpp -mrelocation-model pic -pic-level 2 -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 224.1 -v -coverage-file "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni/obj/se_triangulator.o" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0 -I /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -stdlib=libstdc++ -fdeprecated-macro -fdebug-compilation-dir "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni" -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -mstackrealign -fblocks -fobjc-runtime=macosx-10.9.0 -fobjc-dispatch-method=mixed -fobjc-default-synthesize-properties -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fdiagnostics-show-option -o obj/se_triangulator.o -x c++ DCDTsrc/se_triangulator.cpp
+clang -cc1 version 5.0 based upon LLVM 3.3svn default target x86_64-apple-darwin13.0.0
+ignoring nonexistent directory "/usr/include/c++/4.2.1/i686-apple-darwin10/x86_64"
+ignoring nonexistent directory "/usr/include/c++/4.0.0"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/i686-apple-darwin8/"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/backward"
+ignoring nonexistent directory "/usr/local/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+ /usr/include/c++/4.2.1
+ /usr/include/c++/4.2.1/backward
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+ /usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
+End of search list.
+g++ -stdlib=libstdc++ -fPIC -I/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -v -arch x86_64 -c DCDTsrc/se_triangulator_manager.cpp -o obj/se_triangulator_manager.o
+Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
+Target: x86_64-apple-darwin13.0.0
+Thread model: posix
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.9.0 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name se_triangulator_manager.cpp -mrelocation-model pic -pic-level 2 -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 224.1 -v -coverage-file "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni/obj/se_triangulator_manager.o" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0 -I /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -stdlib=libstdc++ -fdeprecated-macro -fdebug-compilation-dir "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni" -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -mstackrealign -fblocks -fobjc-runtime=macosx-10.9.0 -fobjc-dispatch-method=mixed -fobjc-default-synthesize-properties -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fdiagnostics-show-option -o obj/se_triangulator_manager.o -x c++ DCDTsrc/se_triangulator_manager.cpp
+clang -cc1 version 5.0 based upon LLVM 3.3svn default target x86_64-apple-darwin13.0.0
+ignoring nonexistent directory "/usr/include/c++/4.2.1/i686-apple-darwin10/x86_64"
+ignoring nonexistent directory "/usr/include/c++/4.0.0"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/i686-apple-darwin8/"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/backward"
+ignoring nonexistent directory "/usr/local/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+ /usr/include/c++/4.2.1
+ /usr/include/c++/4.2.1/backward
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+ /usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
+End of search list.
+g++ -stdlib=libstdc++ -fPIC -I/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -v -arch x86_64 -c DCDTsrc/se_triangulator_search.cpp -o obj/se_triangulator_search.o
+Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
+Target: x86_64-apple-darwin13.0.0
+Thread model: posix
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.9.0 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name se_triangulator_search.cpp -mrelocation-model pic -pic-level 2 -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 224.1 -v -coverage-file "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni/obj/se_triangulator_search.o" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0 -I /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -stdlib=libstdc++ -fdeprecated-macro -fdebug-compilation-dir "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni" -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -mstackrealign -fblocks -fobjc-runtime=macosx-10.9.0 -fobjc-dispatch-method=mixed -fobjc-default-synthesize-properties -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fdiagnostics-show-option -o obj/se_triangulator_search.o -x c++ DCDTsrc/se_triangulator_search.cpp
+clang -cc1 version 5.0 based upon LLVM 3.3svn default target x86_64-apple-darwin13.0.0
+ignoring nonexistent directory "/usr/include/c++/4.2.1/i686-apple-darwin10/x86_64"
+ignoring nonexistent directory "/usr/include/c++/4.0.0"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/i686-apple-darwin8/"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/backward"
+ignoring nonexistent directory "/usr/local/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+ /usr/include/c++/4.2.1
+ /usr/include/c++/4.2.1/backward
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+ /usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
+End of search list.
+g++ -stdlib=libstdc++ -fPIC -I/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -v -arch x86_64 -c DCDTsrc/se_triangulator_tools.cpp -o obj/se_triangulator_tools.o
+Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
+Target: x86_64-apple-darwin13.0.0
+Thread model: posix
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.9.0 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name se_triangulator_tools.cpp -mrelocation-model pic -pic-level 2 -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 224.1 -v -coverage-file "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni/obj/se_triangulator_tools.o" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0 -I /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -stdlib=libstdc++ -fdeprecated-macro -fdebug-compilation-dir "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni" -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -mstackrealign -fblocks -fobjc-runtime=macosx-10.9.0 -fobjc-dispatch-method=mixed -fobjc-default-synthesize-properties -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fdiagnostics-show-option -o obj/se_triangulator_tools.o -x c++ DCDTsrc/se_triangulator_tools.cpp
+clang -cc1 version 5.0 based upon LLVM 3.3svn default target x86_64-apple-darwin13.0.0
+ignoring nonexistent directory "/usr/include/c++/4.2.1/i686-apple-darwin10/x86_64"
+ignoring nonexistent directory "/usr/include/c++/4.0.0"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/i686-apple-darwin8/"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/backward"
+ignoring nonexistent directory "/usr/local/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+ /usr/include/c++/4.2.1
+ /usr/include/c++/4.2.1/backward
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+ /usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
+End of search list.
+g++ -stdlib=libstdc++ -fPIC -I/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -v -arch x86_64 -c DCDTWrapper.cpp -o obj/DCDTWrapper.o
+Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
+Target: x86_64-apple-darwin13.0.0
+Thread model: posix
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.9.0 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name DCDTWrapper.cpp -mrelocation-model pic -pic-level 2 -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 224.1 -v -coverage-file "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni/obj/DCDTWrapper.o" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0 -I /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -stdlib=libstdc++ -fdeprecated-macro -fdebug-compilation-dir "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni" -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -mstackrealign -fblocks -fobjc-runtime=macosx-10.9.0 -fobjc-dispatch-method=mixed -fobjc-default-synthesize-properties -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fdiagnostics-show-option -o obj/DCDTWrapper.o -x c++ DCDTWrapper.cpp
+clang -cc1 version 5.0 based upon LLVM 3.3svn default target x86_64-apple-darwin13.0.0
+ignoring nonexistent directory "/usr/include/c++/4.2.1/i686-apple-darwin10/x86_64"
+ignoring nonexistent directory "/usr/include/c++/4.0.0"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/i686-apple-darwin8/"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/backward"
+ignoring nonexistent directory "/usr/local/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+ /usr/include/c++/4.2.1
+ /usr/include/c++/4.2.1/backward
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+ /usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
+End of search list.
+g++ -stdlib=libstdc++ -fPIC -I/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -v -arch x86_64 -c HPAProgram.cpp -o obj/HPAProgram.o
+Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
+Target: x86_64-apple-darwin13.0.0
+Thread model: posix
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.9.0 -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name HPAProgram.cpp -mrelocation-model pic -pic-level 2 -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 224.1 -v -coverage-file "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni/obj/HPAProgram.o" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0 -I /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -stdlib=libstdc++ -fdeprecated-macro -fdebug-compilation-dir "/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/HPA* Program/jni" -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -mstackrealign -fblocks -fobjc-runtime=macosx-10.9.0 -fobjc-dispatch-method=mixed -fobjc-default-synthesize-properties -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fdiagnostics-show-option -o obj/HPAProgram.o -x c++ HPAProgram.cpp
+clang -cc1 version 5.0 based upon LLVM 3.3svn default target x86_64-apple-darwin13.0.0
+ignoring nonexistent directory "/usr/include/c++/4.2.1/i686-apple-darwin10/x86_64"
+ignoring nonexistent directory "/usr/include/c++/4.0.0"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/i686-apple-darwin8/"
+ignoring nonexistent directory "/usr/include/c++/4.0.0/backward"
+ignoring nonexistent directory "/usr/local/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
+ /usr/include/c++/4.2.1
+ /usr/include/c++/4.2.1/backward
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/5.0/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+ /usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
+End of search list.
+libtool -dynamic -lSystem obj/gs.o obj/gs_array.o obj/gs_geo2.o obj/gs_input.o obj/gs_output.o obj/gs_polygon.o obj/gs_set.o obj/gs_string.o obj/gs_tree.o obj/gs_vec2.o obj/se_dcdt.o obj/se_dcdt_elements.o obj/se_dcdt_manager.o obj/se_elements.o obj/se_lct.o obj/se_lct_funnel.o obj/se_lct_search.o obj/se_lct_tests.o obj/se_mesh.o obj/se_mesh_import.o obj/se_mesh_io.o obj/se_mesh_operators.o obj/se_triangulator.o obj/se_triangulator_manager.o obj/se_triangulator_search.o obj/se_triangulator_tools.o obj/DCDTWrapper.o obj/HPAProgram.o -o libhpaprogram.dylib
+ld: warning: -macosx_version_min not specified, assuming 10.8
+Undefined symbols for architecture x86_64:
+  "__Z9gs_randomff", referenced from:
+      __ZNK9GsPolygon6sampleEc in gs_polygon.o
+  "__ZSt9terminatev", referenced from:
+      ___clang_call_terminate in gs_input.o
+      ___clang_call_terminate in gs_polygon.o
+      ___clang_call_terminate in gs_string.o
+      ___clang_call_terminate in se_dcdt.o
+      ___clang_call_terminate in se_lct.o
+      ___clang_call_terminate in se_lct_funnel.o
+      ___clang_call_terminate in se_lct_search.o
+      ...
+  "__ZTVN10__cxxabiv117__class_type_infoE", referenced from:
+      __ZTI8GsShared in se_dcdt.o
+      __ZTI8GsShared in se_mesh.o
+      __ZTI12SeMeshImport in se_mesh_import.o
+      __ZTI8GsShared in se_mesh_import.o
+      __ZTI8GsShared in se_triangulator.o
+      __ZTI8GsShared in se_triangulator_manager.o
+  NOTE: a missing vtable usually means the first non-inline virtual member function has no definition.
+  "__ZTVN10__cxxabiv120__si_class_type_infoE", referenced from:
+      __ZTI6SeDcdt in se_dcdt.o
+      __ZTI6SeMeshI12SeDcdtVertex10SeDcdtEdge10SeDcdtFaceE in se_dcdt.o
+      __ZTI13GsManagerBase in se_dcdt.o
+      __ZTI9GsManagerI10SeDcdtFaceE in se_dcdt.o
+      __ZTI9GsManagerI10SeDcdtEdgeE in se_dcdt.o
+      __ZTI9GsManagerI12SeDcdtVertexE in se_dcdt.o
+      __ZTI13SeDcdtManager in se_dcdt_manager.o
+      ...
+  NOTE: a missing vtable usually means the first non-inline virtual member function has no definition.
+  "__ZdaPv", referenced from:
+      __Z16gs_string_deleteRPc in gs.o
+      __Z13gs_string_setRPcPKc in gs.o
+      __Z15gs_string_renewRPci in gs.o
+      __Z16gs_string_appendRPcPKc in gs.o
+  "__ZdlPv", referenced from:
+      __ZN7GsInputD2Ev in gs_input.o
+      __ZN7GsInput8readcharEv in gs_input.o
+      __ZN7GsInput5ungetEc in gs_input.o
+      __ZNK7GsInput6ltokenEv in gs_input.o
+      __ZNK7GsInput5ltypeEv in gs_input.o
+      __ZN6SeDcdtC2Ed in se_dcdt.o
+      __ZN6SeDcdtD0Ev in se_dcdt.o
+      ...
+  "__Znam", referenced from:
+      __Z13gs_string_newPKc in gs.o
+      __Z13gs_string_setRPcPKc in gs.o
+      __Z15gs_string_renewRPci in gs.o
+      __ZN8GsString7abandonERPc in gs_string.o
+  "__Znwm", referenced from:
+      __ZN7GsInput8readcharEv in gs_input.o
+      __ZN7GsInput5ungetEc in gs_input.o
+      __ZNK7GsInput6ltokenEv in gs_input.o
+      __ZNK7GsInput5ltypeEv in gs_input.o
+      __ZN6SeDcdtC2Ed in se_dcdt.o
+      __ZN5GsSetIN6SeDcdt6InsPolEE6insertEv in se_dcdt.o
+      __ZN6SeMeshI12SeDcdtVertex10SeDcdtEdge10SeDcdtFaceEC2Ev in se_dcdt.o
+      ...
+  "___cxa_begin_catch", referenced from:
+      ___clang_call_terminate in gs_input.o
+      ___clang_call_terminate in gs_polygon.o
+      ___clang_call_terminate in gs_string.o
+      ___clang_call_terminate in se_dcdt.o
+      ___clang_call_terminate in se_lct.o
+      ___clang_call_terminate in se_lct_funnel.o
+      ___clang_call_terminate in se_lct_search.o
+      ...
+  "___cxa_pure_virtual", referenced from:
+      __ZTV13GsManagerBase in se_dcdt.o
+      __ZTV12SeMeshImport in se_mesh_import.o
+      __ZTV13GsManagerBase in se_mesh_import.o
+      __ZTV21SeTriangulatorManager in se_triangulator_manager.o
+  "___gxx_personality_v0", referenced from:
+      __ZN7GsInputD2Ev in gs_input.o
+      __ZN7GsInput8readcharEv in gs_input.o
+      __ZN7GsInput5ungetEc in gs_input.o
+      __ZNK7GsInput6ltokenEv in gs_input.o
+      __ZNK7GsInput5ltypeEv in gs_input.o
+      __ZN7GsInput4DataC2Ev in gs_input.o
+      __ZN7GsInput4DataD2Ev in gs_input.o
+      ...
+ld: symbol(s) not found for architecture x86_64
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool: internal link edit command failed
+make: *** [libhpaprogram.dylib] Error 1
