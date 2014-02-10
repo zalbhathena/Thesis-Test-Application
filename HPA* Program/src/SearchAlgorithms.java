@@ -7,6 +7,14 @@ import java.util.Map;
 
 
 public class SearchAlgorithms {
+	static {
+		System.loadLibrary("HPAProgram");
+	}
+	
+	HPAProgram triangulation_library = new HPAProgram();
+	
+	private native double[] getTriangulation(double[] f);
+	
 	public static ArrayList<Point> AStar(SearchSpaceManager manager, 
 			Map<SearchSpaceNode, Map<SearchSpaceNode,Double>> cost_function,
 			Point start_point,Point goal_point, SearchSpaceNode start, SearchSpaceNode goal, boolean cluster) {
