@@ -1,8 +1,8 @@
 SRC=DCDTsrc
 TGT=obj
-INCLUDES=-IDCDTsrc DCDTWrapper.h HPAProgram.h
-FLAGS=-stdlib=libstdc++ -std=c++0x -D GS_USE_TRACE2 -D GS_SYSTEM_RAND_LIBS -lm -fPIC -I/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -v
-SOURCES=$(wildcard $(SRC)/*.cpp) DCDTWrapper.cpp HPAProgram.cpp
+INCLUDES=-IDCDTsrc DCDTWrapper.h SearchAlgorithms.h
+FLAGS=-stdlib=libstdc++ -std=c++0x -D GS_SYSTEM_RAND_LIBS -lm -fPIC -I/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers/ -v
+SOURCES=$(wildcard $(SRC)/*.cpp) DCDTWrapper.cpp SearchAlgorithms.cpp
 OBJS=$(addprefix $(TGT)/, $(notdir $(SOURCES:.cpp=.o)))
 CC=g++
 
@@ -20,28 +20,28 @@ $(TGT)/%.o: %.cpp
 	$(CC) $(FLAGS) -c $< -o $@
 
 # $@ matches the target, $< matches the first dependancy
-libhpaprogram.dylib: $(OBJS)
-	libtool -lc -lstdc++ -ldl -macosx_version_min 10.9 -lm -dynamic -lSystem $(OBJS) -o libhpaprogram.dylib
+libsearchalgorithms.dylib: $(OBJS)
+	libtool -lc -lstdc++ -ldl -macosx_version_min 10.9 -lm -dynamic -lSystem $(OBJS) -o libsearchalgorithms.dylib
 	
 
 	
-HPAProgram.h : HPAProgram.class
+SearchAlgorithms.h : SearchAlgorithms.class
 	javah -classpath $(CLASS_PATH) $*
 	
 clean:
 	rm -rf $(TGT)
 	mkdir $(TGT)
-	if [ -a HPAProgram.h ] ; \
+	if [ -a SearchAlgorithms.h ] ; \
 	then \
-		rm HPAProgram.h ; \
+		rm SearchAlgorithms.h ; \
 	fi;
-	if [ -a libhpaprogram.o ] ; \
+	if [ -a libsearchalgorithms.o ] ; \
 	then \
-		rm libhpaprogram.o ; \
+		rm libsearchalgorithms.o ; \
 	fi;
-	if [ -a libhpaprogram.dylib ] ; \
+	if [ -a libsearchalgorithms.dylib ] ; \
 	then \
-		rm libhpaprogram.dylib ; \
+		rm libsearchalgorithms.dylib ; \
 	fi;
 	
-all:clean HPAProgram.h libhpaprogram.dylib
+all:clean SearchAlgorithms.h libsearchalgorithms.dylib

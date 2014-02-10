@@ -7,28 +7,27 @@
 
 //=#include <jni.h>
 #include <stdio.h>
-#include "HPAProgram.h"
+#include "SearchAlgorithms.h"
 #include "DCDTWrapper.h"
 
 
-JNIEXPORT jdoubleArray JNICALL Java_HPAProgram_getTriangulation (JNIEnv *env, jobject obj,
+JNIEXPORT jdoubleArray JNICALL Java_SearchAlgorithms_getTriangulation (JNIEnv *env, jobject obj,
 		jdoubleArray doubleArray) {
 
 	printf("Hello World!\n");
 
 	int input_size = (int)(env->GetArrayLength(doubleArray));
-	printf("1\n");
+
 	jdouble *doubleptr = env->GetDoubleArrayElements(doubleArray, NULL);
 	double input[input_size];
-	printf("2\n");
+
 	for(int i = 0; i < input_size; i++) {
 		input[i] = (double)doubleptr[i];
-		printf("%i\n",input[i]);
 	}
-	printf("3\n");
+
 	GsArray<GsPnt2> edges;
 	create_dcdt(input, &edges);
-	printf("1\n");
+
 
 	jclass arraylist_class = (*env).FindClass("java/util/ArrayList");
 	jclass point_class = (*env).FindClass("java/awt/Point");
@@ -43,10 +42,10 @@ JNIEXPORT jdoubleArray JNICALL Java_HPAProgram_getTriangulation (JNIEnv *env, jo
 	   double x1 = edge.x;
 	   double y1 = edge.y;
    	   //jobject point_obj = (*env).NewObject(point_class, init_point,x,y);
-   	   printf("4\n");
+
    	   point_list[n*2 + 0] = x1;
    	   point_list[n*2 + 1] = y1;
-   	   printf("5\n");
+
    }
    (env)->SetDoubleArrayRegion(result, 0, size, point_list);
    env->ReleaseDoubleArrayElements(doubleArray, doubleptr, NULL);

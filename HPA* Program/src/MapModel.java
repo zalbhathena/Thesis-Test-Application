@@ -161,7 +161,11 @@ public class MapModel implements ActionListener{
 		if(agent_diameter > start_diameter)
 			return;
 		
-		if(algorithm.equals("A*")) {
+		if(/*algorithm.equals("TA*")*/true) {
+			search_space_manager = new TriangulationSpaceManager(obstacle_list, width, height);
+			this.current_algorithm = "TA*";
+		}
+		/*if(algorithm.equals("A*")) {
 			search_space_manager = new GridSpaceManager(obstacle_list, width, height);
 			this.current_algorithm = "A*";
 			
@@ -170,16 +174,17 @@ public class MapModel implements ActionListener{
 			int cluster_width = 20,cluster_height = 20;
 			search_space_manager = new HPAStarSpaceManager(obstacle_list, width, height, cluster_width, cluster_height);
 			this.current_algorithm = "HPA*";
-		}
+		}*/
 		if(subgoal_list == null) {
 			this.current_algorithm = "NONE";
 		}
 		
-		agent = new Agent(agent_diameter/2, agent_diameter/2, agent_diameter);
-		path_updater = search_space_manager.getPath(start_point, goal_point);
-		path_updater.startPathfinding();
-		subgoal_list = new ArrayList<Point>();
-		startAnimation(agent_diameter, animate);
+		//agent = new Agent(agent_diameter/2, agent_diameter/2, agent_diameter);
+		//path_updater = search_space_manager.getPath(start_point, goal_point);
+		//path_updater.startPathfinding();
+		//subgoal_list = new ArrayList<Point>();
+		//startAnimation(agent_diameter, animate);
+		updateMapModel();
 	}
 	
 	public void endPathfinding() {

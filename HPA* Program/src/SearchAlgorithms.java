@@ -1,6 +1,8 @@
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.Map;
@@ -8,12 +10,82 @@ import java.util.Map;
 
 public class SearchAlgorithms {
 	static {
-		System.loadLibrary("HPAProgram");
+		System.loadLibrary("SearchAlgorithms");
 	}
 	
-	HPAProgram triangulation_library = new HPAProgram();
+	final static double END = -12345.6;
+	
+	static double Example1[] =
+	       { 0, 0, 20, 0, 20, 20, 0, 20, END,
+	           1, 1, 7, 3, 3, 8, END,
+	         END };
+	
+	static SearchAlgorithms triangulation_library = new SearchAlgorithms();
 	
 	private native double[] getTriangulation(double[] f);
+	
+	public static Set<SearchSpaceNode> getTriangulation(Rectangle boundary,ArrayList<Obstacle> obstacle_list) {
+		double obstacle_boundaries[] = new double[obstacle_list.size()*9 + 9 + 1];
+		//9 doubles for each obstacle (4 points and END)
+		//plus the boundary rectangle and the final END 
+		
+		System.out.println(boundary);
+		
+		int min_x = boundary.x;
+		int max_x = boundary.x + boundary.width;
+		int min_y = boundary.y;
+		int max_y = boundary.y + boundary.height;
+		
+		obstacle_boundaries[0] = min_x;
+		obstacle_boundaries[1] = min_y;
+		obstacle_boundaries[2] = max_x;
+		obstacle_boundaries[3] = min_y;
+		obstacle_boundaries[4] = max_x;
+		obstacle_boundaries[5] = max_y;
+		obstacle_boundaries[6] = min_x;
+		obstacle_boundaries[7] = max_y;
+		
+		obstacle_boundaries[8] = END;
+		
+		for(int i = 0; i < obstacle_list.size(); i++) {
+			Obstacle o = obstacle_list.get(i);
+			obstacle_boundaries[(i+1) * 9 + 0] = o.x;
+			obstacle_boundaries[(i+1) * 9 + 1] = o.y;
+			obstacle_boundaries[(i+1) * 9 + 2] = o.x + o.width;
+			obstacle_boundaries[(i+1) * 9 + 3] = o.y;
+			obstacle_boundaries[(i+1) * 9 + 4] = o.x + o.width;
+			obstacle_boundaries[(i+1) * 9 + 5] = o.y + o.height;
+			obstacle_boundaries[(i+1) * 9 + 6] = o.x;
+			obstacle_boundaries[(i+1) * 9 + 7] = o.y + o.height;
+			
+			obstacle_boundaries[(i+1) * 9 + 8] = END;
+		}
+		obstacle_boundaries[obstacle_boundaries.length - 1] = END;
+		
+		double[] edge_list = triangulation_library.getTriangulation(obstacle_boundaries);
+		
+		Set <SearchSpaceNode> triangulations = new HashSet<SearchSpaceNode>();
+		
+		int num_edges = edge_list.length;
+		for(int i = 0; i < num_edges; i+=4) {
+			int x1 = (int)edge_list[i + 0];
+			int y1 = (int)edge_list[i + 1];
+			int x2 = (int)edge_list[i + 2];
+			int y2 = (int)edge_list[i + 3];
+			if(x1<min_x || x1>max_x)
+				continue;
+			if(x2<min_x || x2>max_x)
+				continue;
+			if(y1<min_y || y1>max_y)
+				continue;
+			if(y2<min_y || y2>max_y)
+				continue;
+			Point[] point_list = {new Point(x1,y1), new Point(x2,y2)};
+			triangulations.add(new SearchSpaceNode(point_list));
+		}
+		
+		return triangulations;
+	}
 	
 	public static ArrayList<Point> AStar(SearchSpaceManager manager, 
 			Map<SearchSpaceNode, Map<SearchSpaceNode,Double>> cost_function,
