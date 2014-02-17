@@ -50,7 +50,22 @@ public class SearchAlgorithms {
 		
 		obstacle_boundaries[8] = END;
 		
+		int key_mult = Math.max(boundary.width,boundary.height)*FACTOR;
+		
+		Map<Integer,SearchSpaceNode> triangulations = new HashMap<Integer,SearchSpaceNode>();
+		int border_top_left_key = key_mult*min_x + min_y;
+		int border_top_right_key = key_mult*max_x + min_y;
+		int border_bottom_right_key = key_mult*max_x + max_y;
+		int border_bottom_left_key = key_mult*min_x + max_y;
+		triangulations.put(border_top_left_key,new SearchSpaceNode(min_x/FACTOR,min_y/FACTOR));
+		triangulations.put(border_top_right_key,new SearchSpaceNode(max_x/FACTOR,min_y/FACTOR));
+		triangulations.put(border_bottom_right_key,new SearchSpaceNode(max_x/FACTOR,max_y/FACTOR));
+		triangulations.put(border_bottom_left_key,new SearchSpaceNode(min_x/FACTOR,max_y/FACTOR));
+		
 		ArrayList<Rectangle> removeList = new ArrayList<Rectangle>();
+		
+		
+		//ArrayList<Rectangle> removeList = new ArrayList<Rectangle>();
 		for(int i = 0; i < obstacle_list.size(); i++) {
 			Obstacle o = obstacle_list.get(i);
 			
@@ -63,7 +78,8 @@ public class SearchAlgorithms {
 			int inner_y = o_y + 1;
 			int inner_width = o_width - 2;
 			int inner_height = o_height - 2;
-			removeList.add(new Rectangle(inner_x,inner_y,inner_width,inner_height));
+			
+			//removeList.add(new Rectangle(inner_x,inner_y,inner_width,inner_height));
 			
 			obstacle_boundaries[(i) * 18 + 9 + 0] = o_x;
 			obstacle_boundaries[(i) * 18 + 9 + 1] = o_y;
@@ -86,24 +102,30 @@ public class SearchAlgorithms {
 			obstacle_boundaries[(i) * 18 + 9 + 16] = inner_y + inner_height;
 			
 			obstacle_boundaries[(i) * 18 + 9 + 17] = END;
+			
+			int top_left_key = key_mult*o_x + o_y;
+			int top_right_key = key_mult*(o_x+o_width) + o_y;
+			int bottom_right_key = key_mult*(o_x+o_width) + o_y + o_height;
+			int bottom_left_key = key_mult*o_x + o_y+o_height;
+			
+			if(!triangulations.containsKey(top_left_key))
+				triangulations.put(top_left_key, new SearchSpaceNode(o_x/FACTOR,o_y/FACTOR));
+			if(!triangulations.containsKey(top_right_key))
+				triangulations.put(top_right_key, new SearchSpaceNode((o_x+o_width)/FACTOR,o_y/FACTOR));
+			if(!triangulations.containsKey(bottom_right_key))
+				triangulations.put(bottom_right_key, new SearchSpaceNode((o_x+o_width)/FACTOR,(o_y+o_height)/FACTOR));
+			if(!triangulations.containsKey(bottom_left_key))
+				triangulations.put(bottom_left_key, new SearchSpaceNode(o_x/FACTOR,(o_y+o_height)/FACTOR));
 		}
+		
 		obstacle_boundaries[obstacle_boundaries.length - 1] = END;
 		
 		double[] edge_list = triangulation_library.getTriangulation(obstacle_boundaries);
 		
-		//Set <SearchSpaceNode> triangulations = new HashSet<SearchSpaceNode>();
+		
 		
 		int num_edges = edge_list.length;
 		
-		int key_mult = Math.max(boundary.width,boundary.height)*FACTOR;
-		
-		
-		boolean top_edge = true;
-		boolean bottom_edge = true;
-		boolean left_edge = true;
-		boolean right_edge = true;
-		
-		Map<Integer,SearchSpaceNode> triangulations = new HashMap<Integer,SearchSpaceNode>();
 		for(int i = 0; i < num_edges; i+=4) {
 			int x1 = (int)edge_list[i + 0];
 			int y1 = (int)edge_list[i + 1];
@@ -120,15 +142,13 @@ public class SearchAlgorithms {
 			
 			int key1 = key_mult*x1 + y1;
 			int key2 = key_mult*x2 + y2;
-			if(!triangulations.containsKey(key1)) {
-				triangulations.put(key1, new SearchSpaceNode(x1/FACTOR,y1/FACTOR));
-			}
-			if(!triangulations.containsKey(key2)) {
-				triangulations.put(key2, new SearchSpaceNode(x2/FACTOR,y2/FACTOR));
-			}
+			
+			if(!triangulations.containsKey(key1) || !triangulations.containsKey(key2))
+				continue;
+			
 			SearchSpaceNode n1 = triangulations.get(key1);
 			SearchSpaceNode n2 = triangulations.get(key2);
-			if(x1 == min_x && x2 == min_x && Math.abs(y2 - y1) != boundary_height) {
+			/*if(x1 == min_x && x2 == min_x && Math.abs(y2 - y1) != boundary_height) {
 				left_edge = false;
 				continue;
 			}
@@ -143,12 +163,12 @@ public class SearchAlgorithms {
 			if(y1 == max_y && y2 == max_y && Math.abs(x2 - x1) != boundary_width) {
 				bottom_edge = false;
 				continue;
-			}
+			}*/
 			n1.addNeighbor(n2);
 			n2.addNeighbor(n1);
 		}
 		
-		if(left_edge) {
+		/*if(left_edge) {
 			int key1 = key_mult * min_x + min_y;
 			int key2 = key_mult * min_x + max_y;
 			SearchSpaceNode n1 = triangulations.get(key1);
@@ -179,10 +199,10 @@ public class SearchAlgorithms {
 			SearchSpaceNode n2 = triangulations.get(key2);
 			n1.addNeighbor(n2);
 			n2.addNeighbor(n1);
-		}
+		}*/
 			
 		
-		for(Rectangle r:removeList) {
+		/*for(Rectangle r:removeList) {
 			int top_left_key = key_mult*r.x + r.y;
 			int top_right_key = key_mult*(r.x+r.width) + r.y;
 			int bottom_right_key = key_mult*(r.x+r.width) + r.y + r.height;
@@ -202,7 +222,7 @@ public class SearchAlgorithms {
 			triangulations.remove(top_right_key);
 			triangulations.remove(bottom_left_key);
 			triangulations.remove(bottom_right_key);
-		}
+		}*/
 		
 		Set<SearchSpaceNode>set = new HashSet<SearchSpaceNode>();
 		for(int key:triangulations.keySet())
@@ -326,5 +346,27 @@ class SearchNodeQueue{
 		public int compareTo(AStarNode o) {
 			return Double.compare(f_value, o.f_value);
 		}
+	}
+	private class RectilinearEdge implements Comparable<RectilinearEdge> {
+		int x;
+		int y;
+		boolean isHorizontal;
+		int length;
+		int keyMult;
+		public RectilinearEdge(int x, int y, boolean isHorizontal, int length, int keyMult) {
+			this.x = x;
+			this.y = y;
+			this.length = length;
+			this.isHorizontal = isHorizontal;
+			this.keyMult = keyMult;
+		}
+		@Override
+		public int compareTo(RectilinearEdge o) {
+			// TODO Auto-generated method stub
+			if(isHorizontal)
+				return (x*keyMult + y) - (o.keyMult*o.x + o.y);
+			return (y*keyMult + x) - (o.keyMult*o.y + o.x);
+		}
+		
 	}
 }
