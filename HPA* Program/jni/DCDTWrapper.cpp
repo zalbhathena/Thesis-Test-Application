@@ -20,7 +20,6 @@ static int   CurSelection=0; // -2,-1: moving point, >0: moving polygon
 
 void create_dcdt (const double* input, GsArray<GsPnt2>* edges)
  {
-	printf("ASDF");
    const double* data = input;
    GsPolygon pol;
 

@@ -30,16 +30,16 @@ public class MapView extends JPanel{
 	}
 	boolean starting_print = true;
 	
-	Map<Rectangle, Color> agent_path_list = new HashMap<Rectangle,Color>();
+	ArrayList<Point> agent_path_list = new ArrayList<Point>();
 	int agent_color;
 	public void paintComponent(Graphics g) {
 			
 		int x_offset = 10, y_offset = 10;
         super.paintComponent(g);
         g.setColor(Color.BLACK);
-        g.fillRect((600-size)/2 + x_offset - 2, y_offset - 2,size + 5, size + 5);
+        g.fillRect((600-size)/2 + x_offset - 6, y_offset - 6,size + 12, size + 12);
         g.setColor(Color.WHITE);
-        g.fillRect((600-size)/2 + x_offset - 1, y_offset - 1,size+3,size+3);
+        g.fillRect((600-size)/2 + x_offset - 5, y_offset - 5,size+10,size+10);
         
         
         if(this.map_model != null) {
@@ -58,6 +58,17 @@ public class MapView extends JPanel{
 				g.fillPolygon(x_list,y_list,x_list.length);
 		    }
 		    
+		    ArrayList<Obstacle> obstacle_list = map_model.obstacle_list;
+		    for(int i = 0; i < obstacle_list.size(); i++) {
+		    	Obstacle o = obstacle_list.get(i);
+		    	g.setColor(Color.YELLOW);
+		    	g.fillRect(scaleX(o.x) + x_offset,scaleY(o.y) + y_offset,
+		    			scaleSize(o.width),scaleSize(o.height));
+		    	g.setColor(Color.BLACK);
+		    	g.drawRect(scaleX(o.x) + x_offset,scaleY(o.y) + y_offset,
+		    			scaleSize(o.width),scaleSize(o.height));
+		    }
+		    
 	    	for(SearchSpaceNode node: grid.getSearchSpace()) {
     			
     			if(node != null) {
@@ -70,8 +81,12 @@ public class MapView extends JPanel{
     				}
     				
     				g.setColor(color_wheel[grid.getClusterID(node)%color_wheel.length]);
-    				
-    				g.drawPolygon(x_list,y_list,x_list.length);
+    				for(SearchSpaceNode neighbor:node.getNeighbors()) {
+    					int x = scaleX(neighbor.point_list[0].x)+x_offset;
+    					int y = scaleY(neighbor.point_list[0].y)+y_offset;
+    					g.drawLine(x_list[0], y_list[0], x, y);
+    				}
+    				//g.drawPolygon(x_list,y_list,x_list.length);
     			}
 	    	}
 	    	
@@ -90,7 +105,6 @@ public class MapView extends JPanel{
 	    	}
 		
 		    
-		    g.setColor(color_wheel[2]);
     	    
     	    Agent agent = map_model.agent;
     	    
@@ -98,21 +112,12 @@ public class MapView extends JPanel{
     	    if(agent != null) {
     	    	Rectangle rect = new Rectangle(scaleX(agent.x) + x_offset, scaleY(agent.y) + y_offset,
     	    			Math.max(2,scaleSize(agent.diameter)), Math.max(2,scaleSize(agent.diameter)));
-    	    	
+    	    	g.setColor(Color.blue);
     	    	g.fillRect(rect.x,rect.y,rect.width,rect.height);
-    	    	agent_path_list.put(rect,color_wheel[2]);
+    	    	agent_path_list.add(new Point(rect.x,rect.y));
     	    }
-    	    
-    	    agent_color++;
-		    if(agent_color == color_wheel.length)
-		    	agent_color = 0;
 		    
-		    for(Rectangle r: agent_path_list.keySet()) {
-		    	g.setColor(agent_path_list.get(r));
-		    	g.fillRect(r.x,r.y,r.width,r.height);
-		    }
-		    
-		    ArrayList<Obstacle> obstacle_list = map_model.obstacle_list;
+		    /*ArrayList<Obstacle> obstacle_list = map_model.obstacle_list;
 		    for(int i = 0; i < obstacle_list.size(); i++) {
 		    	Obstacle o = obstacle_list.get(i);
 		    	g.setColor(Color.GREEN);
@@ -121,6 +126,16 @@ public class MapView extends JPanel{
 		    	g.setColor(Color.BLACK);
 		    	g.drawRect(scaleX(o.x) + x_offset,scaleY(o.y) + y_offset,
 		    			scaleSize(o.width),scaleSize(o.height));
+		    }*/
+		    Point prev_point = null;
+		    for(Point point: agent_path_list) {
+		    	if(prev_point == null) {
+		    		prev_point = point;
+		    		continue;
+		    	}
+		    	g.setColor(Color.red);
+		    	g.drawLine(point.x,point.y,prev_point.x,prev_point.y);
+		    	prev_point = point;
 		    }
         }
 

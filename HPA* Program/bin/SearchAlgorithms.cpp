@@ -14,7 +14,6 @@
 JNIEXPORT jdoubleArray JNICALL Java_SearchAlgorithms_getTriangulation (JNIEnv *env, jobject obj,
 		jdoubleArray doubleArray) {
 
-	printf("Hello World!\n");
 
 	int input_size = (int)(env->GetArrayLength(doubleArray));
 

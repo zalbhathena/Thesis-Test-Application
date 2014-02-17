@@ -282,19 +282,18 @@ bool SeDcdt::load ( GsInput& inp )
 void SeDcdt::init ( const GsPolygon& domain , double epsilon, float radius )
  {
    GS_TRACE2 ( "Starting init()..." );
-   printf("SeDcdt::init");
-   printf("foo");
+
    // Reset cur searched face:
    _cur_search_face = nullptr;
-   printf(".5");
+
    _dcdt_changed = true;
 
    // Clear structures if needed:
-   printf("1");
+
    if ( _backface ) 
     { mesh()->destroy(); _backface=0; _polygons.init(); }
 
-   printf("2");
+
    // Checks parameters:
    if ( domain.size()<3 || domain.open() )
      gsout.fatal ( "se_dcdt.cpp: domain polygon must be simple and closed in init().");
@@ -321,7 +320,7 @@ void SeDcdt::init ( const GsPolygon& domain , double epsilon, float radius )
 
    SeDcdtSymEdge* s = _backface->se();
 
-   printf("SeDcdt::init");
+
 
    GS_TRACE2 ( "Backface v1: " << s->vtx()->p );
    s->vtx()->border = 1;

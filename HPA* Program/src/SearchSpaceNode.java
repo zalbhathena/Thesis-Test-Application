@@ -41,5 +41,14 @@ public class SearchSpaceNode {
 		neighbors.add(neighbor);
 	}
 	
+	public void removeNeighbor(SearchSpaceNode neighbor) {
+		neighbors.remove(neighbor);
+	}
+	
+	public void removeSelfFromGraph() {
+		for(SearchSpaceNode neighbor:neighbors)
+			neighbor.removeNeighbor(this);
+		neighbors.clear();
+	}
 	
 }
