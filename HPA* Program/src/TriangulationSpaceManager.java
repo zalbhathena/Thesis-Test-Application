@@ -33,7 +33,7 @@ public class TriangulationSpaceManager implements SearchSpaceManager{
 	
 	private void createCostFunction() {
 		for(SearchSpaceNode node1:search_space) {
-			for(SearchSpaceNode node2:search_space) {
+			for(SearchSpaceNode node2:node1.getNeighbors()) {
 				if(node1 == node2)
 					continue;
 				

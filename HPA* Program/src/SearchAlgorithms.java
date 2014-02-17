@@ -215,14 +215,13 @@ public class SearchAlgorithms {
 			Map<SearchSpaceNode, Map<SearchSpaceNode,Double>> cost_function,
 			Point start_point,Point goal_point, SearchSpaceNode start, SearchSpaceNode goal, boolean cluster) {
 		
-		//Point start_point = start.point_list[0];
 		SearchNodeQueue open_set = new SearchNodeQueue();
 		ArrayList<SearchSpaceNode> closed_set = new ArrayList<SearchSpaceNode>();
 		
 		HashMap<SearchSpaceNode, SearchSpaceNode> came_from = new HashMap<SearchSpaceNode, SearchSpaceNode>();
 		HashMap<SearchSpaceNode, Double> g_value = new HashMap<SearchSpaceNode, Double>();
 		
-		double start_f_value = manhattan_distance(start,goal);
+		double start_f_value = start_point.distance(goal_point);
 		
 		
 		g_value.put(start, 0.0);
@@ -244,18 +243,16 @@ public class SearchAlgorithms {
 			for(SearchSpaceNode neighbor:neighbors) {
 				if(closed_set.contains(neighbor))
 					continue;
-				double cost;
-				if(cost_function == null)
-					cost = 1.0;
-				else {
-					
-					cost = cost_function.get(current).get(neighbor);
-				}
+				
+				double cost = neighbor.point_list[0].distance(current.point_list[0]);
+				
 				double tentative_g_value = g_value.get(current) + cost;
 				
 				if(!open_set.contains(neighbor) || !g_value.containsKey(neighbor) 
 						|| tentative_g_value < g_value.get(neighbor)) {
-					double tentative_f_value = tentative_g_value + manhattan_distance(neighbor, goal);
+					double dist = neighbor.point_list[0].distance(goal_point); 
+					double tentative_f_value = tentative_g_value + dist; 
+							//manhattan_distance(neighbor, goal);
 					
 					g_value.put(neighbor, tentative_g_value);
 					came_from.put(neighbor, current);
