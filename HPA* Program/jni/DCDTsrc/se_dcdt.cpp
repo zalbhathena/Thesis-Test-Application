@@ -769,6 +769,43 @@ void SeDcdt::extract_faces ( GsArray<SeDcdtFace*>& faces, float x, float y )
    GS_TRACE9 ( "End Extract" );
  }
 
+void SeDcdt::extract_faces_all ( GsArray<SeDcdtFace*>& faces, float x, float y )
+ {
+   SeTriangulator::LocateResult res;
+   SeBase *ses;
+
+   faces.size(0);
+
+   GS_TRACE9 ( "Begin Extract Faces" );
+
+   res = SeTriangulator::locate_point ( get_search_face(), x, y, ses );
+   if ( res==SeTriangulator::NotFound ) return;
+
+   mesh()->begin_marking();
+   _earray.size(0);
+   SeDcdtSymEdge *s = (SeDcdtSymEdge*)ses;
+   mesh()->mark(s->fac());
+   faces.push() = s->fac();
+   _earray.push() = s;
+   _earray.push() = s->nxt();
+   _earray.push() = s->pri();
+
+   while (_earray.size())
+    { s = _earray.pop()->sym();
+      if ( !mesh()->marked(s->fac()))
+       { mesh()->mark(s->fac());
+         faces.push() = s->fac();
+         _earray.push() = s->nxt();
+         _earray.push() = s->pri();
+       }
+    }
+
+   mesh()->end_marking();
+   GS_TRACE9 ( "End Extract" );
+ }
+
+
+
 //================================================================================
 //=========================== inside polygon =====================================
 //================================================================================

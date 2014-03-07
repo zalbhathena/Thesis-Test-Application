@@ -5,40 +5,31 @@
 //# include <stdlib.h>
 # include "DCDTWrapper.h"
 
-static double Example1[] =
-       { -10, -10, 10, -10, 10, 10, -10, 10, END,
-           1, 1, 7, 3, 3, 8, END,
-         END };
-
-static const double* CurExample = FIRST_EXAMPLE;
 static SeDcdt TheDcdt;
 static GsPolygon CurPath;
 static GsPolygon CurChannel;
-static float CurX1=0, CurY1=0, CurX2=0, CurY2=0;
-static int   CurSelection=0; // -2,-1: moving point, >0: moving polygon
 
+void create_dcdt (const double* input, GsArray<SeDcdtFace*>& faces, GsArray<GsPnt2>& constr_edges) {
+	const double* data = input;
+	GsPolygon pol;
+	printf("1");
+	// domain:
+	int x = data[0], y = data[1];
+	while ( *data!=END ) {
+		pol.push().set((float)data[0],(float)data[1]); data+=2;
+	}
+	TheDcdt.init ( pol, 0.00001f );
 
-void create_dcdt (const double* input, GsArray<GsPnt2>* edges)
- {
-   const double* data = input;
-   GsPolygon pol;
+	while ( *++data!=END )
+	{ pol.size(0);
+		while ( *data!=END )  { pol.push().set((float)data[0],(float)data[1]); data+=2; }
+		TheDcdt.insert_polygon ( pol );
+	}
 
-   // domain:
-   while ( *data!=END ) { pol.push().set((float)data[0],(float)data[1]); data+=2; }
-   TheDcdt.init ( pol, 0.00001f );
+	GsArray<GsPnt2> temp;
 
-   while ( *++data!=END )
-    { pol.size(0);
-      while ( *data!=END )  { pol.push().set((float)data[0],(float)data[1]); data+=2; }
-      TheDcdt.insert_polygon ( pol );
-    }
+	TheDcdt.extract_faces_all(faces, x, y);
 
-   GsArray<GsPnt2> unconstr;
+	TheDcdt.get_mesh_edges(&constr_edges, &temp);
+}
 
-   TheDcdt.get_mesh_edges(edges, &unconstr);
-
-
-   for(int i = 0; i < unconstr.size(); i++) {
-	   edges -> push(unconstr.get(i));
-   }
- }

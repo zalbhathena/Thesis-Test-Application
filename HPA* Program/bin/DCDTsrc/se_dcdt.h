@@ -166,6 +166,11 @@ class SeDcdt : public SeTriangulator
          crossing obstacles */
     void extract_faces ( GsArray<SeDcdtFace*>& faces, float x, float y );
 
+    /*! Crosses obstacles
+     *
+     */
+    void extract_faces_all ( GsArray<SeDcdtFace*>& faces, float x, float y );
+
     /*! Returns the id of the first found polygon containing the given point (x,y),
         or -1 if no polygons are found. The domain polygon, if used in init(), will not
         be considered. The optional parameter allpolys can be sent to return all polygons

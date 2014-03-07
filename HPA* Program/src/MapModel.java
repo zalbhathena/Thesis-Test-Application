@@ -158,6 +158,8 @@ public class MapModel implements ActionListener{
 	}
 	
 	public void startPathfinding(String algorithm, int agent_diameter, boolean animate) {
+		
+		map_view.clearAgentPathList();
 		if(agent_diameter > start_diameter)
 			return;
 		
@@ -179,12 +181,12 @@ public class MapModel implements ActionListener{
 			this.current_algorithm = "NONE";
 		}
 		
+		updateMapModel();
 		agent = new Agent(agent_diameter/2, agent_diameter/2, agent_diameter);
 		path_updater = search_space_manager.getPath(start_point, goal_point);
 		path_updater.startPathfinding();
 		subgoal_list = new ArrayList<Point>();
 		startAnimation(agent_diameter, animate);
-		//updateMapModel();
 	}
 	
 	public void endPathfinding() {

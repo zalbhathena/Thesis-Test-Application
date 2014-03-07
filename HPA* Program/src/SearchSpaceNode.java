@@ -1,4 +1,5 @@
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
 public class SearchSpaceNode {
@@ -49,6 +50,18 @@ public class SearchSpaceNode {
 		for(SearchSpaceNode neighbor:neighbors)
 			neighbor.removeNeighbor(this);
 		neighbors.clear();
+	}
+	
+	public static Point[] sharedPoints(SearchSpaceNode n1,SearchSpaceNode n2) {
+		ArrayList<Point>sharedPoints = new ArrayList<Point>();
+		
+		for(int i = 0; i<n1.point_list.length;i++)
+			for(int j = 0; j<n2.point_list.length;j++)
+				if(n1.point_list[i].x==n2.point_list[j].x && n1.point_list[i].y==n2.point_list[j].y)
+					sharedPoints.add(new Point(n1.point_list[i].x,n1.point_list[i].y));
+		Point[]array = new Point[sharedPoints.size()];
+		array = sharedPoints.toArray(array);
+		return array;
 	}
 	
 }
