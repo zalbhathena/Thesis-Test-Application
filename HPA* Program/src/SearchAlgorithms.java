@@ -19,14 +19,14 @@ public class SearchAlgorithms {
 	
 	private native double[] getTriangulation(double[] f);
 	
-	public static Set<SearchSpaceNode> getTriangulation(Rectangle boundary,ArrayList<Obstacle> obstacle_list) {
+	public static Set<Node> getTriangulation(Rectangle boundary,ArrayList<Obstacle> obstacle_list) {
 		double obstacle_boundaries[] = new double[obstacle_list.size()*9 + 9 + 1];
 		//9 doubles for each obstacle (4 points and END)
 		//plus the boundary rectangle and the final END 
 		
 		System.out.println(boundary);
 		
-		Map<Integer,Map<Integer,Set<SearchSpaceNode>>>edge_map = new HashMap<Integer,Map<Integer,Set<SearchSpaceNode>>>();
+		Map<Integer,Map<Integer,Set<Node>>>edge_map = new HashMap<Integer,Map<Integer,Set<Node>>>();
 		Map<Integer,Set<Integer>>constrained_edges = new HashMap<Integer,Set<Integer>>();
 		
 		int boundary_width = boundary.width;
@@ -99,7 +99,7 @@ public class SearchAlgorithms {
 			constrained_edges.get(minKey).add(maxKey);
 		}
 		
-		Set<SearchSpaceNode>search_space = new HashSet<SearchSpaceNode>();
+		Set<Node>search_space = new HashSet<Node>();
 
 		for(int i = start; i < num_edges; i+=6) {
 			int x1 = (int)Math.round(edge_list[i + 0]);
@@ -124,7 +124,7 @@ public class SearchAlgorithms {
 			int p2Key = x2*key_mult + y2;
 			int p3Key = x3*key_mult + y3;
 			
-			SearchSpaceNode node = new SearchSpaceNode(p1,p2,p3);
+			Node node = new TriangulationNode(p1,p2,p3);
 			search_space.add(node);
 			
 			int minKey;
@@ -135,9 +135,9 @@ public class SearchAlgorithms {
 			if(constrained_edges.containsKey(minKey) && constrained_edges.get(minKey).contains(maxKey));
 			else {
 				if(!edge_map.containsKey(minKey))
-					edge_map.put(minKey, new HashMap<Integer,Set<SearchSpaceNode>>());
+					edge_map.put(minKey, new HashMap<Integer,Set<Node>>());
 				if(!edge_map.get(minKey).containsKey(maxKey))
-					edge_map.get(minKey).put(maxKey, new HashSet<SearchSpaceNode>());
+					edge_map.get(minKey).put(maxKey, new HashSet<Node>());
 				edge_map.get(minKey).get(maxKey).add(node);
 			}
 			
@@ -146,9 +146,9 @@ public class SearchAlgorithms {
 			if(constrained_edges.containsKey(minKey) && constrained_edges.get(minKey).contains(maxKey));
 			else {
 				if(!edge_map.containsKey(minKey))
-					edge_map.put(minKey, new HashMap<Integer,Set<SearchSpaceNode>>());
+					edge_map.put(minKey, new HashMap<Integer,Set<Node>>());
 				if(!edge_map.get(minKey).containsKey(maxKey))
-					edge_map.get(minKey).put(maxKey, new HashSet<SearchSpaceNode>());
+					edge_map.get(minKey).put(maxKey, new HashSet<Node>());
 				edge_map.get(minKey).get(maxKey).add(node);
 			}
 			
@@ -157,21 +157,21 @@ public class SearchAlgorithms {
 			if(constrained_edges.containsKey(minKey) && constrained_edges.get(minKey).contains(maxKey));
 			else {
 				if(!edge_map.containsKey(minKey))
-					edge_map.put(minKey, new HashMap<Integer,Set<SearchSpaceNode>>());
+					edge_map.put(minKey, new HashMap<Integer,Set<Node>>());
 				if(!edge_map.get(minKey).containsKey(maxKey))
-					edge_map.get(minKey).put(maxKey, new HashSet<SearchSpaceNode>());
+					edge_map.get(minKey).put(maxKey, new HashSet<Node>());
 				edge_map.get(minKey).get(maxKey).add(node);
 			}
 		}
 
 		for(int key1:edge_map.keySet()) {
 			for(int key2:edge_map.get(key1).keySet()) {
-				Set<SearchSpaceNode> s = edge_map.get(key1).get(key2);
-				if(s.size() >2)System.out.println("ASDFASDFASDF");
+				Set<Node> s = edge_map.get(key1).get(key2);
+
 				if(s.size() == 2) {
-					SearchSpaceNode n1 = null;
-					SearchSpaceNode n2 = null;
-					for(SearchSpaceNode n:s) {
+					Node n1 = null;
+					Node n2 = null;
+					for(Node n:s) {
 						if(n1==null)
 							n1=n;
 						else if(n2==null)
@@ -188,14 +188,14 @@ public class SearchAlgorithms {
 	}
 	
 	public static ArrayList<Point> AStar(SearchSpaceManager manager, 
-			Map<SearchSpaceNode, Map<SearchSpaceNode,Double>> cost_function,
-			Point start_point,Point goal_point, SearchSpaceNode start, SearchSpaceNode goal, boolean cluster) {
+			Map<Node, Map<Node,Double>> cost_function,
+			Point start_point,Point goal_point, Node start, Node goal, boolean cluster) {
 		
 		SearchNodeQueue open_set = new SearchNodeQueue();
-		ArrayList<SearchSpaceNode> closed_set = new ArrayList<SearchSpaceNode>();
+		ArrayList<Node> closed_set = new ArrayList<Node>();
 		
-		HashMap<SearchSpaceNode, SearchSpaceNode> came_from = new HashMap<SearchSpaceNode, SearchSpaceNode>();
-		HashMap<SearchSpaceNode, Double> g_value = new HashMap<SearchSpaceNode, Double>();
+		HashMap<Node, Node> came_from = new HashMap<Node, Node>();
+		HashMap<Node, Double> g_value = new HashMap<Node, Double>();
 		
 		double start_f_value = start_point.distance(goal_point);
 		
@@ -205,7 +205,7 @@ public class SearchAlgorithms {
 		open_set.add(start, start_f_value);
 
 		while(open_set.size() > 0) {
-			SearchSpaceNode current = open_set.poll().node;
+			Node current = open_set.poll().node;
 			
 			
 			if(current == goal) {
@@ -215,18 +215,18 @@ public class SearchAlgorithms {
 			}
 			
 			closed_set.add(current);
-			Set<SearchSpaceNode> neighbors = manager.getNeighborsForNode(current, cluster);
-			for(SearchSpaceNode neighbor:neighbors) {
+			Set<Node> neighbors = manager.getNeighborsForNode(current, cluster);
+			for(Node neighbor:neighbors) {
 				if(closed_set.contains(neighbor))
 					continue;
 				
-				double cost = neighbor.point_list[0].distance(current.point_list[0]);
+				double cost = neighbor.getPoints()[0].distance(current.getPoints()[0]);
 				
 				double tentative_g_value = g_value.get(current) + cost;
 				
 				if(!open_set.contains(neighbor) || !g_value.containsKey(neighbor) 
 						|| tentative_g_value < g_value.get(neighbor)) {
-					double dist = neighbor.point_list[0].distance(goal_point); 
+					double dist = neighbor.getPoints()[0].distance(goal_point); 
 					double tentative_f_value = tentative_g_value + dist; 
 							//manhattan_distance(neighbor, goal);
 					
@@ -245,18 +245,17 @@ public class SearchAlgorithms {
 		
 		return null;
 	}
-	
-	public static ArrayList<SearchSpaceNode> TAStar(SearchSpaceManager manager, 
-			Map<SearchSpaceNode, Map<SearchSpaceNode,Double>> cost_function,
-			Point start_point,Point goal_point, SearchSpaceNode start, SearchSpaceNode goal, boolean cluster) {
+
+	public static ArrayList<Node> TAStarWithEdgeCache(SearchSpaceManager manager, 
+			Point start_point,Point goal_point, Node start, Node goal,
+			THPAStarPointAgentEdgeCache cache, boolean cluster) {
 		SearchNodeQueue open_set = new SearchNodeQueue();
-		ArrayList<SearchSpaceNode> closed_set = new ArrayList<SearchSpaceNode>();
+		ArrayList<Node> closed_set = new ArrayList<Node>();
 		
-		HashMap<SearchSpaceNode, SearchSpaceNode> came_from = new HashMap<SearchSpaceNode, SearchSpaceNode>();
-		HashMap<SearchSpaceNode, Double> g_value = new HashMap<SearchSpaceNode, Double>();
+		HashMap<Node, Node> came_from = new HashMap<Node, Node>();
+		HashMap<Node, Double> g_value = new HashMap<Node, Double>();
 		
 		double start_f_value = start_point.distance(goal_point);
-		
 		
 		g_value.put(start, 0.0);
 		
@@ -264,26 +263,113 @@ public class SearchAlgorithms {
 
 		while(open_set.size() > 0) {
 			AStarNode current_astarnode = open_set.poll();
-			SearchSpaceNode current = current_astarnode.node;
+			Node current = current_astarnode.node;
 			double current_f_value = current_astarnode.f_value;
 			double current_g_value = g_value.get(current);
 			double current_h_value = current_f_value - current_g_value;
 			
-			boolean goal_reached = pointInTriangle(goal_point,current.point_list[0],current.point_list[1],current.point_list[2]);
+			//boolean goal_reached = pointInTriangle(goal_point,current.getPoints()[0],current.getPoints()[1],current.getPoints()[2]);
 			
-			goal_reached = pointInTriangle(goal_point,current.point_list[0],current.point_list[1],current.point_list[2]);
+			//goal_reached = pointInTriangle(goal_point,current.getPoints()[0],current.getPoints()[1],current.getPoints()[2]);
 		
-			if(goal_reached) {
-				ArrayList<SearchSpaceNode> subgoal_list = reconstructPathTAStar(came_from, current);
+			if(goal == current) {
+				ArrayList<Node> subgoal_list = reconstructPathTAStar(came_from, current);
 				return subgoal_list;
 			}
 			
 			closed_set.add(current);
-			Set<SearchSpaceNode> neighbors = manager.getNeighborsForNode(current, cluster);
-			for(SearchSpaceNode neighbor:neighbors) {
+			Set<Node> neighbors = manager.getNeighborsForNode(current, cluster);
+			
+			for(Node neighbor:neighbors) {
 				if(closed_set.contains(neighbor))
 					continue;
-				SearchSpaceNode loop = current;
+				Node loop = current;
+				boolean break_a = false;
+				while(loop != null) {
+					if(neighbor == loop)
+						break_a = true;
+					loop = came_from.get(loop);
+				}
+				if(break_a)
+					continue;
+				
+				Edge entrance = cache.edgeForNodes(current, neighbor);
+				
+				if(entrance == null) {
+					continue;
+				}
+				
+				Double tentative_g_value = cache.getDistance(current, neighbor, null);
+				double tentative_h_value = closestPointBetweenPointAndSegment(goal_point,entrance);
+				
+				if(tentative_g_value.equals(Double.NaN)) {
+					double dist_bound = closestPointBetweenPointAndSegment(start_point,entrance);
+					
+					double h_diff_bound = current_h_value - tentative_h_value;
+					
+					double cost = Math.max(dist_bound, h_diff_bound);
+					
+					tentative_g_value = current_g_value + cost;
+				}
+				
+				if(!open_set.contains(neighbor) || !g_value.containsKey(neighbor) 
+						|| tentative_g_value < g_value.get(neighbor)) { 
+					double tentative_f_value = tentative_g_value + tentative_h_value; 
+					
+					g_value.put(neighbor, tentative_g_value);
+					came_from.put(neighbor, current);
+					
+					if(!open_set.contains(neighbor))
+						open_set.add(neighbor, tentative_f_value);
+				}
+					
+			}
+		}
+		for(Node n: closed_set) {
+			Point[] p = n.getPoints();
+			System.out.println(p[0].x + ", " + p[0].y + " " + p[1].x + ", " + p[1].y + " " + p[2].x + ", " + p[2].y);
+		}
+		System.out.println();
+		
+		return null;
+	}
+	
+	public static ArrayList<Node> TAStar(SearchSpaceManager manager, 
+			Point start_point,Point goal_point, Node start, Node goal, boolean cluster) {
+		SearchNodeQueue open_set = new SearchNodeQueue();
+		ArrayList<Node> closed_set = new ArrayList<Node>();
+		
+		HashMap<Node, Node> came_from = new HashMap<Node, Node>();
+		HashMap<Node, Double> g_value = new HashMap<Node, Double>();
+		
+		double start_f_value = start_point.distance(goal_point);
+		
+		g_value.put(start, 0.0);
+		
+		open_set.add(start, start_f_value);
+
+		while(open_set.size() > 0) {
+			AStarNode current_astarnode = open_set.poll();
+			Node current = current_astarnode.node;
+			double current_f_value = current_astarnode.f_value;
+			double current_g_value = g_value.get(current);
+			double current_h_value = current_f_value - current_g_value;
+			
+			//boolean goal_reached = pointInTriangle(goal_point,current.getPoints()[0],current.getPoints()[1],current.getPoints()[2]);
+			
+			//goal_reached = pointInTriangle(goal_point,current.getPoints()[0],current.getPoints()[1],current.getPoints()[2]);
+		
+			if(current == goal) {
+				ArrayList<Node> subgoal_list = reconstructPathTAStar(came_from, current);
+				return subgoal_list;
+			}
+			
+			closed_set.add(current);
+			Set<Node> neighbors = manager.getNeighborsForNode(current, cluster);
+			for(Node neighbor:neighbors) {
+				if(closed_set.contains(neighbor))
+					continue;
+				Node loop = current;
 				boolean break_a = false;
 				while(loop != null) {
 					if(neighbor == loop)
@@ -293,13 +379,12 @@ public class SearchAlgorithms {
 				if(break_a)
 					continue;
 					
-				Point[] point_list = SearchSpaceNode.sharedPoints(neighbor, current);
-				Point entrance_1 = point_list[0];
-				Point entrance_2 = point_list[1];
+				Point[] point_list = sharedPointsForNodes(neighbor, current);
+				Edge entrance = new Edge(point_list[0], point_list[1]);
 
-				double dist_bound = closestPointBetweenPointAndSegment(start_point,entrance_1,entrance_2);
+				double dist_bound = closestPointBetweenPointAndSegment(start_point,entrance);
 				
-				double tentative_h_value = closestPointBetweenPointAndSegment(goal_point,entrance_1,entrance_2);
+				double tentative_h_value = closestPointBetweenPointAndSegment(goal_point,entrance);
 				
 				double h_diff_bound = current_h_value - tentative_h_value;
 				
@@ -314,10 +399,83 @@ public class SearchAlgorithms {
 					g_value.put(neighbor, tentative_g_value);
 					came_from.put(neighbor, current);
 					
-					if(neighbor==null){
-						int i=0;
-						i++;
-					}
+					if(!open_set.contains(neighbor))
+						open_set.add(neighbor, tentative_f_value);
+				}
+					
+			}
+		}
+		
+		return null;
+	}
+	
+	public static Object[] TAStarFValue(SearchSpaceManager manager, 
+			Edge entrance_edge, Node start, Node goal, boolean cluster) {
+		SearchNodeQueue open_set = new SearchNodeQueue();
+		ArrayList<Node> closed_set = new ArrayList<Node>();
+		
+		HashMap<Node, Node> came_from = new HashMap<Node, Node>();
+		HashMap<Node, Double> g_value = new HashMap<Node, Double>();
+		
+		if(entrance_edge == null)
+			entrance_edge = new Edge(start.getPoints()[0],start.getPoints()[1]);
+			
+		double start_f_value = closestPointBetweenEdgeAndTriangle(entrance_edge,goal.getPoints());
+		
+		g_value.put(start, 0.0);
+		
+		open_set.add(start, start_f_value);
+
+		Edge entrance = null;
+		while(open_set.size() > 0) {
+			AStarNode current_astarnode = open_set.poll();
+			Node current = current_astarnode.node;
+			double current_f_value = current_astarnode.f_value;
+			double current_g_value = g_value.get(current);
+			double current_h_value = current_f_value - current_g_value;
+			
+			
+			if(current == goal) {
+				Object[] array = new Object[2];
+				array[0] = new Double(current_f_value);
+				array[1] = entrance;
+				return array;
+			}
+			
+			closed_set.add(current);
+			Set<Node> neighbors = manager.getNeighborsForNode(current, cluster);
+			for(Node neighbor:neighbors) {
+				if(closed_set.contains(neighbor))
+					continue;
+				Node loop = current;
+				boolean break_a = false;
+				while(loop != null) {
+					if(neighbor == loop)
+						break_a = true;
+					loop = came_from.get(loop);
+				}
+				if(break_a)
+					continue;
+					
+				Point[] point_list = sharedPointsForNodes(neighbor, current);
+				entrance = new Edge(point_list[0], point_list[1]);
+
+				double dist_bound = closestPointBetweenSegmentAndSegment(entrance_edge,entrance);
+				
+				double tentative_h_value = closestPointBetweenEdgeAndTriangle(entrance,goal.getPoints());
+				
+				double h_diff_bound = current_h_value - tentative_h_value;
+				
+				double cost = Math.max(dist_bound, h_diff_bound);
+				
+				double tentative_g_value = current_g_value + cost;
+				
+				if(!open_set.contains(neighbor) || !g_value.containsKey(neighbor) 
+						|| tentative_g_value < g_value.get(neighbor)) { 
+					double tentative_f_value = tentative_g_value + tentative_h_value; 
+					
+					g_value.put(neighbor, tentative_g_value);
+					came_from.put(neighbor, current);
 					
 					if(!open_set.contains(neighbor))
 						open_set.add(neighbor, tentative_f_value);
@@ -326,19 +484,17 @@ public class SearchAlgorithms {
 			}
 		}
 		
-		
-		
 		return null;
 	}
 	
 	public static ArrayList<Point> reconstructPath(
-			HashMap<SearchSpaceNode,SearchSpaceNode> came_from,SearchSpaceNode current_node) {
+			HashMap<Node,Node> came_from,Node current_node) {
 		ArrayList<Point> subgoal_list = new ArrayList<Point>();
 		
 		
 		while(came_from.containsKey(current_node)) {
-			SearchSpaceNode temp = came_from.get(current_node); 
-			subgoal_list.add(0, temp.point_list[0]);
+			Node temp = came_from.get(current_node); 
+			subgoal_list.add(0, temp.getPoints()[0]);
 			came_from.remove(current_node);
 			current_node = temp;
 		}
@@ -347,13 +503,13 @@ public class SearchAlgorithms {
 		return subgoal_list;
 	}
 	
-	public static ArrayList<SearchSpaceNode> reconstructPathTAStar(
-			HashMap<SearchSpaceNode,SearchSpaceNode> came_from,SearchSpaceNode current_node) {
-		ArrayList<SearchSpaceNode> subgoal_list = new ArrayList<SearchSpaceNode>();
+	public static ArrayList<Node> reconstructPathTAStar(
+			HashMap<Node,Node> came_from,Node current_node) {
+		ArrayList<Node> subgoal_list = new ArrayList<Node>();
 		
 		subgoal_list.add(0, current_node);
 		while(came_from.containsKey(current_node)) {
-			SearchSpaceNode temp = came_from.get(current_node); 
+			Node temp = came_from.get(current_node); 
 			subgoal_list.add(0, temp);
 			came_from.remove(current_node);
 			current_node = temp;
@@ -361,13 +517,16 @@ public class SearchAlgorithms {
 		return subgoal_list;
 	}
 	
-	public static double manhattan_distance(SearchSpaceNode start, SearchSpaceNode goal) {
-		Point start_point = start.point_list[0];
-		Point goal_point = goal.point_list[0];
+	public static double manhattan_distance(Node start, Node goal) {
+		Point start_point = start.getPoints()[0];
+		Point goal_point = goal.getPoints()[0];
 		return Math.sqrt(Math.pow(goal_point.x - start_point.x,2) + Math.pow(goal_point.x - start_point.x,2));
 	}
 	
-	public static double closestPointBetweenPointAndSegment(Point p, Point edge_1, Point edge_2) {
+	public static double closestPointBetweenPointAndSegment(Point p, Edge e) {
+		Point edge_1 = e.getFromPoint();
+		Point edge_2 = e.getToPoint();
+		
 		double px = edge_2.x-edge_1.x;
 		double py = edge_2.y-edge_1.y;
 		
@@ -388,6 +547,57 @@ public class SearchAlgorithms {
 		return Math.sqrt(dx*dx + dy*dy);
 	}
 	
+	public static double closestPointBetweenSegmentAndSegment(Edge e1, Edge e2) {
+		Point e1_p1 = e1.getFromPoint();
+		Point e1_p2 = e1.getToPoint();
+		Point e2_p1 = e2.getFromPoint();
+		Point e2_p2 = e2.getToPoint();
+		
+		double e1_p1_val = closestPointBetweenPointAndSegment(e1_p1,e2);
+		double e1_p2_val = closestPointBetweenPointAndSegment(e1_p2,e2);
+		double e2_p1_val = closestPointBetweenPointAndSegment(e2_p1,e1);
+		double e2_p2_val = closestPointBetweenPointAndSegment(e2_p2,e1);
+		
+		return Math.min(Math.min(e2_p1_val, e2_p2_val), Math.min(e1_p1_val, e1_p2_val));
+	}
+	
+	public static double closestPointBetweenPointAndTriangle(Point p,Point[]triangle) {
+		Edge e = new Edge(triangle[0],triangle[1]);
+		double val = closestPointBetweenPointAndSegment(p,e);
+		
+		e = new Edge(triangle[0],triangle[2]);
+		val = Math.min(val, closestPointBetweenPointAndSegment(p,e));
+		
+		e = new Edge(triangle[1],triangle[2]);
+		val = Math.min(val, closestPointBetweenPointAndSegment(p,e));
+		
+		return val;
+	}
+	
+	public static double closestPointBetweenEdgeAndTriangle(Edge e, Point[]triangle) {
+		Point e1_p1 = e.getFromPoint();
+		Point e1_p2 = e.getToPoint();
+		Point e2_p1 = triangle[0];
+		Point e2_p2 = triangle[1];
+		Point e2_p3 = triangle[2];
+		
+		double e_p1_val = closestPointBetweenPointAndSegment(e2_p1,e);
+		double e_p2_val = closestPointBetweenPointAndSegment(e2_p2,e);
+		double e_p3_val = closestPointBetweenPointAndSegment(e2_p3,e);
+		double e1_p1_val = closestPointBetweenPointAndTriangle(e1_p1,triangle);
+		double e2_p1_val = closestPointBetweenPointAndTriangle(e1_p1,triangle);
+		double e3_p1_val = closestPointBetweenPointAndTriangle(e1_p1,triangle);
+
+		
+		double min = Math.min(e_p1_val, e_p2_val);
+		min = Math.min(min, e_p3_val);
+		min = Math.min(min, e1_p1_val);
+		min = Math.min(min, e2_p1_val);
+		min = Math.min(min, e3_p1_val);
+		
+		return min;
+	}
+	
 	public static boolean pointInTriangle(Point p, Point p1, Point p2, Point p3) {
 		double epsilon = -.0001;
 		
@@ -399,13 +609,27 @@ public class SearchAlgorithms {
 		
 		return alpha >= epsilon && beta >= epsilon && gamma >= epsilon;
 	}
+	
+	public static Point[] sharedPointsForNodes(Node n1,Node n2) {
+		ArrayList<Point>sharedPoints = new ArrayList<Point>();
+		
+		Point[] n1_point_list = n1.getPoints();
+		Point[] n2_point_list = n2.getPoints();
+		for(int i = 0; i<n1_point_list.length;i++)
+			for(int j = 0; j<n2_point_list.length;j++)
+				if(n1_point_list[i].x==n2_point_list[j].x && n1_point_list[i].y==n2_point_list[j].y)
+					sharedPoints.add(new Point(n1_point_list[i].x,n1_point_list[i].y));
+		Point[]array = new Point[sharedPoints.size()];
+		array = sharedPoints.toArray(array);
+		return array;
+	}
 }
 
 class SearchNodeQueue{
-	ArrayList<SearchSpaceNode>list = new ArrayList<SearchSpaceNode>();
+	ArrayList<Node>list = new ArrayList<Node>();
 	PriorityQueue<AStarNode> queue = new PriorityQueue<AStarNode>();
 	
-	public void add(SearchSpaceNode node, double f_value) {
+	public void add(Node node, double f_value) {
 		if(list.contains(node))
 			return;
 		list.add(node);
@@ -420,7 +644,7 @@ class SearchNodeQueue{
 		
 		return node;
 	}
-	public boolean contains(SearchSpaceNode node) {
+	public boolean contains(Node node) {
 		return list.contains(node);
 	}
 	public int size() {
@@ -428,9 +652,9 @@ class SearchNodeQueue{
 	}
 }
 class AStarNode implements Comparable<AStarNode>{
-	SearchSpaceNode node;
+	Node node;
 	double f_value;
-	public AStarNode(SearchSpaceNode node, double f_value) {
+	public AStarNode(Node node, double f_value) {
 		this.node = node;
 		this.f_value = f_value;
 	}

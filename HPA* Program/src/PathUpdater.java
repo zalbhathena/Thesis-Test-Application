@@ -29,7 +29,7 @@ public class PathUpdater{
 				path_updates.add(next_path);
 			}
 			catch(ExecutionException e) {
-				System.out.println("EXCEPTION!!!");
+				System.out.println("EXCEPTION!!! " + e);
 			}
 			catch(InterruptedException e) {
 				System.out.println("EXCEPTION!!!");

@@ -30,4 +30,26 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>Galois-2.0</name>
+			<type>2</type>
+			<location>/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/Galois-2.0</location>
+		</link>
+		<link>
+			<name>galois</name>
+			<type>2</type>
+			<location>/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/Galois-2.0/src/galois</location>
+		</link>
+		<link>
+			<name>main</name>
+			<type>2</type>
+			<location>/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/Galois-2.0/apps/gmetis/main</location>
+		</link>
+		<link>
+			<name>util</name>
+			<type>2</type>
+			<location>/Users/zalbhathena/Documents/workspace/Thesis-Test-Application/Galois-2.0/src/util</location>
+		</link>
+	</linkedResources>
 </projectDescription>

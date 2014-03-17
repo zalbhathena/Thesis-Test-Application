@@ -47,8 +47,8 @@ public class MapView extends JPanel{
         	SearchSpaceManager grid = map_model.search_space_manager;
         	
         	g.setColor(Color.GRAY);
-		    for(SearchSpaceNode node:grid.getEntranceNodes()) {
-		    	Point[] point_list = node.point_list;
+		    /*for(Node node:grid.getEntranceNodes()) {
+		    	Point[] point_list = node.getPoints();
 				int[] x_list = new int[point_list.length];
 				int[] y_list = new int[point_list.length];
 				for(int k = 0; k < point_list.length; k++) {
@@ -56,12 +56,12 @@ public class MapView extends JPanel{
 					y_list[k] = scaleY(point_list[k].y) + y_offset;
 				}
 				g.fillPolygon(x_list,y_list,x_list.length);
-		    }
+		    }*/
 		    int count = 0;
-	    	for(SearchSpaceNode node: grid.getSearchSpace()) {
+	    	for(Node node: grid.getSearchSpace()) {
     			
     			if(node != null) {
-    				Point[] point_list = node.point_list;
+    				Point[] point_list = node.getPoints();
     				int[] x_list = new int[point_list.length];
     				int[] y_list = new int[point_list.length];
     				for(int k = 0; k < point_list.length; k++) {
@@ -69,7 +69,7 @@ public class MapView extends JPanel{
     					y_list[k] = scaleY(point_list[k].y) + y_offset;
     				}
     				
-    				g.setColor(color_wheel[count++%color_wheel.length]);
+    				g.setColor(color_wheel[grid.getClusterID(node)%color_wheel.length]);
     				
     				g.fillPolygon(x_list,y_list,x_list.length);
     				
@@ -77,20 +77,6 @@ public class MapView extends JPanel{
     				g.drawPolygon(x_list,y_list,x_list.length);
     				
     			}
-	    	}
-	    	
-	    	g.setColor(Color.BLACK);
-	    	for(Polygon p: grid.getClusterBoundaries()) {
-	    		int length = p.xpoints.length;
-	    		int[] px_list = p.xpoints;
-	    		int[] py_list = p.ypoints;
-	    		int[] x_list = new int[length];
-				int[] y_list = new int[length];
-				for(int k = 0; k < length; k++) {
-					x_list[k] = scaleX(px_list[k]) + x_offset;
-					y_list[k] = scaleY(py_list[k]) + y_offset;
-				}
-				g.drawPolygon(x_list,y_list,x_list.length);
 	    	}
 		
 		    
@@ -113,6 +99,21 @@ public class MapView extends JPanel{
 		    	g.fillRect(scaleX(o.x) + x_offset,scaleY(o.y) + y_offset,
 		    			scaleSize(o.width),scaleSize(o.height));
 		    }
+		    
+		    g.setColor(Color.RED);
+	    	for(Polygon p: grid.getClusterBoundaries()) {
+	    		int length = p.xpoints.length;
+	    		int[] px_list = p.xpoints;
+	    		int[] py_list = p.ypoints;
+	    		int[] x_list = new int[length];
+				int[] y_list = new int[length];
+				for(int k = 0; k < length; k++) {
+					x_list[k] = scaleX(px_list[k]) + x_offset;
+					y_list[k] = scaleY(py_list[k]) + y_offset;
+				}
+				g.drawPolygon(x_list,y_list,x_list.length);
+	    	}
+		    
 		    Point prev_point = null;
 		    for(Point point: agent_path_list) {
 		    	if(prev_point == null) {

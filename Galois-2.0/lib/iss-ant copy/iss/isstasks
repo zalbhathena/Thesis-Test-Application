@@ -1,0 +1,5 @@
+set-if-unset=iss.SetProperty
+indent=iss.formatter.JavaCodeFormatterTask
+echo-cond=iss.ConditionalEcho
+svn-st=iss.SvnStatus
+javac=iss.Javac

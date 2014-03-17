@@ -1,0 +1,10 @@
+Some inputs for benchmarks were acquired from third-party sources, please
+see input/README for details.
+
+The metis benchmark is a reimplementation of the Metis application found
+here:
+
+  http://glaros.dtc.umn.edu/gkhome/views/metis
+
+Some code and structures were transliterated from the original Metis
+application.

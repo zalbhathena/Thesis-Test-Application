@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.Point;
@@ -16,11 +17,14 @@ public class MapModel implements ActionListener{
 	
 	SearchSpaceManager search_space_manager;
 	
+	boolean final_update = false;
+	
 	String current_algorithm = "NONE";
 	ArrayList<Point> subgoal_list;
 	MapView map_view;
 	boolean animate = false;
 	PathUpdater path_updater;
+	THPAStarPathUpdater thpa_path_updater;
 	
 	Point start_point,goal_point;
 	public MapModel(int size, MapView map_view)
@@ -109,17 +113,56 @@ public class MapModel implements ActionListener{
 		if(animate) {
 
 			
-			double speed = 1;
+			double speed = this.width/10;
 			if(subgoal_list.size() == 0) {
-				if(path_updater.remainingUpdates() > 0) {
-					ArrayList<Point> path_update = path_updater.getNextPath();
-					for(int i = 0; i < path_update.size(); i++)
-						subgoal_list.add(path_update.get(i));
-					return;
+				if(current_algorithm.equals("PTHPA*")) {
+					if(thpa_path_updater.remainingUpdates() > 0) {
+						ArrayList<Node> path_update = thpa_path_updater.getNextPath();
+						if(path_update==null)
+							return;
+						for(int i = 0; i < path_update.size(); i++) {
+							Point[] points = path_update.get(i).getPoints();
+							
+							double x1 = points[0].x;
+							double y1 = points[0].y;
+							double x2 = points[1].x;
+							double y2 = points[1].y;
+							double x3 = points[2].x;
+							double y3 = points[2].y;
+							
+							double px = (x1+x2+x3)/3;
+							double py = (y1+y2+y3)/3;
+							
+							Point p = new Point((int)px,(int)py);
+							if(i==0 || !p.equals(subgoal_list.get(subgoal_list.size()-1)))
+								subgoal_list.add(p);
+						}
+						
+						return;
+					}
+					else if(thpa_path_updater.isDone() && thpa_path_updater.remainingUpdates() == 0){
+						if(final_update) {
+							//subgoal_list.add(goal_point);
+							final_update = false;
+							return;
+						}
+							
+						animate = false;
+						return;
+					}
 				}
-				else if(path_updater.isDone() && path_updater.remainingUpdates() == 0){
-					animate = false;
-					return;
+				else {
+					
+					if(path_updater.remainingUpdates() > 0) {
+						ArrayList<Point> path_update = path_updater.getNextPath();
+						for(int i = 0; i < path_update.size(); i++)
+							subgoal_list.add(path_update.get(i));
+						return;
+					}
+					else if(path_updater.isDone() && path_updater.remainingUpdates() == 0){
+						animate = false;
+						return;
+					}
 				}
 			}
 			Point p = subgoal_list.get(0);
@@ -163,29 +206,44 @@ public class MapModel implements ActionListener{
 		if(agent_diameter > start_diameter)
 			return;
 		
-		if(algorithm.equals("TA*")) {
+		if(algorithm.equals("PTHPA*")) {
+			search_space_manager = new THPAStarZeroPointAgentSpaceManager(obstacle_list, width, height);
+			this.current_algorithm = "PTHPA*";
+		}
+			
+		else if(algorithm.equals("TA*")) {
 			search_space_manager = new TriangulationSpaceManager(obstacle_list, width, height);
 			this.current_algorithm = "TA*";
 		}
-		if(algorithm.equals("A*")) {
+		else if(algorithm.equals("A*")) {
 			search_space_manager = new GridSpaceManager(obstacle_list, width, height);
 			this.current_algorithm = "A*";
 			
 		}
-		if(algorithm.equals("HPA*")) {
+		else if(algorithm.equals("HPA*")) {
 			int cluster_width = 20,cluster_height = 20;
 			search_space_manager = new HPAStarSpaceManager(obstacle_list, width, height, cluster_width, cluster_height);
 			this.current_algorithm = "HPA*";
 		}
-		if(subgoal_list == null) {
+		else if(subgoal_list == null) {
 			this.current_algorithm = "NONE";
 		}
 		
+		final_update = true;
 		updateMapModel();
 		agent = new Agent(agent_diameter/2, agent_diameter/2, agent_diameter);
-		path_updater = search_space_manager.getPath(start_point, goal_point);
-		path_updater.startPathfinding();
 		subgoal_list = new ArrayList<Point>();
+		if(algorithm.equals("PTHPA*")) {
+			thpa_path_updater = ((THPAStarZeroPointAgentSpaceManager)search_space_manager).getNodePath(start_point, goal_point);
+			thpa_path_updater.startPathfinding();
+			//subgoal_list.add(start_point);
+		}
+		else {
+			path_updater = search_space_manager.getPath(start_point, goal_point);
+			path_updater.startPathfinding();
+			subgoal_list.add(start_point);
+		}
+		
 		startAnimation(agent_diameter, animate);
 	}
 	

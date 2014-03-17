@@ -7,9 +7,15 @@ public interface Node {
 	
 	public Set<Node> getNeighbors();
 	
-	public void setNeighbors(Node[] neighbors);
+	public void setNeighbors(Set<Node> neighbors);
 	
 	public void addNeighbor(Node neighbor);
 	
 	public void removeNeighbor(Node neighbor);
+	
+	public void removeSelfFromGraph();
+	
+	public boolean equals(Object o); //OVERRIDE THESE TWO METHODS FOR THE CACHE TO WORK PROPERLY
+	
+	public int hashCode();
 }

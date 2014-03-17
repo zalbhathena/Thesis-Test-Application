@@ -1,0 +1,18 @@
+This directory contains data inputs to the benchmark programs.
+
+Some of these inputs were collected from a third-party:
+  cholesky
+    http://math.nist.gov/MatrixMarket
+  delaunayrefinement
+    Output of Triangle program using random points
+    http://www.cs.cmu.edu/~quake/triangle.html
+  metis
+    http://staffweb.cms.gre.ac.uk/~wc06/partition/
+  surveypropagation
+    http://www.satcompetition.org/
+    http://www.cril.univ-artois.fr/SAT09/random.7z
+  preflowpush
+    http://avglab.com/andrew/CATS/maxflow_synthetic.htm
+  sssp
+    http://www.dis.uniroma1.it/~challenge9/download.shtml
+    http://snap.standford.edu/data
