@@ -28,11 +28,12 @@ public class THPAStarZeroPointAgentSpaceManager implements SearchSpaceManager, T
 	Map<Node,Node> new_to_old = new HashMap<Node,Node>();
 	
 	Set<Node> entrance_nodes = new HashSet<Node>();
+	int num_obstacles;
 	
 	THPAAbstractGraphSpaceManager abstract_graph;
 	
 	public THPAStarZeroPointAgentSpaceManager(ArrayList<Obstacle> obstacle_list, int width, int height) {
-		
+		int num_obstacles = obstacle_list.size();
 		this.width = width;
 		this.height = height;
 		
@@ -55,13 +56,12 @@ public class THPAStarZeroPointAgentSpaceManager implements SearchSpaceManager, T
 	}
 	
 	private void findClustering() {
-		/*
 		MetisGraph metis_graph;
 		IntGraph<MetisNode> graph = new MorphGraph.IntGraphBuilder().backedByVector(true).directed(true).create();
 		
 		ArrayList<GNode<MetisNode>> nodes = new ArrayList<GNode<MetisNode>>();
 		
-		Map<Node,GNode>node_to_gnode = new HashMap<Node,GNode>();
+		Map<Node,GNode<MetisNode>>node_to_gnode = new HashMap<Node,GNode<MetisNode>>();
 		
 		int i = 0;
 		for(Node node:search_space) {
@@ -90,17 +90,26 @@ public class THPAStarZeroPointAgentSpaceManager implements SearchSpaceManager, T
 	    metisGraph.setNumEdges(num_edges / 2);
 	    metisGraph.setGraph(graph);
 	    
+	    i-=num_obstacles*2;
+	    System.out.println(i+"");
 	    try {
-	    	PMetis.partition(metisGraph, 2);
+	    	PMetis.partition(metisGraph, (int)Math.ceil(Math.sqrt(i)));
 	    }
 	    catch(ExecutionException e) {
 	    	System.out.println("Partition Exception!!");
 	    }
 	    
-	    int in = 0;
-	    in++;
-	    */
-		int search_space_size = search_space.size();
+	    clusterID_map = new HashMap<Node,Integer>();
+	    
+	    for(Node n:node_to_gnode.keySet()) {
+	    	GNode<MetisNode> gnode = node_to_gnode.get(n);
+	    	
+	    	int cluster_id = gnode.getData().getPartition();
+	    	
+	    	clusterID_map.put(n,cluster_id);
+	    }
+	    
+		/*int search_space_size = search_space.size();
 		int cluster_size = search_space_size/2;//(int) Math.ceil(Math.sqrt(search_space_size));
 		
 		Stack<Node> remaining = new Stack<Node>();
@@ -137,7 +146,7 @@ public class THPAStarZeroPointAgentSpaceManager implements SearchSpaceManager, T
 					break;
 				}
 			}
-		}
+		}*/
 	}
 	
 	private void findDistanceCache() {
@@ -210,10 +219,19 @@ public class THPAStarZeroPointAgentSpaceManager implements SearchSpaceManager, T
 							//Point[] shared_points = SearchAlgorithms.sharedPointsForNodes(node, neighbor2);
 							Node from = new_to_old.get(node);
 							Node to = new_to_old.get(neighbor);
-							Object[] array = SearchAlgorithms.TAStarFValue(this, null, from, to, true);
+							Object[] array = SearchAlgorithms.TAStarFValue(this, null, null,from, to, true);
+							//FIX THIS
 							if(array==null) {
+								System.out.println("ERROR");
 								int i = 0;
 								i++;
+								Point[] p = node.getPoints();
+								System.out.println("node " +p[0].x+","+p[0].y+" "+p[1].x+","+p[1].y+" "+p[2].x+","+p[2].y);
+								
+								p = neighbor.getPoints();
+								System.out.println("neighbor " +p[0].x+","+p[0].y+" "+p[1].x+","+p[1].y+" "+p[2].x+","+p[2].y);
+								
+								continue;
 							}
 							cache.addEdge(node, neighbor, null, (Double)array[0], (Edge)array[1]);
 						//}
@@ -404,6 +422,11 @@ public class THPAStarZeroPointAgentSpaceManager implements SearchSpaceManager, T
 		point_list.add(0, start_point);
 		point_list.add(goal_point);*/
 		
+		System.out.println("Abstract Node_path");
+		for(int i = 0; i < node_path.size(); i++)
+			System.out.println(node_path.get(i));
+		System.out.println();
+		
 		THPAStarPathUpdater path_updater = new THPAStarPathUpdater(this,node_path);
 		
 		return path_updater;
@@ -413,6 +436,17 @@ public class THPAStarZeroPointAgentSpaceManager implements SearchSpaceManager, T
 		//USING NAIVE METHOD THAT STARTS FROM CENTER OF NODE
 		Node new_start = new_to_old.get(start);
 		Node new_goal = new_to_old.get(goal);
+		
+		Point[] shared = SearchAlgorithms.sharedPointsForNodes(new_start, new_goal);
+		
+		if(shared.length == 2) {
+			ArrayList<Node>list = new ArrayList<Node>();
+			list.add(new_start);
+			list.add(new_goal);
+			System.out.println("adj " + new_start);
+			System.out.println("adj " + new_goal);
+			return list;
+		}
 		
 
 		Point[] points = new_start.getPoints();
@@ -444,6 +478,16 @@ public class THPAStarZeroPointAgentSpaceManager implements SearchSpaceManager, T
 		Point goal_point = new Point((int)px,(int)py);
 		
 		ArrayList<Node> node_path = SearchAlgorithms.TAStar(this, start_point, goal_point, new_start, new_goal, true);
+		
+		System.out.println("Node_path");
+		if(node_path == null) {
+			System.out.println("NULL");
+			System.out.println(new_start);
+			System.out.println(new_goal);
+		}
+		for(int i = 0; i < node_path.size(); i++)
+			System.out.println(node_path.get(i));
+		System.out.println();
 		
 		return node_path;
 	}

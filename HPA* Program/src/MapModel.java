@@ -113,11 +113,12 @@ public class MapModel implements ActionListener{
 		if(animate) {
 
 			
-			double speed = this.width/10;
+			double speed = Math.max(1,this.width/10);
 			if(subgoal_list.size() == 0) {
 				if(current_algorithm.equals("PTHPA*")) {
 					if(thpa_path_updater.remainingUpdates() > 0) {
 						ArrayList<Node> path_update = thpa_path_updater.getNextPath();
+
 						if(path_update==null)
 							return;
 						for(int i = 0; i < path_update.size(); i++) {
@@ -134,15 +135,17 @@ public class MapModel implements ActionListener{
 							double py = (y1+y2+y3)/3;
 							
 							Point p = new Point((int)px,(int)py);
-							if(i==0 || !p.equals(subgoal_list.get(subgoal_list.size()-1)))
+							
+							if(i==0 || !p.equals(subgoal_list.get(subgoal_list.size()-1))) {
 								subgoal_list.add(p);
+							}
 						}
 						
 						return;
 					}
 					else if(thpa_path_updater.isDone() && thpa_path_updater.remainingUpdates() == 0){
 						if(final_update) {
-							//subgoal_list.add(goal_point);
+							subgoal_list.add(goal_point);
 							final_update = false;
 							return;
 						}

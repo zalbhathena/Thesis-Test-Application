@@ -97,7 +97,13 @@ public class THPAAbstractGraphSpaceManager implements SearchSpaceManager{
 				//if(shared_points.length == 2 && node_to_cluster.get(neighbor) != node_to_cluster.get(node)) {
 					Node from = start;
 					Node to = new_to_old.get(node);
-					Object[] array = SearchAlgorithms.TAStarFValue(edge_cache.manager, null, from, to, true);
+					Object[] array = SearchAlgorithms.TAStarFValue(edge_cache.manager, null,start_point, from, to, true);
+					
+					//FIX THIS
+					if(array == null) {
+						System.out.println("error2");
+						continue;
+					}
 					edge_cache.addEdge(new_start, node, null,(Double)array[0],(Edge)array[1]);
 				//}
 					
@@ -115,7 +121,12 @@ public class THPAAbstractGraphSpaceManager implements SearchSpaceManager{
 				//if(shared_points.length == 2 && node_to_cluster.get(neighbor) != node_to_cluster.get(node))
 				Node from = new_to_old.get(node);
 				Node to = goal;
-				Object[] array = SearchAlgorithms.TAStarFValue(edge_cache.manager, null, from, to, true);
+				Object[] array = SearchAlgorithms.TAStarFValue(edge_cache.manager, null,null, from, to, true);
+				if(array == null) {
+					System.out.println("Error1");
+					continue;
+				}
+				//FIX THIS
 				edge_cache.addEdge(node, new_goal, null,(Double)array[0],(Edge)array[1]);
 			//}
 		}

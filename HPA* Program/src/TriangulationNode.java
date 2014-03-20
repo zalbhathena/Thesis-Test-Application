@@ -85,4 +85,8 @@ public class TriangulationNode implements Node {
 		neighbors.clear();
 	}
 	
+	public String toString() {
+		return point_list[0].x + "," + point_list[0].y +" "+point_list[1].x + "," + point_list[1].y +" "+point_list[2].x + "," + point_list[2].y;
+	}
+	
 }

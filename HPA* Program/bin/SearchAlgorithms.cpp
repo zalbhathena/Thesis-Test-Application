@@ -19,6 +19,7 @@ JNIEXPORT jdoubleArray JNICALL Java_SearchAlgorithms_getTriangulation (JNIEnv *e
 	int input_size = (int)(env->GetArrayLength(doubleArray));
 	printf("0");
 	jdouble *doubleptr = env->GetDoubleArrayElements(doubleArray, NULL);
+	//don't alloc on stack
 	double input[input_size];
 
 	for(int i = 0; i < input_size; i++) {

@@ -303,6 +303,10 @@ public class SearchAlgorithms {
 				double tentative_h_value = closestPointBetweenPointAndSegment(goal_point,entrance);
 				
 				if(tentative_g_value.equals(Double.NaN)) {
+					Point[]p = sharedPointsForNodes(current,neighbor);
+					if(p.length != 2)
+						continue;
+					
 					double dist_bound = closestPointBetweenPointAndSegment(start_point,entrance);
 					
 					double h_diff_bound = current_h_value - tentative_h_value;
@@ -410,15 +414,20 @@ public class SearchAlgorithms {
 	}
 	
 	public static Object[] TAStarFValue(SearchSpaceManager manager, 
-			Edge entrance_edge, Node start, Node goal, boolean cluster) {
+			Edge entrance_edge, Point start_point, Node start, Node goal, boolean cluster) {
 		SearchNodeQueue open_set = new SearchNodeQueue();
 		ArrayList<Node> closed_set = new ArrayList<Node>();
 		
 		HashMap<Node, Node> came_from = new HashMap<Node, Node>();
 		HashMap<Node, Double> g_value = new HashMap<Node, Double>();
 		
-		if(entrance_edge == null)
+		if(entrance_edge == null && start_point != null)
+			entrance_edge = new Edge(start_point,start_point);
+		else {
 			entrance_edge = new Edge(start.getPoints()[0],start.getPoints()[1]);
+		}
+		
+		//assert entrance_edge != null;
 			
 		double start_f_value = closestPointBetweenEdgeAndTriangle(entrance_edge,goal.getPoints());
 		
