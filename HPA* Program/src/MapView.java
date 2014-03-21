@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.JPanel;
 
@@ -18,10 +19,10 @@ public class MapView extends JPanel{
 	
 	int frame_number = 0;
 	long start_time;
-	Color[] color_wheel = {new Color(0,127,127), new Color(127,0,0), new Color(0,63,127),
-			new Color(127,63,0), new Color(0,0,127), new Color(127,127,0),
-			new Color(63,0,127), new Color(63,127,0), new Color(127,0,127),
-			new Color(0,127,0), new Color(127,0,63), new Color(0,127,63)};
+	Color[] color_wheel = {new Color(0,255,255), new Color(255,0,0), new Color(0,127,255),
+			new Color(255,127,0), new Color(0,0,255), new Color(255,255,0),
+			new Color(127,0,127), new Color(127,255,0), new Color(255,0,255),
+			new Color(0,255,0), new Color(255,0,127), new Color(0,255,127)};
 	public MapView(int size)
 	{
 		this.setBounds(0,200,600,600);
@@ -46,38 +47,9 @@ public class MapView extends JPanel{
     	    
         	SearchSpaceManager grid = map_model.search_space_manager;
         	
-        	g.setColor(Color.GRAY);
-		    /*for(Node node:grid.getEntranceNodes()) {
-		    	Point[] point_list = node.getPoints();
-				int[] x_list = new int[point_list.length];
-				int[] y_list = new int[point_list.length];
-				for(int k = 0; k < point_list.length; k++) {
-					x_list[k] = scaleX(point_list[k].x) + x_offset;
-					y_list[k] = scaleY(point_list[k].y) + y_offset;
-				}
-				g.fillPolygon(x_list,y_list,x_list.length);
-		    }*/
+        	
 		    int count = 0;
-	    	for(Node node: grid.getSearchSpace()) {
-    			
-    			if(node != null) {
-    				Point[] point_list = node.getPoints();
-    				int[] x_list = new int[point_list.length];
-    				int[] y_list = new int[point_list.length];
-    				for(int k = 0; k < point_list.length; k++) {
-    					x_list[k] = scaleX(point_list[k].x) + x_offset;
-    					y_list[k] = scaleY(point_list[k].y) + y_offset;
-    				}
-    				
-    				g.setColor(color_wheel[grid.getClusterID(node)%color_wheel.length]);
-    				
-    				g.fillPolygon(x_list,y_list,x_list.length);
-    				
-    				g.setColor(Color.black);
-    				g.drawPolygon(x_list,y_list,x_list.length);
-    				
-    			}
-	    	}
+	    	
 		
 		    
     	    
@@ -95,12 +67,12 @@ public class MapView extends JPanel{
 		    ArrayList<Obstacle> obstacle_list = map_model.obstacle_list;
 		    for(int i = 0; i < obstacle_list.size(); i++) {
 		    	Obstacle o = obstacle_list.get(i);
-		    	g.setColor(Color.BLACK);
+		    	g.setColor(Color.GRAY);
 		    	g.fillRect(scaleX(o.x) + x_offset,scaleY(o.y) + y_offset,
 		    			scaleSize(o.width),scaleSize(o.height));
 		    }
 		    
-		    g.setColor(Color.RED);
+		    g.setColor(Color.GRAY);
 	    	for(Polygon p: grid.getClusterBoundaries()) {
 	    		int length = p.xpoints.length;
 	    		int[] px_list = p.xpoints;
@@ -114,13 +86,90 @@ public class MapView extends JPanel{
 				g.drawPolygon(x_list,y_list,x_list.length);
 	    	}
 		    
+	    	g.setColor(Color.GRAY);
+		    for(Node node:grid.getEntranceNodes()) {
+		    	Point[] point_list = node.getPoints();
+				int[] x_list = new int[point_list.length];
+				int[] y_list = new int[point_list.length];
+				for(int k = 0; k < point_list.length; k++) {
+					x_list[k] = scaleX(point_list[k].x) + x_offset;
+					y_list[k] = scaleY(point_list[k].y) + y_offset;
+				}
+				g.fillPolygon(x_list,y_list,x_list.length);
+		    }
+		    for(Node node: grid.getSearchSpace()) {
+	    		
+    			if(node != null) {
+    				
+    				if(grid instanceof THPAStarPointAgentVertexSpaceManager) {
+    					Point p = node.getPoints()[0];
+    					int x = scaleX(p.x) + x_offset;
+    					int y = scaleY(p.y) + y_offset;
+    					g.setColor(color_wheel[grid.getClusterID(node)%color_wheel.length]);
+    					g.fillRect(x, y, 5, 5);
+    					continue;
+    				}
+    				
+    				Point[] point_list = node.getPoints();
+    				int[] x_list = new int[point_list.length];
+    				int[] y_list = new int[point_list.length];
+    				for(int k = 0; k < point_list.length; k++) {
+    					x_list[k] = scaleX(point_list[k].x) + x_offset;
+    					y_list[k] = scaleY(point_list[k].y) + y_offset;
+    				}
+    				
+    				g.setColor(color_wheel[grid.getClusterID(node)%color_wheel.length]);
+    				
+    				g.fillPolygon(x_list,y_list,x_list.length);
+    				
+    				g.setColor(Color.GRAY);
+    				g.drawPolygon(x_list,y_list,x_list.length);
+    				
+    			}
+	    	}
+		    if(grid instanceof THPAStarPointAgentVertexSpaceManager) {
+		    	Set<Polygon>inter_edges = ((THPAStarPointAgentVertexSpaceManager) grid).inter_edges;
+		    	Map<Polygon,Integer>intra_edges = ((THPAStarPointAgentVertexSpaceManager) grid).intra_edges;
+		    	
+		    	g.setColor(Color.GRAY);
+		    	for(Polygon p: inter_edges) {
+		    		int length = p.xpoints.length;
+		    		int[] px_list = p.xpoints;
+		    		int[] py_list = p.ypoints;
+		    		int[] x_list = new int[length];
+					int[] y_list = new int[length];
+					for(int k = 0; k < length; k++) {
+						x_list[k] = scaleX(px_list[k]) + x_offset;
+						y_list[k] = scaleY(py_list[k]) + y_offset;
+					}
+					g.drawPolygon(x_list,y_list,x_list.length);
+		    	}
+		    	
+		    	for(Polygon p: intra_edges.keySet()) {
+		    		int id = intra_edges.get(p); 
+		    		
+		    		int length = p.xpoints.length;
+		    		int[] px_list = p.xpoints;
+		    		int[] py_list = p.ypoints;
+		    		int[] x_list = new int[length];
+					int[] y_list = new int[length];
+					for(int k = 0; k < length; k++) {
+						x_list[k] = scaleX(px_list[k]) + x_offset;
+						y_list[k] = scaleY(py_list[k]) + y_offset;
+					}
+					g.setColor(color_wheel[id%color_wheel.length]);
+					g.drawPolygon(x_list,y_list,x_list.length);
+		    	}
+		    }
+	    	
 		    Point prev_point = null;
 		    for(Point point: agent_path_list) {
 		    	if(prev_point == null) {
 		    		prev_point = point;
 		    		continue;
 		    	}
-		    	g.setColor(Color.white);
+		    	
+		    	g.setColor(Color.BLACK);
 		    	g.drawLine(point.x,point.y,prev_point.x,prev_point.y);
 		    	prev_point = point;
 		    }

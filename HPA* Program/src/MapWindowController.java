@@ -11,7 +11,7 @@ public class MapWindowController extends JFrame implements ActionListener, ItemL
 	private static final int SETTINGS_WIDTH = 600, SETTINGS_HEIGHT = 200;
 	private static final int NUM_MAP_TYPE = 2;
 	private static final int NUM_ALGORITHM_TYPE = 2;
-	private static final int MAP_IMAGE_SIZE = 400, ACTUAL_MAP_SIZE = 50;
+	private static final int MAP_IMAGE_SIZE = 400, ACTUAL_MAP_SIZE = 100;
 	 
 	
 	private JButton run;
@@ -111,7 +111,7 @@ public class MapWindowController extends JFrame implements ActionListener, ItemL
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 		if(source == run) {
-			map_model.createRandomObstacles(1, 1);
+			map_model.createRandomObstacles(100, 1);
 			map_model.startPathfinding("PTHPA*", 0, true);
 			map_view.setMapScale(ACTUAL_MAP_SIZE);
 			map_view.setMapModel(map_model);

@@ -24,7 +24,6 @@ public class MapModel implements ActionListener{
 	MapView map_view;
 	boolean animate = false;
 	PathUpdater path_updater;
-	THPAStarPathUpdater thpa_path_updater;
 	
 	Point start_point,goal_point;
 	public MapModel(int size, MapView map_view)
@@ -115,58 +114,18 @@ public class MapModel implements ActionListener{
 			
 			double speed = Math.max(1,this.width/10);
 			if(subgoal_list.size() == 0) {
-				if(current_algorithm.equals("PTHPA*")) {
-					if(thpa_path_updater.remainingUpdates() > 0) {
-						ArrayList<Node> path_update = thpa_path_updater.getNextPath();
 
-						if(path_update==null)
-							return;
-						for(int i = 0; i < path_update.size(); i++) {
-							Point[] points = path_update.get(i).getPoints();
-							
-							double x1 = points[0].x;
-							double y1 = points[0].y;
-							double x2 = points[1].x;
-							double y2 = points[1].y;
-							double x3 = points[2].x;
-							double y3 = points[2].y;
-							
-							double px = (x1+x2+x3)/3;
-							double py = (y1+y2+y3)/3;
-							
-							Point p = new Point((int)px,(int)py);
-							
-							if(i==0 || !p.equals(subgoal_list.get(subgoal_list.size()-1))) {
-								subgoal_list.add(p);
-							}
-						}
-						
-						return;
-					}
-					else if(thpa_path_updater.isDone() && thpa_path_updater.remainingUpdates() == 0){
-						if(final_update) {
-							subgoal_list.add(goal_point);
-							final_update = false;
-							return;
-						}
-							
-						animate = false;
-						return;
-					}
+				if(path_updater.remainingUpdates() > 0) {
+					ArrayList<Point> path_update = path_updater.getNextPath();
+					for(int i = 0; i < path_update.size(); i++)
+						subgoal_list.add(path_update.get(i));
+					return;
 				}
-				else {
-					
-					if(path_updater.remainingUpdates() > 0) {
-						ArrayList<Point> path_update = path_updater.getNextPath();
-						for(int i = 0; i < path_update.size(); i++)
-							subgoal_list.add(path_update.get(i));
-						return;
-					}
-					else if(path_updater.isDone() && path_updater.remainingUpdates() == 0){
-						animate = false;
-						return;
-					}
+				else if(path_updater.isDone() && path_updater.remainingUpdates() == 0){
+					animate = false;
+					return;
 				}
+				
 			}
 			Point p = subgoal_list.get(0);
 			if(p.x == agent.x && p.y == agent.y) {
@@ -210,7 +169,7 @@ public class MapModel implements ActionListener{
 			return;
 		
 		if(algorithm.equals("PTHPA*")) {
-			search_space_manager = new THPAStarZeroPointAgentSpaceManager(obstacle_list, width, height);
+			search_space_manager = new THPAStarPointAgentVertexSpaceManager(obstacle_list, width, height);
 			this.current_algorithm = "PTHPA*";
 		}
 			
@@ -232,20 +191,15 @@ public class MapModel implements ActionListener{
 			this.current_algorithm = "NONE";
 		}
 		
-		final_update = true;
+		//final_update = true;
 		updateMapModel();
 		agent = new Agent(agent_diameter/2, agent_diameter/2, agent_diameter);
 		subgoal_list = new ArrayList<Point>();
-		if(algorithm.equals("PTHPA*")) {
-			thpa_path_updater = ((THPAStarZeroPointAgentSpaceManager)search_space_manager).getNodePath(start_point, goal_point);
-			thpa_path_updater.startPathfinding();
-			//subgoal_list.add(start_point);
-		}
-		else {
-			path_updater = search_space_manager.getPath(start_point, goal_point);
-			path_updater.startPathfinding();
-			subgoal_list.add(start_point);
-		}
+	
+		path_updater = search_space_manager.getPath(start_point, goal_point);
+		path_updater.startPathfinding();
+		subgoal_list.add(start_point);
+		
 		
 		startAnimation(agent_diameter, animate);
 	}

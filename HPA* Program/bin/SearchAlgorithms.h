@@ -17,6 +17,14 @@ extern "C" {
 JNIEXPORT jdoubleArray JNICALL Java_SearchAlgorithms_getTriangulation
   (JNIEnv *, jobject, jdoubleArray);
 
+/*
+ * Class:     SearchAlgorithms
+ * Method:    getTriangulation2
+ * Signature: ([D)[D
+ */
+JNIEXPORT jdoubleArray JNICALL Java_SearchAlgorithms_getTriangulation2
+  (JNIEnv *, jobject, jdoubleArray);
+
 #ifdef __cplusplus
 }
 #endif

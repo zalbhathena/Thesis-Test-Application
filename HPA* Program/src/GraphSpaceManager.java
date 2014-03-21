@@ -88,11 +88,21 @@ public class GraphSpaceManager implements SearchSpaceManager {
 		}
 		
 		for(Node node: goal.getNeighbors()) {
+			if(cost_function.get(node) == null)
+				System.out.println("OOPS");
 			node.getNeighbors().remove(goal);
 			cost_function.get(node).remove(goal);
 		}
 		search_space_list.remove(start);
 		search_space_list.remove(goal);
+		
+		return path;
+	}
+	
+	public ArrayList<Point>getPath(Node start, Node goal) {
+		
+		ArrayList<Point> path = 
+				SearchAlgorithms.AStar(this, this.cost_function, start.getPoints()[0], goal.getPoints()[0], start, goal, false);
 		
 		return path;
 	}

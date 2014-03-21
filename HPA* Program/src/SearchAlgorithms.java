@@ -18,6 +18,139 @@ public class SearchAlgorithms {
 	static SearchAlgorithms triangulation_library = new SearchAlgorithms();
 	
 	private native double[] getTriangulation(double[] f);
+	private native double[] getTriangulation2(double[] f);
+	
+	public static Set<Node> getTriangulation1(Rectangle boundary,ArrayList<Obstacle> obstacle_list) {
+		final int FACTOR = 4;
+		double obstacle_boundaries[] = new double[obstacle_list.size()*18 + 9 + 1];
+		//9 doubles for each obstacle (4 points and END)
+		//plus the boundary rectangle and the final END 
+
+		System.out.println(boundary);
+
+		int boundary_width = boundary.width*FACTOR;
+		int boundary_height = boundary.height*FACTOR;
+		int min_x = boundary.x * FACTOR;
+		int max_x = boundary.x * FACTOR + boundary_width;
+		int min_y = boundary.y * FACTOR;
+		int max_y = boundary.y * FACTOR + boundary_height;
+
+		obstacle_boundaries[0] = min_x;
+		obstacle_boundaries[1] = min_y;
+		obstacle_boundaries[2] = max_x;
+		obstacle_boundaries[3] = min_y;
+		obstacle_boundaries[4] = max_x;
+		obstacle_boundaries[5] = max_y;
+		obstacle_boundaries[6] = min_x;
+		obstacle_boundaries[7] = max_y;
+
+		obstacle_boundaries[8] = END;
+
+		int key_mult = Math.max(boundary.width,boundary.height)*FACTOR;
+
+		Map<Integer,Node> triangulations = new HashMap<Integer,Node>();
+		int border_top_left_key = key_mult*min_x + min_y;
+		int border_top_right_key = key_mult*max_x + min_y;
+		int border_bottom_right_key = key_mult*max_x + max_y;
+		int border_bottom_left_key = key_mult*min_x + max_y;
+		triangulations.put(border_top_left_key,new GraphNode(min_x/FACTOR,min_y/FACTOR));
+		triangulations.put(border_top_right_key,new GraphNode(max_x/FACTOR,min_y/FACTOR));
+		triangulations.put(border_bottom_right_key,new GraphNode(max_x/FACTOR,max_y/FACTOR));
+		triangulations.put(border_bottom_left_key,new GraphNode(min_x/FACTOR,max_y/FACTOR));
+
+		ArrayList<Rectangle> removeList = new ArrayList<Rectangle>();
+
+		for(int i = 0; i < obstacle_list.size(); i++) {
+			Obstacle o = obstacle_list.get(i);
+
+			int o_x = o.x * FACTOR;
+			int o_y = o.y * FACTOR;
+			int o_width = o.width * FACTOR;
+			int o_height = o.height * FACTOR;
+
+			int inner_x = o_x + 1;
+			int inner_y = o_y + 1;
+			int inner_width = o_width - 2;
+			int inner_height = o_height - 2;
+
+			obstacle_boundaries[(i) * 18 + 9 + 0] = o_x;
+			obstacle_boundaries[(i) * 18 + 9 + 1] = o_y;
+			obstacle_boundaries[(i) * 18 + 9 + 2] = o_x + o_width;
+			obstacle_boundaries[(i) * 18 + 9 + 3] = o_y;
+			obstacle_boundaries[(i) * 18 + 9 + 4] = o_x + o_width;
+			obstacle_boundaries[(i) * 18 + 9 + 5] = o_y + o_height;
+			obstacle_boundaries[(i) * 18 + 9 + 6] = o_x;
+			obstacle_boundaries[(i) * 18 + 9 + 7] = o_y + o_height;
+
+			obstacle_boundaries[(i) * 18 + 9 + 8] = END;
+
+			obstacle_boundaries[(i) * 18 + 9 + 9] = inner_x;
+			obstacle_boundaries[(i) * 18 + 9 + 10] = inner_y;
+			obstacle_boundaries[(i) * 18 + 9 + 11] = inner_x + inner_width;
+			obstacle_boundaries[(i) * 18 + 9 + 12] = inner_y;
+			obstacle_boundaries[(i) * 18 + 9 + 13] = inner_x + inner_width;
+			obstacle_boundaries[(i) * 18 + 9 + 14] = inner_y + inner_height;
+			obstacle_boundaries[(i) * 18 + 9 + 15] = inner_x;
+			obstacle_boundaries[(i) * 18 + 9 + 16] = inner_y + inner_height;
+
+			obstacle_boundaries[(i) * 18 + 9 + 17] = END;
+
+			int top_left_key = key_mult*o_x + o_y;
+			int top_right_key = key_mult*(o_x+o_width) + o_y;
+			int bottom_right_key = key_mult*(o_x+o_width) + o_y + o_height;
+			int bottom_left_key = key_mult*o_x + o_y+o_height;
+
+			if(!triangulations.containsKey(top_left_key))
+				triangulations.put(top_left_key, new GraphNode(o_x/FACTOR,o_y/FACTOR));
+			if(!triangulations.containsKey(top_right_key))
+				triangulations.put(top_right_key, new GraphNode((o_x+o_width)/FACTOR,o_y/FACTOR));
+			if(!triangulations.containsKey(bottom_right_key))
+				triangulations.put(bottom_right_key, new GraphNode((o_x+o_width)/FACTOR,(o_y+o_height)/FACTOR));
+			if(!triangulations.containsKey(bottom_left_key))
+				triangulations.put(bottom_left_key, new GraphNode(o_x/FACTOR,(o_y+o_height)/FACTOR));
+		}
+
+		obstacle_boundaries[obstacle_boundaries.length - 1] = END;
+
+		double[] edge_list = triangulation_library.getTriangulation2(obstacle_boundaries);
+
+
+
+		int num_edges = edge_list.length;
+
+		for(int i = 0; i < num_edges; i+=4) {
+			int x1 = (int)edge_list[i + 0];
+			int y1 = (int)edge_list[i + 1];
+			int x2 = (int)edge_list[i + 2];
+			int y2 = (int)edge_list[i + 3];
+			if(x1<min_x || x1>max_x)
+				continue;
+			if(x2<min_x || x2>max_x)
+				continue;
+			if(y1<min_y || y1>max_y)
+				continue;
+			if(y2<min_y || y2>max_y)
+				continue;
+
+			int key1 = key_mult*x1 + y1;
+			int key2 = key_mult*x2 + y2;
+
+			if(!triangulations.containsKey(key1) || !triangulations.containsKey(key2))
+				continue;
+
+			Node n1 = triangulations.get(key1);
+			Node n2 = triangulations.get(key2);
+			
+			n1.addNeighbor(n2);
+			n2.addNeighbor(n1);
+		}
+
+		Set<Node>set = new HashSet<Node>();
+		for(int key:triangulations.keySet())
+			set.add(triangulations.get(key));
+
+		return set;
+	}
 	
 	public static Set<Node> getTriangulation(Rectangle boundary,ArrayList<Obstacle> obstacle_list) {
 		double obstacle_boundaries[] = new double[obstacle_list.size()*9 + 9 + 1];
@@ -187,6 +320,224 @@ public class SearchAlgorithms {
 		return search_space;
 	}
 	
+	public static Set<Node> getTriangulationGraph(Rectangle boundary,ArrayList<Obstacle> obstacle_list) {
+		double obstacle_boundaries[] = new double[obstacle_list.size()*9 + 9 + 1];
+		//9 doubles for each obstacle (4 points and END)
+		//plus the boundary rectangle and the final END 
+		
+		System.out.println(boundary);
+		
+		
+		Map<Integer,Set<Integer>>constrained_edges = new HashMap<Integer,Set<Integer>>();
+		
+		int boundary_width = boundary.width;
+		int boundary_height = boundary.height;
+		int min_x = boundary.x;
+		int max_x = boundary.x + boundary_width;
+		int min_y = boundary.y;
+		int max_y = boundary.y + boundary_height;
+		
+		obstacle_boundaries[0] = min_x;
+		obstacle_boundaries[1] = min_y;
+		obstacle_boundaries[2] = max_x;
+		obstacle_boundaries[3] = min_y;
+		obstacle_boundaries[4] = max_x;
+		obstacle_boundaries[5] = max_y;
+		obstacle_boundaries[6] = min_x;
+		obstacle_boundaries[7] = max_y;
+		
+		obstacle_boundaries[8] = END;
+		
+		int key_mult = Math.max(boundary.width,boundary.height);
+		
+		for(int i = 0; i < obstacle_list.size(); i++) {
+			Obstacle o = obstacle_list.get(i);
+			
+			int o_x = o.x;
+			int o_y = o.y;
+			int o_width = o.width;
+			int o_height = o.height;
+			
+			//removeList.add(new Rectangle(inner_x,inner_y,inner_width,inner_height));
+			
+			obstacle_boundaries[(i) * 9 + 9 + 0] = o_x;
+			obstacle_boundaries[(i) * 9 + 9 + 1] = o_y;
+			obstacle_boundaries[(i) * 9 + 9 + 2] = o_x + o_width;
+			obstacle_boundaries[(i) * 9 + 9 + 3] = o_y;
+			obstacle_boundaries[(i) * 9 + 9 + 4] = o_x + o_width;
+			obstacle_boundaries[(i) * 9 + 9 + 5] = o_y + o_height;
+			obstacle_boundaries[(i) * 9 + 9 + 6] = o_x;
+			obstacle_boundaries[(i) * 9 + 9 + 7] = o_y + o_height;
+			
+			obstacle_boundaries[(i) * 9 + 9 + 8] = END;
+		}
+		
+		obstacle_boundaries[obstacle_boundaries.length - 1] = END;
+		
+		double[] edge_list = triangulation_library.getTriangulation(obstacle_boundaries);
+		
+		int num_edges = edge_list.length;
+		int start = 0;
+		for(int i = 0; i < num_edges; i+=4) {
+			if(edge_list[i] == END) {
+				start = i + 1;
+				break;
+			}
+			
+			int x1 = (int)Math.round(edge_list[i + 0]);
+			int y1 = (int)Math.round(edge_list[i + 1]);
+			int x2 = (int)Math.round(edge_list[i + 2]);
+			int y2 = (int)Math.round(edge_list[i + 3]);
+			
+			int p1Key = x1*key_mult + y1;
+			int p2Key = x2*key_mult + y2;
+			
+			int minKey = Math.min(p1Key, p2Key);
+			int maxKey = Math.max(p1Key, p2Key);
+			
+			if(!constrained_edges.containsKey(minKey))
+				constrained_edges.put(minKey,new HashSet<Integer>());
+			constrained_edges.get(minKey).add(maxKey);
+		}
+		
+		Set<Node>search_space = new HashSet<Node>();
+		Map<Integer,Set<Integer>>search_space_map = new HashMap<Integer,Set<Integer>>();
+		Map<Integer,Node>point_to_node = new HashMap<Integer,Node>();
+		
+
+		for(int i = start; i < num_edges; i+=6) {
+			int x1 = (int)Math.round(edge_list[i + 0]);
+			int y1 = (int)Math.round(edge_list[i + 1]);
+			int x2 = (int)Math.round(edge_list[i + 2]);
+			int y2 = (int)Math.round(edge_list[i + 3]);
+			int x3 = (int)Math.round(edge_list[i + 4]);
+			int y3 = (int)Math.round(edge_list[i + 5]);
+			
+			Point[]point_list = new Point[3];
+			
+			point_list[0] = new Point(x1,y1);
+			point_list[1] = new Point(x2,y2);
+			point_list[2] = new Point(x3,y3);
+			
+			if(x1<min_x || x1>max_x || y1<min_y || y1>max_y)
+				continue;
+			if(x2<min_x || x2>max_x || y2<min_y || y2>max_y)
+				continue;
+			if(x3<min_x || x3>max_x || y3<min_y || y3>max_y)
+				continue;
+			
+			int[] keys = new int[3];
+			keys[0] = x1*key_mult + y1;
+			keys[1] = x2*key_mult + y2;
+			keys[2] = x3*key_mult + y3;
+			
+			Node[]nodes = new Node[3];
+			
+			for(int j = 0; j < point_list.length; j++) {
+				Node node;
+				if(!search_space_map.containsKey(keys[j])) {
+					node = new GraphNode(point_list[j]);
+					point_to_node.put(keys[j],node);
+					search_space_map.put(keys[j], new HashSet<Integer>());
+					search_space.add(node);
+				}
+				node = point_to_node.get(keys[j]);
+				
+				nodes[j] = node;
+			}
+			
+			if(!search_space_map.get(keys[0]).contains(keys[1])) {
+				nodes[0].addNeighbor(nodes[1]);
+				search_space_map.get(keys[0]).add(keys[1]);
+			}
+			
+			if(!search_space_map.get(keys[0]).contains(keys[2])) {
+				nodes[0].addNeighbor(nodes[2]);
+				search_space_map.get(keys[0]).add(keys[2]);
+			}
+			
+			if(!search_space_map.get(keys[1]).contains(keys[2])) {
+				nodes[1].addNeighbor(nodes[2]);
+				search_space_map.get(keys[1]).add(keys[2]);
+			}
+			
+			if(!search_space_map.get(keys[1]).contains(keys[0])) {
+				nodes[1].addNeighbor(nodes[0]);
+				search_space_map.get(keys[1]).add(keys[0]);
+			}
+			
+			if(!search_space_map.get(keys[2]).contains(keys[1])) {
+				nodes[2].addNeighbor(nodes[1]);
+				search_space_map.get(keys[2]).add(keys[1]);
+			}
+			
+			if(!search_space_map.get(keys[2]).contains(keys[0])) {
+				nodes[2].addNeighbor(nodes[0]);
+				search_space_map.get(keys[2]).add(keys[0]);
+			}
+		}
+		
+		return search_space;
+	}
+	
+	public static ArrayList<Point> AStarEuclideanCost(SearchSpaceManager manager, 
+			Point start_point,Point goal_point, Node start, Node goal, boolean cluster) {
+		
+		SearchNodeQueue open_set = new SearchNodeQueue();
+		ArrayList<Node> closed_set = new ArrayList<Node>();
+		
+		HashMap<Node, Node> came_from = new HashMap<Node, Node>();
+		HashMap<Node, Double> g_value = new HashMap<Node, Double>();
+		
+		double start_f_value = start_point.distance(goal_point);
+		
+		
+		g_value.put(start, 0.0);
+		
+		open_set.add(start, start_f_value);
+
+		while(open_set.size() > 0) {
+			Node current = open_set.poll().node;
+			
+			
+			if(current == goal) {
+				ArrayList<Point> subgoal_list = reconstructPath(came_from, current);
+				subgoal_list.add(goal_point);
+				return subgoal_list;
+			}
+			
+			closed_set.add(current);
+			Set<Node> neighbors = manager.getNeighborsForNode(current, cluster);
+			for(Node neighbor:neighbors) {
+				if(closed_set.contains(neighbor))
+					continue;
+				
+				double cost = neighbor.getPoints()[0].distance(current.getPoints()[0]);
+				
+				double tentative_g_value = g_value.get(current) + cost;
+				
+				if(!open_set.contains(neighbor) || !g_value.containsKey(neighbor) 
+						|| tentative_g_value < g_value.get(neighbor)) {
+					double dist = neighbor.getPoints()[0].distance(goal_point); 
+					double tentative_f_value = tentative_g_value + dist; 
+							//manhattan_distance(neighbor, goal);
+					
+					g_value.put(neighbor, tentative_g_value);
+					came_from.put(neighbor, current);
+					
+					if(!open_set.contains(neighbor)) {
+						open_set.add(neighbor, tentative_f_value);
+					}
+				}
+					
+			}
+		}
+		
+		
+		
+		return null;
+	}
+	
 	public static ArrayList<Point> AStar(SearchSpaceManager manager, 
 			Map<Node, Map<Node,Double>> cost_function,
 			Point start_point,Point goal_point, Node start, Node goal, boolean cluster) {
@@ -220,7 +571,11 @@ public class SearchAlgorithms {
 				if(closed_set.contains(neighbor))
 					continue;
 				
-				double cost = neighbor.getPoints()[0].distance(current.getPoints()[0]);
+				double cost;
+				if(cost_function == null)
+					cost = neighbor.getPoints()[0].distance(current.getPoints()[0]);
+				else
+					cost = cost_function.get(current).get(neighbor);
 				
 				double tentative_g_value = g_value.get(current) + cost;
 				
@@ -660,6 +1015,30 @@ class SearchNodeQueue{
 		return queue.size();
 	}
 }
+
+class RectilinearEdge implements Comparable<RectilinearEdge> {
+	int x;
+	int y;
+	boolean isHorizontal;
+	int length;
+	int keyMult;
+	public RectilinearEdge(int x, int y, boolean isHorizontal, int length, int keyMult) {
+		this.x = x;
+		this.y = y;
+		this.length = length;
+		this.isHorizontal = isHorizontal;
+		this.keyMult = keyMult;
+	}
+	@Override
+	public int compareTo(RectilinearEdge o) {
+		// TODO Auto-generated method stub
+		if(isHorizontal)
+			return (x*keyMult + y) - (o.keyMult*o.x + o.y);
+		return (y*keyMult + x) - (o.keyMult*o.y + o.x);
+	}
+
+}
+
 class AStarNode implements Comparable<AStarNode>{
 	Node node;
 	double f_value;
