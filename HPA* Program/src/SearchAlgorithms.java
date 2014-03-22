@@ -257,7 +257,7 @@ public class SearchAlgorithms {
 			int p2Key = x2*key_mult + y2;
 			int p3Key = x3*key_mult + y3;
 			
-			Node node = new TriangulationNode(p1,p2,p3);
+			TriangulationNode node = new TriangulationNode(p1,p2,p3);
 			search_space.add(node);
 			
 			int minKey;
@@ -504,6 +504,65 @@ public class SearchAlgorithms {
 				ArrayList<Point> subgoal_list = reconstructPath(came_from, current);
 				subgoal_list.add(goal_point);
 				return subgoal_list;
+			}
+			
+			closed_set.add(current);
+			Set<Node> neighbors = manager.getNeighborsForNode(current, cluster);
+			for(Node neighbor:neighbors) {
+				if(closed_set.contains(neighbor))
+					continue;
+				
+				double cost = neighbor.getPoints()[0].distance(current.getPoints()[0]);
+				
+				double tentative_g_value = g_value.get(current) + cost;
+				
+				if(!open_set.contains(neighbor) || !g_value.containsKey(neighbor) 
+						|| tentative_g_value < g_value.get(neighbor)) {
+					double dist = neighbor.getPoints()[0].distance(goal_point); 
+					double tentative_f_value = tentative_g_value + dist; 
+							//manhattan_distance(neighbor, goal);
+					
+					g_value.put(neighbor, tentative_g_value);
+					came_from.put(neighbor, current);
+					
+					if(!open_set.contains(neighbor)) {
+						open_set.add(neighbor, tentative_f_value);
+					}
+				}
+					
+			}
+		}
+		
+		
+		
+		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static Object[] AStarForFunnel(SearchSpaceManager manager, Map<Node,Set<Node>>point_to_triangle,
+			Point start_point,Point goal_point, Node start, Node goal, boolean cluster) {
+		
+		SearchNodeQueue open_set = new SearchNodeQueue();
+		ArrayList<Node> closed_set = new ArrayList<Node>();
+		
+		HashMap<Node, Node> came_from = new HashMap<Node, Node>();
+		HashMap<Node, Double> g_value = new HashMap<Node, Double>();
+		
+		double start_f_value = start_point.distance(goal_point);
+		
+		
+		g_value.put(start, 0.0);
+		
+		open_set.add(start, start_f_value);
+
+		while(open_set.size() > 0) {
+			Node current = open_set.poll().node;
+			
+			
+			if(current == goal) {
+				Object[] list = reconstructPathForFunnel(came_from, current,point_to_triangle);
+				((ArrayList<Point>)list[0]).add(goal_point);
+				return list;
 			}
 			
 			closed_set.add(current);
@@ -865,6 +924,106 @@ public class SearchAlgorithms {
 		if(subgoal_list.size() > 0)
 			subgoal_list.remove(0);
 		return subgoal_list;
+	}
+	
+	public static ArrayList<Node> findTrianglePath(Node n1, Node n2, Node n3, Map<Node,Set<Node>>point_to_triangle) {
+		ArrayList<Node>triangle_path = new ArrayList<Node>();
+		
+		Set<Node>shared_triangles = new HashSet<Node>();
+		
+		Point p1 = n1.getPoints()[0];
+		Point p2 = n2.getPoints()[0];
+		Point p3 = n3.getPoints()[0];
+		
+		for(Node node:point_to_triangle.get(n1)) {
+			if(triangleContainsPoints(node,p1,p2))
+				shared_triangles.add(node);
+		}
+
+		for(Node start_node:shared_triangles) {
+			triangle_path.clear();
+			
+			Node node = start_node;
+			
+			Point other = p1;
+			boolean b;
+			while(!(b=triangleContainsPoints(node,p2,p3))) {
+				boolean done = true;
+				
+				for(Node neighbor:node.getNeighbors()) {
+					if(triangleContainsPoints(neighbor,other,p2)) {
+						Point[] points = neighbor.getPoints();
+						for(int i = 0; i < 3; i++) {
+							if(!points[i].equals(other) && !points[i].equals(p2)) {
+								other = points[i];
+								break;
+							}
+						}
+						triangle_path.add(neighbor);
+						node = neighbor;
+						done = false;
+						break;
+					}
+				}
+				
+				if(done)
+					break;
+			}
+			triangle_path.add(node);
+			if(!b)
+				return triangle_path;
+		}
+		
+		return null;
+	}
+	
+	private static boolean triangleContainsPoints(Node n, Point p1, Point p2) {
+		boolean b1 = false;
+		boolean b2 = false;
+		
+		Point[] points = n.getPoints();
+		
+		for(int i = 0; i < 3; i++) {
+			if(p1.equals(points[0]))
+				b1 = true;
+			if(p2.equals(points[0]))
+				b2 = true;
+		}
+		
+		return b1 && b2;
+	}
+	
+	public static Object[] reconstructPathForFunnel(
+			HashMap<Node,Node> came_from,Node current,Map<Node,Set<Node>>point_to_triangle) {
+		ArrayList<Point> subgoal_list = new ArrayList<Point>();
+		ArrayList<Node> triangles_list = new ArrayList<Node>();
+		
+		Node edge_first = current;
+		Node edge_second = null;
+		
+		while(came_from.containsKey(current)) {
+			Node temp = came_from.get(current); 
+			subgoal_list.add(0, temp.getPoints()[0]);
+			came_from.remove(current);
+			current = temp;
+			
+			if(edge_second == null)
+				edge_second = current;
+			else {
+				ArrayList<Node> triangles_between_edges = findTrianglePath(edge_first, edge_second, current,point_to_triangle);
+				for(int i = 0; i < triangles_between_edges.size(); i++) {
+					triangles_list.add(triangles_between_edges.get(i));
+				}
+			}
+		}
+		
+		if(subgoal_list.size() > 0)
+			subgoal_list.remove(0);
+		
+		
+		
+		Object[] list = {subgoal_list,triangles_list};
+		return list;
 	}
 	
 	public static ArrayList<Node> reconstructPathTAStar(

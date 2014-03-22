@@ -28,7 +28,7 @@ void create_dcdt (const double* input, GsArray<SeDcdtFace*>& faces, GsArray<GsPn
 
 	GsArray<GsPnt2> temp;
 
-	TheDcdt.extract_faces_all(faces, x, y);
+	TheDcdt.extract_faces(faces, x, y);
 
 	TheDcdt.get_mesh_edges(&constr_edges, &temp);
 }

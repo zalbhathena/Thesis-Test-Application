@@ -55,6 +55,20 @@ public class MapView extends JPanel{
     	    
     	    Agent agent = map_model.agent;
     	    
+    	    /*if(grid instanceof THPAStarPointAgentVertexSpaceManager) {
+    	    	ArrayList<Node>triangle_path =  ((THPAStarPointAgentVertexSpaceManager) grid).triangle_path;
+    	    	g.setColor(Color.black);
+    	    	for(Node node:triangle_path) {
+    	    		Point[] point_list = node.getPoints();
+    				int[] x_list = new int[point_list.length];
+    				int[] y_list = new int[point_list.length];
+    				for(int k = 0; k < point_list.length; k++) {
+    					x_list[k] = scaleX(point_list[k].x) + x_offset;
+    					y_list[k] = scaleY(point_list[k].y) + y_offset;
+    				}
+    				g.fillPolygon(x_list,y_list,x_list.length);
+    	    	}
+    	    }*/
     	    
     	    if(agent != null) {
     	    	Rectangle rect = new Rectangle(scaleX(agent.x) + x_offset, scaleY(agent.y) + y_offset,

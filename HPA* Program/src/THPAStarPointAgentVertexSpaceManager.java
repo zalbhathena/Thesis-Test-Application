@@ -14,6 +14,9 @@ import partition.main.PMetis;
 public class THPAStarPointAgentVertexSpaceManager implements SearchSpaceManager{
 
 	Set<Node>search_space;
+	Set<Node>triangles_search_space;
+	Map<Node,Set<Node>>point_to_triangle;
+	
 	Map<Integer,Node>point_to_node;
 	int key_mult;
 	
@@ -40,6 +43,8 @@ public class THPAStarPointAgentVertexSpaceManager implements SearchSpaceManager{
 	
 	GraphSpaceManager entrance_manager;
 	
+	ArrayList<Node>triangle_path = new ArrayList<Node>();
+	
 	public THPAStarPointAgentVertexSpaceManager(ArrayList<Obstacle> obstacle_list, int width, int height) {
 		int num_obstacles = obstacle_list.size();
 		this.width = width;
@@ -52,6 +57,7 @@ public class THPAStarPointAgentVertexSpaceManager implements SearchSpaceManager{
 		Rectangle boundary = new Rectangle(0,0,width,height);
 		
 		search_space = SearchAlgorithms.getTriangulation1(boundary,obstacle_list);
+		triangles_search_space = SearchAlgorithms.getTriangulation(boundary,obstacle_list);
 		
 		int[]x_list = {0,width,width,0};
 		int[]y_list = {0,0,height,height,0};
@@ -59,6 +65,7 @@ public class THPAStarPointAgentVertexSpaceManager implements SearchSpaceManager{
 		boundary_set = new HashSet<Polygon>();
 		boundary_set.add(p);
 		
+		findTriangles();
 		findClustering();
 		
 		if(graphics)
@@ -124,18 +131,44 @@ public class THPAStarPointAgentVertexSpaceManager implements SearchSpaceManager{
 		return path_updater;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<Point> getSubpath(Point start_point, Point goal_point) {
 		Node start = point_to_node.get(start_point.x*key_mult + start_point.y);
 		Node goal = point_to_node.get(goal_point.x*key_mult + goal_point.y);
 		
-		ArrayList<Point> point_list = 
-				SearchAlgorithms.AStarEuclideanCost(this, start_point, goal_point,start,goal,false);
+		Object[]list = SearchAlgorithms.AStarForFunnel(this, point_to_triangle, start_point, goal_point,start,goal,false);
+		//if(list == null)
+		//	System.out.println("FUBAR");
+		ArrayList<Point> point_list = (ArrayList<Point>)list[0];
+		
+		/*ArrayList<Node> node_list = (ArrayList<Node>)list[1];
+		
+		for(int i = 0; i < node_list.size(); i++) {
+			this.triangle_path.add(node_list.get(i));
+		}*/
+				
 		return point_list;
 	}
 	
+	private void findTriangles() {
+		point_to_triangle = new HashMap<Node,Set<Node>>();
+		for(Node node:search_space) {
+			Point node_point = node.getPoints()[0];
+			for(Node triangle_node:triangles_search_space) {
+				Point[] triangle_points = triangle_node.getPoints();
+				for(int i = 0; i < 3; i++)
+					if(node_point.equals(triangle_points[i])) {
+						if(!point_to_triangle.containsKey(node))
+							point_to_triangle.put(node,new HashSet<Node>());
+						point_to_triangle.get(node).add(triangle_node);
+						break;
+					}
+			}
+		}
+	}
+	
 	private void findClustering() {
-		MetisGraph metis_graph;
 		IntGraph<MetisNode> graph = new MorphGraph.IntGraphBuilder().backedByVector(true).directed(true).create();
 		
 		ArrayList<GNode<MetisNode>> nodes = new ArrayList<GNode<MetisNode>>();
